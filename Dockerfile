@@ -33,6 +33,8 @@ RUN pip install --no-cache-dir $PYTHON_PACKAGES
 RUN pip install --no-cache-dir $BIO_PACKAGES 
 
 RUN pip install --no-cache-dir jupyterlab 
+RUN pip install --no-cache-dir wget 
+RUN pip install --no-cache-dir pytraj 
 	
 ARG NB_USER=engen
 ARG NB_UID=1000
@@ -45,7 +47,6 @@ RUN adduser --disabled-password \
     --uid ${NB_UID} \
     ${NB_USER}
 	
-COPY . ${HOME}
 USER root
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
