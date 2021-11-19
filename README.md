@@ -19,3 +19,7 @@ option 2 - pull the image
 `docker run -it --rm -v ${pwd}:/home/engen/ -p 8888:8888 ac121/engens:latest jupyter-lab --ip=0.0.0.0 --port=8888`
 
 
+___
+
+P.S. Folder **./baudry-data-scripts** contains various scripts used to analyse this data: generating trajectory from pdbqt files, extracting the binding site.
+
