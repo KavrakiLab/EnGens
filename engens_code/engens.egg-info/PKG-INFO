@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: engens
+Version: 0.0
+Summary: Ensemble Genration Package
+Home-page: https://github.com/AntunesLab/EnGeNs
+Author: kavrakilab&antuneslab
+Author-email: ac121t@rice.edu
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: ? :: ?
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+Ensemble Genration Package
+
