@@ -36,4 +36,6 @@ jobs:
       # Run tests with unittest
       - name: Test with unittest
         run: |
+          cd ./engens_code/engens/
+          pwd
           python -m unittest discover
