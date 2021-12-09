@@ -10,8 +10,8 @@ from engens.core.FeatureSelector import *
 class TestDimReds(unittest.TestCase):
 
     def test_pca(self):
-        test_top = "/home/engen/engens_code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens_code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
         engen = EnGen(test_traj, test_top, select_expression)
         self.assertRaises(Exception, dimreds["PCA"], engen)
@@ -26,8 +26,8 @@ class TestDimReds(unittest.TestCase):
         reducer.plot_variance(90, "test_pca_var.png")
         
     def test_tica(self):
-        test_top = "/home/engen/engens_code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens_code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
         engen = EnGen(test_traj, test_top, select_expression)
         self.assertRaises(Exception, dimreds["TICA"], engen)
@@ -44,8 +44,8 @@ class TestDimReds(unittest.TestCase):
         reducer.plot_variance(90, "test_tica_var.png")        
 
     def test_hde(self):
-        test_top = "/home/engen/engens_code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens_code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
         engen = EnGen(test_traj, test_top, select_expression)
         self.assertRaises(Exception, dimreds["HDE"], engen)
