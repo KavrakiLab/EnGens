@@ -31,7 +31,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, running tests!
+        run: echo Hello, running tests from $(pwd)!
       
       # Run tests with unittest
       - name: Test with unittest
