@@ -204,13 +204,16 @@ class HDEReducer(DimReduction):
         self.hde_objs_ts = []
         for l in HDE_lagtimes:
             print("lag:",l)
-
+            print("number of components:",n_comp)
+            print("feat shape:", self.data.shape[1])
+            print("data shape:", self.data.shape[0])
             model = HDE(
                 self.data.shape[1], 
                 n_components=n_comp, 
                 n_epochs=20, 
                 lag_time=l,
-                batch_normalization=True
+                batch_size=self.data.shape[0],
+                batch_normalization=False
             )
 
             model.fit_transform(self.data)
@@ -244,7 +247,8 @@ class HDEReducer(DimReduction):
                 n_components=n_comp, 
                 n_epochs=20, 
                 lag_time=lag,
-                batch_normalization=True
+                batch_size=self.data.shape[0],
+                batch_normalization=False
             )
         self.reducer = self.hde_obj
         self.transformed_data = self.hde_obj.fit_transform(self.data)
