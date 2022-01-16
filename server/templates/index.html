@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Automated ensamble analysis (EnGens)</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+<!--<script src="/static/js/jquery.form.js"></script>-->
+</head>
+    <body>
+        <div class="container">
+            <br />
+            <h3 align="center">EnGens: Automated ensamble analysis</h3>
+            <p align="center">Here we provide a pipeline for generating ensembles of conformations from molecular dynamics trajectories as a first step towards ensemble docking.</p>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>Upload reference PDB file and trajectory file</b></div>
+                <div class="panel-body">
+                    <form id="uploadImage" action="/upload" method="post">
+                        <div class="form-group">
+                            <label>Upload reference .PDB file</label>
+                            <input type="file" name="uploadPdbFile" id="uploadPdbFile" accept=".pdb" />
+                        </div>
+                        <div class="form-group">
+                            <label>Upload trajectory file (.XTC, .XTX, .DCD)</label>
+                            <input type="file" name="uploadXtcFile" id="uploadXtcFile" accept=".xtc, .xtx, .dcd" />
+                        </div>
+                        <div class="form-group">
+                            <label>Enter project title:</label>
+                            <input type="text" name="projectTitle" id="projectTitle" placeholder="project title"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Access to the results:</label><br>
+                            <input type="radio" name="access" id="public" value="1"> Publicly listed </input><br>
+                            <input type="radio" name="access" id="shared" value="2" checked> Only with the link </input><br>
+                            <input type="radio" name="access" id="private" value="0"> Only me </input><br>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter your e-mail address:</label>
+                            <input type="text" name="email" id="email" placeholder="email address"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" id="uploadSubmit" value="Submit job" class="btn btn-info" />
+                        </div>
+                        <div id="progress" class="progress">
+                            <div  class="progress-bar progress-bar-striped bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div id="targetLayer" style="display:none;"></div>
+                    </form>
+                    <div id="loader-icon" style="display:none;"><img src="/static/images/loader.gif" /></div>
+                </div>
+            </div>
+        </div>
+<script>
+$(document).ready(function(){
+    function ValidateEmail(mail) 
+    {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+        {
+            return (true)
+        }
+            alert("You have entered an invalid email address!")
+            return (false)
+    }
+    function ValidateFileUpload(file) 
+    {
+        if (!file)
+        {
+            alert("You need to select files for the upload.");
+            return (false)
+        }
+        return (true)
+    }
+    $('#uploadImage').submit(function(event){
+        if(ValidateFileUpload($('#uploadPdbFile').val()) && ValidateFileUpload($('#uploadXtcFile').val()) && ValidateEmail($('#email').val())){
+            event.preventDefault();
+            $('#loader-icon').show();
+            $('#progress').show();
+            $('#targetLayer').hide();
+            $(this).ajaxSubmit({
+                target: '#targetLayer',
+                beforeSubmit:function(){
+                    $('.progress-bar').width('50%');
+                },
+                uploadProgress: function(event, position, total, percentageComplete)
+                {
+                    $('.progress-bar').animate({
+                        width: percentageComplete + '%'
+                    }, {
+                        duration: 1000
+                    });
+                },
+                success:function(data){
+                    $('#loader-icon').hide();
+                    $('#targetLayer').show();
+                    $('#targetLayer').append(data.htmlresponse);
+                },
+                resetForm: true
+            });
+        }
+        
+        return false;
+    });
+});
+</script>
+</body>
+</html>

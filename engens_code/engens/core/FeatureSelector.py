@@ -20,6 +20,7 @@ class UserFeatureSelection(FeatureSelection):
         super().__init__()
 
     def select_feature(self) -> None:
+        output = ""
         #implement feature selection
         if self.index > len(self.engen.featurizers):
 
@@ -30,6 +31,8 @@ class UserFeatureSelection(FeatureSelection):
             self.engen.chosen_feat_index = self.index  
             print("Picked featurized no. "+str(self.index))
             print(self.engen.featurizers[self.index ].describe())
+            output += "Picked featurized no. "+str(self.index) + str(self.engen.featurizers[self.index ].describe())
+        return output
 
 class VAMP2FeatureSelection(FeatureSelection):
 
@@ -125,7 +128,7 @@ class VAMP2FeatureSelection(FeatureSelection):
         fig.tight_layout()
         handles, labels = axes[0][0].get_legend_handles_labels()
         fig.legend(handles, labels, loc='upper left')
-        fig.show()
+        return fig
 
 
     def plot_dimensions(self, feat_ind) -> None:
@@ -138,5 +141,5 @@ class VAMP2FeatureSelection(FeatureSelection):
         ax.set_xlabel('number of dimensions')
         ax.set_ylabel('VAMP2 score')
         fig.tight_layout()
-        fig.show()
+        return fig
 

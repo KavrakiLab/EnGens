@@ -3,7 +3,7 @@ import pyemma
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
-from hde import HDE
+#from hde import HDE
 
 
 class DimReduction(object):
@@ -183,104 +183,104 @@ class TICAReducer(DimReduction):
         if not save_loc == None: plt.savefig(save_loc)
                 
 
-class HDEReducer(DimReduction):
+# class HDEReducer(DimReduction):
 
-    def __init__(self, engen:EnGen, HDE_lagtimes:list=[1,2, 5, 10, 25, 50], n_comp=20) -> None:
+#     def __init__(self, engen:EnGen, HDE_lagtimes:list=[1,2, 5, 10, 25, 50], n_comp=20) -> None:
         
-        super().__init__()
+#         super().__init__()
         
-        if engen.data == None:
-            raise Exception("No data generated with this EnGen!")
+#         if engen.data == None:
+#             raise Exception("No data generated with this EnGen!")
 
-        if engen.chosen_feat_index == -1:
-            raise Exception("Features not chosen yet!")
+#         if engen.chosen_feat_index == -1:
+#             raise Exception("Features not chosen yet!")
 
-        self.engen = engen
-        self.data = self.engen.data[self.engen.chosen_feat_index][1]
-        self.HDE_lagtimes = HDE_lagtimes
-        self.n_components = n_comp
-        print("Transforming with HDE - might take some time!")
-        self.hde_objs = []
-        self.hde_objs_ts = []
-        for l in HDE_lagtimes:
-            print("lag:",l)
-            print("number of components:",n_comp)
-            print("feat shape:", self.data.shape[1])
-            print("data shape:", self.data.shape[0])
-            model = HDE(
-                self.data.shape[1], 
-                n_components=n_comp, 
-                n_epochs=20, 
-                lag_time=l,
-                batch_size=self.data.shape[0],
-                batch_normalization=False
-            )
+#         self.engen = engen
+#         self.data = self.engen.data[self.engen.chosen_feat_index][1]
+#         self.HDE_lagtimes = HDE_lagtimes
+#         self.n_components = n_comp
+#         print("Transforming with HDE - might take some time!")
+#         self.hde_objs = []
+#         self.hde_objs_ts = []
+#         for l in HDE_lagtimes:
+#             print("lag:",l)
+#             print("number of components:",n_comp)
+#             print("feat shape:", self.data.shape[1])
+#             print("data shape:", self.data.shape[0])
+#             model = HDE(
+#                 self.data.shape[1], 
+#                 n_components=n_comp, 
+#                 n_epochs=20, 
+#                 lag_time=l,
+#                 batch_size=self.data.shape[0],
+#                 batch_normalization=False
+#             )
 
-            model.fit_transform(self.data)
-            timescales = model.timescales_
-            self.hde_objs.append(model)
-            hde_timescales = timescales
-            self.hde_objs_ts.append(hde_timescales)
-        self.hde_obj = None
-        self.transformed_data = None
+#             model.fit_transform(self.data)
+#             timescales = model.timescales_
+#             self.hde_objs.append(model)
+#             hde_timescales = timescales
+#             self.hde_objs_ts.append(hde_timescales)
+#         self.hde_obj = None
+#         self.transformed_data = None
 
-    def plot_lag_analysis(self, chosen_lag:int=50, save_loc:str=None):
-        # Plot tica timescales as a function of lag time
-        lags = self.HDE_lagtimes
-        nlags = len(lags)
-        ts_list = np.zeros((nlags, self.n_components))
-        for i, lag in enumerate(lags):
-            timescales = self.hde_objs_ts[i]
-            ts_list[i, :] = timescales[:self.n_components]
+#     def plot_lag_analysis(self, chosen_lag:int=50, save_loc:str=None):
+#         # Plot tica timescales as a function of lag time
+#         lags = self.HDE_lagtimes
+#         nlags = len(lags)
+#         ts_list = np.zeros((nlags, self.n_components))
+#         for i, lag in enumerate(lags):
+#             timescales = self.hde_objs_ts[i]
+#             ts_list[i, :] = timescales[:self.n_components]
 
 
-        plt.semilogy(lags, ts_list)
-        plt.ylabel('Timescales (ns)')
-        plt.xlabel('Lag time (ns)')
-        plt.fill_between(lags, 1, lags, facecolor='Gray')
-        plt.axvline(chosen_lag, linewidth=2, color='black')
-        if not save_loc == None: plt.savefig(save_loc)
+#         plt.semilogy(lags, ts_list)
+#         plt.ylabel('Timescales (ns)')
+#         plt.xlabel('Lag time (ns)')
+#         plt.fill_between(lags, 1, lags, facecolor='Gray')
+#         plt.axvline(chosen_lag, linewidth=2, color='black')
+#         if not save_loc == None: plt.savefig(save_loc)
 
-    def choose_lag(self, lag:int, n_comp:int=20):
-        self.hde_obj = HDE(
-                self.data.shape[1], 
-                n_components=n_comp, 
-                n_epochs=20, 
-                lag_time=lag,
-                batch_size=self.data.shape[0],
-                batch_normalization=False
-            )
-        self.reducer = self.hde_obj
-        self.transformed_data = self.hde_obj.fit_transform(self.data)
+#     def choose_lag(self, lag:int, n_comp:int=20):
+#         self.hde_obj = HDE(
+#                 self.data.shape[1], 
+#                 n_components=n_comp, 
+#                 n_epochs=20, 
+#                 lag_time=lag,
+#                 batch_size=self.data.shape[0],
+#                 batch_normalization=False
+#             )
+#         self.reducer = self.hde_obj
+#         self.transformed_data = self.hde_obj.fit_transform(self.data)
 
     
-    def plot_2d(self, save_loc:str=None) -> None:
+#     def plot_2d(self, save_loc:str=None) -> None:
         
-        if self.hde_obj == None: raise Exception("Lag not chosen!")
-        y = self.transformed_data
-        pyemma.plots.plot_free_energy(y[:,0], y[:,1], cbar=True)
-        plt.xlabel("HDE-C1")
-        plt.ylabel("HDE-C2")
-        if not save_loc == None: plt.savefig(save_loc)
+#         if self.hde_obj == None: raise Exception("Lag not chosen!")
+#         y = self.transformed_data
+#         pyemma.plots.plot_free_energy(y[:,0], y[:,1], cbar=True)
+#         plt.xlabel("HDE-C1")
+#         plt.ylabel("HDE-C2")
+#         if not save_loc == None: plt.savefig(save_loc)
 
-    def plot_3d(self, save_loc:str=None) -> None:
-        if self.hde_obj == None: raise Exception("Lag not chosen!")
-        # Plot PC1, PC2, PC3
-        y = self.transformed_data
-        fig = px.scatter_3d(x=y[:,0], y=y[:,1], z=y[:,2], color=list(range(y.shape[0])))
-        fig.update_traces(marker=dict(size=1,
-                                    line=dict(width=0,
-                                                color='DarkSlateGrey')),
-                        selector=dict(mode='markers'))
-        fig.layout.coloraxis.colorbar.title = 'frame number'
-        fig.show()
-        if not save_loc == None: fig.write_image(save_loc)
+#     def plot_3d(self, save_loc:str=None) -> None:
+#         if self.hde_obj == None: raise Exception("Lag not chosen!")
+#         # Plot PC1, PC2, PC3
+#         y = self.transformed_data
+#         fig = px.scatter_3d(x=y[:,0], y=y[:,1], z=y[:,2], color=list(range(y.shape[0])))
+#         fig.update_traces(marker=dict(size=1,
+#                                     line=dict(width=0,
+#                                                 color='DarkSlateGrey')),
+#                         selector=dict(mode='markers'))
+#         fig.layout.coloraxis.colorbar.title = 'frame number'
+#         fig.show()
+#         if not save_loc == None: fig.write_image(save_loc)
 
 
 dimreds = {
     "PCA": PCAReducer,  
-    "TICA": TICAReducer,
-    "HDE": HDEReducer
+    "TICA": TICAReducer
+    #"HDE": HDEReducer
 }
 
 

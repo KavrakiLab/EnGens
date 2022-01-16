@@ -4,7 +4,7 @@ from engens.core.EnGens import EnGen
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
-from hde import HDE
+#from hde import HDE
 import matplotlib.cm as cm
 from math import sqrt
 from sklearn.metrics import silhouette_samples, silhouette_score
@@ -40,7 +40,7 @@ class ClustEn(object):
     def cluster_center(self, i):
         pass
 
-    def plot_cluster_weight(self, thr=None):
+    def plot_cluster_weight(self, thr=None, save_loc:str=None):
         if self.chosen_index == None: raise Exception("Choose parameters index first.")
         weights = self.cluster_weights(self.chosen_index)
         fig = plt.figure()
@@ -51,8 +51,10 @@ class ClustEn(object):
             plt.axhline(y=thr, color='r', linestyle='-')
             plt.text(0,thr+0.02, "thr={:.2f}".format(thr), color="red", ha="right", va="center")
         plt.ylabel("Cluster weight")
+        if not save_loc == None:
+            plt.savefig(save_loc)
 
-    def plot_cluster_choice(self):
+    def plot_cluster_choice(self, save_loc:str=None):
         
         centers = self.cluster_center(self.chosen_index)
         chosen_centers = [c for i, c in enumerate(centers) if i in self.chosen_cluster_ids]
@@ -71,6 +73,8 @@ class ClustEn(object):
                 bbox_to_anchor=(1.05, 1.0), loc='upper left')
         plt.xlabel("C1")
         plt.ylabel("C2")
+        if not save_loc == None:
+            plt.savefig(save_loc)
 
 
     def choose_clusters(self, thr):
@@ -80,19 +84,25 @@ class ClustEn(object):
         clusters = [i for i, w in enumerate(weights) if w>thr]
         self.chosen_cluster_ids = clusters
         print("Chosen cluster ids: {}".format(clusters))
+        output = "Chosen cluster ids: {}".format(clusters)
+        return output
 
-    def choose_conformations(self):
+    def choose_conformations(self, save_loc:str=None):
         if self.chosen_index == None: raise Exception("Choose parameters index first.")
         if self.chosen_cluster_ids == None:
             n_clust = len(set(self.labels[self.chosen_index]))
             self.chosen_cluster_ids = list(range(n_clust))
         centers = self.cluster_center(self.chosen_index)
         chosen_centers = [c for i, c in enumerate(centers) if i in self.chosen_cluster_ids]
+        output = ""
         print("Chosen centers: {}".format(chosen_centers))
+        output += "Chosen centers: {}".format(chosen_centers)
         closest_conf = pairwise_distances_argmin(chosen_centers,self.data)
         print("Chosen frames: {}".format(closest_conf))
+        output += "Chosen frames: {}".format(closest_conf)
         self.chosen_frames = closest_conf
         self.plot_cluster_choice()
+        return output
 
     def extract_conformations(self, loc:str):
         if self.chosen_frames is None: raise Exception("Choose conformations first.")
@@ -102,17 +112,22 @@ class ClustEn(object):
         for i, frameindex in enumerate(self.chosen_frames): 
             # since there was only one trajectory, trajindex will always be zero
             # if there are more trajectories, then they will be denoted by trajindex=0,1,2,...
+            output = ""
             print("Closest conformation inside cluster " + str(self.chosen_cluster_ids[i]) + " frame " + str(frameindex) + " of the striped trajectory")
             print("Extracting and saving")
+            output += "Closest conformation inside cluster " + str(self.chosen_cluster_ids[i]) + " frame " + str(frameindex) + " of the striped trajectory \n"
             call(["mdconvert -t " + self.engen.full_ref + " -o " + str(loc) + "/conf_in_cluster_" + str(i) + ".pdb -i " + str(frameindex) + " " + self.engen.full_traj_name], shell=True)
+        return output
 
     def cluster_multiple_params(self, params:list):
         cls = []
         labels = []
         metric_vals = []
+        output = ""
         self.params = params
         for p in params:
             print("Clustering with params="+str(p))
+            output += "Clustering with params="+str(p) + "\n"
             cl = self.clustMethod(**p)
             cls.append(cl)
             cluster_labels = cl.fit_predict(self.data)
@@ -122,6 +137,7 @@ class ClustEn(object):
         self.metric_vals = metric_vals
         self.labels = labels
         self.cls = cls
+        return output
 
     # Function to plot elbow method analysis
     def plot_elbow(self, filename:str = None):
@@ -131,13 +147,15 @@ class ClustEn(object):
         plt.xlabel('k')
         plt.ylabel(self.metric)
         plt.title('Elbow Method For Optimal parameters')
-        if not filename == None: plt.savefig(filename)
-        plt.show()
+        if not filename == None: 
+            plt.savefig(filename)
+        else:
+            plt.show()
 
 
-    def analyze_elbow_method(self):
-        self.plot_elbow()
-
+    def analyze_elbow_method(self, filename):
+        self.plot_elbow(filename)
+        output = ""
         x1, y1 = 1, self.metric_vals[0]
         x2, y2 = 100, self.metric_vals[len(self.metric_vals)-1]
 
@@ -151,7 +169,9 @@ class ClustEn(object):
         optimal_index = distances.index(max(distances))
         print("Optimal index={}".format(optimal_index))
         print("Optimal params={}".format(str(self.params[optimal_index])))
-        return optimal_index
+        output += "Optimal index={}".format(optimal_index) + "\n"
+        output += "Optimal params={}".format(str(self.params[optimal_index])) + "\n"
+        return optimal_index, output
 
 
     # Function to plot silhouette score analysis
@@ -250,8 +270,12 @@ class ClustEn(object):
             avg_sil.append(self.plot_silhouette(n_clusters, cluster_labels, X, cluster_centers))
         
         best_index = avg_sil.index(max(avg_sil)) 
+        output = ""
         print("Best parameter index from silhouette analysis are "+str(best_index))  
         print("Best parameters from silhouette analysis are "+str(self.params[best_index])) 
+        output += "Best parameter index from silhouette analysis are "+str(best_index) + "\n"
+        output += "Best parameters from silhouette analysis are "+str(self.params[best_index])+ "\n"
+        return output
 
 
 

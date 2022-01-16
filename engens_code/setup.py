@@ -6,7 +6,7 @@ setuptools.setup(
      scripts=[] ,
      author="kavrakilab&antuneslab",
      author_email="ac121t@rice.edu",
-     description="Ensemble Genration Package",
+     description="Ensemble Generation Package",
      long_description="Ensemble Genration Package",
    long_description_content_type="text/markdown",
      url="https://github.com/AntunesLab/EnGeNs",

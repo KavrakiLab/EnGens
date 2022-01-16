@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Results for Automated ensamble analysis (EnGens)</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+<!--<script src="/static/js/jquery.form.js"></script>-->
+</head>
+    <body>
+        <div class="container">
+            <br />
+            <h3 align="center">Results for EnGens - Automated ensamble analysis</h3>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>Results</b></div>
+                <div class="panel-body">
+                    <div id="targetLayer" ></div>
+                </div>
+            </div>
+        </div>
+<script>
+$(document).ready(function(){
+    $.get( "/getresult/{{result_id}}", function( data ) {
+    $( "#targetLayer" ).html( data.htmlresponse );
+});
+});
+
+</script>
+</body>
+</html>

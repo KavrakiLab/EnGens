@@ -1,0 +1,13 @@
+{
+  "base_url": "/",
+  "hostname": "0.0.0.0",
+  "password": false,
+  "pid": 1,
+  "port": 8888,
+  "root_dir": "/home/engen",
+  "secure": false,
+  "sock": "",
+  "token": "dd27516b1c1232fca70f35e04f71e0049227d7c8a355e6d1",
+  "url": "http://3417d1655ab4:8888/",
+  "version": "1.11.2"
+}
