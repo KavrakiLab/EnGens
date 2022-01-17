@@ -130,7 +130,7 @@ class TestEnGens(unittest.TestCase):
         engen = EnGen(test_traj, test_top, select_expression)
         pyemma_feat = pyemma.coordinates.featurizer(engen.mdtrajref) 
         pyemma_feat.add_backbone_torsions()
-        engen.add_pyemma_featurizer(pyemma_feat)
+        engen.add_pyemma_featurizer(pyemma_feat, "backbone_torsion")
         engen.apply_featurizations()
         self.assertNotEqual(len(engen.data), 0)
 
