@@ -63,6 +63,7 @@ class EnGen(object):
 
 
         self.featurizers = []
+        self.featurizer_names =[]
         self.data = None
         self.dimRed = None
         self.cluster = None 
@@ -123,6 +124,10 @@ class EnGen(object):
 
     #--------------------FEATURIZATION--------------------------#
     
+    def reset_featurizers(self):
+        self.featurizer_names = []
+        self.featurizers = []
+
     def add_featurizer(self, feats: dict):
         """
         Adds another featurization type to the list of featurizers
@@ -134,20 +139,26 @@ class EnGen(object):
                 params should be parameters of the given function
         """
         pyemma_feat = pyemma.coordinates.featurizer(self.mdtrajref) 
+        name = ""
         for key, params in feats.items():
+            name+=key[len("add_"):]
+            name+="&"
             func =  getattr(pyemma_feat, key)
             func(**params)
-
+        name = name[:-1]
+        self.featurizer_names.append(name)
         self.featurizers.append(pyemma_feat)
 
-    def add_pyemma_featurizer(self, pyemma_feat: pyemma.coordinates.data.MDFeaturizer):
+    def add_pyemma_featurizer(self, pyemma_feat: pyemma.coordinates.data.MDFeaturizer, name: str):
         """
         Adds another featurization type to the list of featurizers
         
         Parameters
         ------------
         feat: pyEmma featurizer
+        name: name for the featurizer
         """
+        self.featurizer_names.append(name)
         self.featurizers.append(pyemma_feat)
 
     def init_featurizers_default(self):
@@ -190,6 +201,7 @@ class EnGen(object):
         res = ""
         for i, f in enumerate(self.featurizers):
             res += "Featurizer no. "+str(i)+":\n "
+            res += self.featurizer_names[i] + "\n"
             desc_tmp = f.describe()
             res += str(desc_tmp[:10]) +"..." + str(desc_tmp[-10:]) +"\n "
         return res

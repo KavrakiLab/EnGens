@@ -3,6 +3,7 @@ import nglview as ngl
 import engens.core.FeatureSelector as fs
 from engens.core.EnGens import EnGen
 import pyemma
+import os
 
 
 class TestEnGens(unittest.TestCase):
@@ -78,6 +79,25 @@ class TestEnGens(unittest.TestCase):
         engen.init_featurizers_default()
         res_desc = engen.describe_featurizers()
         self.assertTrue(not res_desc == "")
+
+    def test_feat_reset(self):
+        print(os.listdir("."))
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
+        engen = EnGen(test_traj, test_top)
+        engen.init_featurizers_default()
+        engen.reset_featurizers()
+        self.assertTrue(len(engen.featurizers) == 0)
+        self.assertTrue(len(engen.featurizer_names) == 0)
+
+    def test_feat_names(self):
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
+        engen = EnGen(test_traj, test_top)
+        engen.init_featurizers_default()
+        self.assertTrue(len(engen.featurizer_names) == 3)
+        print(engen.featurizer_names)
+        self.assertTrue(engen.featurizer_names[0] == "residue_mindist")
 
     def test_choose_feat(self):
         test_top = "./tests/ExampleProt.pdb"

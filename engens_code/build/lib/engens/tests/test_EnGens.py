@@ -3,6 +3,7 @@ import nglview as ngl
 import engens.core.FeatureSelector as fs
 from engens.core.EnGens import EnGen
 import pyemma
+import os
 
 
 class TestEnGens(unittest.TestCase):
@@ -10,8 +11,8 @@ class TestEnGens(unittest.TestCase):
 
     def test_init(self):
         #correct
-        test_top = "/home/engen/engens-code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens-code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         engen = EnGen(test_traj, test_top)
 
         #correct with select expression
@@ -22,8 +23,8 @@ class TestEnGens(unittest.TestCase):
         engen = EnGen(test_traj, test_top, topology_select=select_expression2)
 
         #incorrect
-        test_traj_fail = "/home/engen/engens-code/engens/tests/jkjlk"
-        test_top_fail = "/home/engen/engens-code/engens/tests/kjd.xtc"
+        test_traj_fail = "./tests/jkjlk"
+        test_top_fail = "./tests/kjd.xtc"
         test_traj_fail2 = 5
         test_top_fail2 = None
         select_expresion_fail = 'n238ndkjf' 
@@ -37,16 +38,16 @@ class TestEnGens(unittest.TestCase):
         self.assertRaises(Exception, EnGen, test_traj, test_top, select_expresion_fail)
 
     def test_animated_traj(self):
-        test_top = "/home/engen/engens-code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens-code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         engen = EnGen(test_traj, test_top)
         widget = engen.show_animated_traj()
 
         self.assertTrue(isinstance(widget, ngl.NGLWidget))
 
     def test_animated_traj_sele(self):
-        test_top = "/home/engen/engens-code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens-code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         select_expression = [i for i in range(50)]
         engen = EnGen(test_traj, test_top, select_expression)
         widget = engen.show_animated_traj()
@@ -54,15 +55,15 @@ class TestEnGens(unittest.TestCase):
         self.assertTrue(isinstance(widget, ngl.NGLWidget))
 
     def test_default_featurize_init(self):
-        test_top = "/home/engen/engens-code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens-code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         engen = EnGen(test_traj, test_top)
         engen.init_featurizers_default()
         self.assertEquals(len(engen.featurizers), 3)
 
     def test_apply_featurization(self):
-        test_top = "/home/engen/engens-code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens-code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         select_expression = [i for i in range(50)]
         default_feat2 = {
             "add_backbone_torsions": {"cossin":True, "periodic":False}
@@ -72,16 +73,35 @@ class TestEnGens(unittest.TestCase):
         engen.apply_featurizations()
 
     def test_feat_describe(self):
-        test_top = "/home/engen/engens-code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens-code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         engen = EnGen(test_traj, test_top)
         engen.init_featurizers_default()
         res_desc = engen.describe_featurizers()
         self.assertTrue(not res_desc == "")
 
+    def test_feat_reset(self):
+        print(os.listdir("."))
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
+        engen = EnGen(test_traj, test_top)
+        engen.init_featurizers_default()
+        engen.reset_featurizers()
+        self.assertTrue(len(engen.featurizers) == 0)
+        self.assertTrue(len(engen.featurizer_names) == 0)
+
+    def test_feat_names(self):
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
+        engen = EnGen(test_traj, test_top)
+        engen.init_featurizers_default()
+        self.assertTrue(len(engen.featurizer_names) == 3)
+        print(engen.featurizer_names)
+        self.assertTrue(engen.featurizer_names[0] == "residue_mindist")
+
     def test_choose_feat(self):
-        test_top = "/home/engen/engens-code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens-code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         engen = EnGen(test_traj, test_top)
         engen.init_featurizers_default()
         featsel = fs.UserFeatureSelection(2, engen)
@@ -92,8 +112,8 @@ class TestEnGens(unittest.TestCase):
 
 
     def test_choose_vamp(self):
-        test_top = "/home/engen/engens-code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens-code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
         engen = EnGen(test_traj, test_top, select_expression)
         engen.init_featurizers_default()
@@ -104,8 +124,8 @@ class TestEnGens(unittest.TestCase):
         self.assertNotEqual(engen.chosen_feat_index, None)
 
     def test_add_pyemmafeat(self):
-        test_top = "/home/engen/engens-code/engens/tests/ExampleProt.pdb"
-        test_traj = "/home/engen/engens-code/engens/tests/ExampleTraj.xtc"
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
         select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
         engen = EnGen(test_traj, test_top, select_expression)
         pyemma_feat = pyemma.coordinates.featurizer(engen.mdtrajref) 

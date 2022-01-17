@@ -102,7 +102,7 @@ class VAMP2FeatureSelection(FeatureSelection):
         else:
             print("Using recycled VAMP2 scores.")
         max_ind = self.choose_max_score_index()
-        print("Picked featurized no. "+str(max_ind))
+        print("Picked featurized no. "+str(max_ind)+": "+self.engen.featurizer_names[max_ind])
         print("With maximum VAMP2 score no. "+str(max_ind))
         print(self.engen.featurizers[max_ind].describe())
         self.engen.chosen_feat_index = max_ind
@@ -111,16 +111,17 @@ class VAMP2FeatureSelection(FeatureSelection):
 
         if self.scores == None:
             raise Exception("Can not plot results VAMP scoring has not been done yet.")
-        
+
         fig, axes = plt.subplots(len(self.dims), len(self.lags), figsize=(4*len(self.lags), 3*len(self.dims)), sharey=True)
         names = None
         for i, d in enumerate(self.dims):
             for j, l in enumerate(self.lags):
-                names = ["feat-"+str(n) for n in range(len(self.scores[i][j]))]
+                names = self.engen.featurizer_names
                 for k, score in enumerate(self.scores[i][j]):
                     axes[i][j].bar(names[k], self.scores[i][j][k], label=names[k])
                 axes[i][j].set_title(r'lag  $\tau$={:.1f}, dim={}'.format(l, d))
-                
+                axes[i][j].set_xticklabels(names, rotation=30)
+                     
         fig.text(-0.1, 0.5, 'VAMP2 score', va='center', rotation='vertical', size=12)
         fig.tight_layout()
         handles, labels = axes[0][0].get_legend_handles_labels()
