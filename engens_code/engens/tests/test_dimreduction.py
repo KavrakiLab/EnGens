@@ -24,6 +24,7 @@ class TestDimReds(unittest.TestCase):
         reducer = dimreds["PCA"](engen)
         reducer.plot_2d("test_pca_2d.png")
         reducer.plot_variance(90, "test_pca_var.png")
+        reducer.get_variance()
         
     def test_tica(self):
         test_top = "./tests/ExampleProt.pdb"

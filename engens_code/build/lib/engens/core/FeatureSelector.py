@@ -28,7 +28,7 @@ class UserFeatureSelection(FeatureSelection):
              self.engen.describe_featurizers())
         else:
             self.engen.chosen_feat_index = self.index  
-            print("Picked featurized no. "+str(self.index))
+            print("Picked featurized no. "+str(self.index)+": "+self.engen.featurizer_names[self.index])
             print(self.engen.featurizers[self.index ].describe())
 
 class VAMP2FeatureSelection(FeatureSelection):

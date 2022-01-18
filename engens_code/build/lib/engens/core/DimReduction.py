@@ -1,3 +1,4 @@
+import contextlib
 from engens.core.EnGens import EnGen
 import pyemma
 import matplotlib.pyplot as plt
@@ -84,6 +85,17 @@ class PCAReducer(DimReduction):
 
         print("Total of "+str(v)+"% of variance explaned by first "+str(pca_num)+" PCs.")
 
+    def get_variance(self, var_thr=90, save_loc:str=None)->None:
+        pca_eigenvalues = self.reducer.eigenvalues
+        variance = np.cumsum(pca_eigenvalues)/np.sum(pca_eigenvalues) * 100
+        pca_num = 0
+        for i, v in enumerate(variance):
+            if v >= var_thr:
+                pca_num = i
+                break
+        print("PCA explained variance (with thr = {}) by first {} components".format(var_thr, pca_num))
+        return pca_num
+
 
 
 class TICAReducer(DimReduction):
@@ -140,6 +152,39 @@ class TICAReducer(DimReduction):
         self.reducer = self.tica_obj
         self.transformed_data = self.tica_obj.get_output()[0]
 
+    def resolved_processes(self, timescales, lag):
+        tmp_diff = np.sort(np.abs(np.diff(timescales)))[::-1]
+        signifficant_thr = np.mean(tmp_diff)+2*np.std(tmp_diff)
+        diff = np.abs(np.diff(timescales))
+        resolved_p = []
+        for i, elem in enumerate(list(diff)):
+            if elem < signifficant_thr: break
+            if elem < lag: break
+            resolved_p.append((i,elem))
+        return resolved_p
+
+    def choose_lag_auto(self):
+        lag_num = len(self.TICA_lagtimes)
+        lag_half = int(lag_num/2)
+        res_ps = self.resolved_processes(self.tica_objs_ts[lag_half], lag_half)
+        print("Number of resolved processes with TICA: {}".format(len(res_ps)))
+        print("Processes (index, timescale): ")
+        print(res_ps)
+        best_lags = []
+        for i, proc in res_ps:
+            process_ts = np.array(self.tica_objs_ts)[:,i]
+            process_ts_diff = np.abs(np.diff(process_ts))
+            mean_diff = np.mean(process_ts_diff)
+            for i, diff in enumerate(list(process_ts_diff)):
+                if diff < mean_diff:
+                    best_lags.append(self.TICA_lagtimes[i])
+                    break
+        best_lag = int(sum(best_lags) / len(best_lags))
+        print("Chosen lag time: {}".format(best_lag))
+        self.tica_obj = pyemma.coordinates.tica(self.data, lag=best_lag)
+        self.reducer = self.tica_obj
+        self.transformed_data = self.tica_obj.get_output()[0]
+        return best_lag
     
     def plot_2d(self, save_loc:str=None) -> None:
         
@@ -181,6 +226,19 @@ class TICAReducer(DimReduction):
         plt.axvline(tica_num, color='red')
         print("Total of "+str(v)+"% of variance explaned by first "+str(tica_num)+" ICs.")
         if not save_loc == None: plt.savefig(save_loc)
+        
+    def get_variance(self, var_thr=90, save_loc:str=None)->None:
+        
+        if self.tica_obj == None: raise Exception("Lag not chosen!")
+        tica_eigenvalues = self.tica_obj.eigenvalues
+        variance = np.cumsum(tica_eigenvalues**2)/ np.sum(tica_eigenvalues**2)*100
+        tica_num = 0
+        for i, v in enumerate(variance):
+            if v >= var_thr:
+                tica_num = i
+                break
+        print("TICA explained variance (with thr = {}) by first {} components".format(var_thr, tica_num))
+        return tica_num
                 
 
 class HDEReducer(DimReduction):
@@ -204,16 +262,21 @@ class HDEReducer(DimReduction):
         self.hde_objs_ts = []
         for l in HDE_lagtimes:
             print("lag:",l)
-
+            print("number of components:",n_comp)
+            print("feat shape:", self.data.shape[1])
+            print("data shape:", self.data.shape[0])
             model = HDE(
                 self.data.shape[1], 
                 n_components=n_comp, 
                 n_epochs=20, 
                 lag_time=l,
-                batch_normalization=True
+                batch_size=self.data.shape[0],
+                batch_normalization=False
             )
-
-            model.fit_transform(self.data)
+                
+            with open('HDE_log.txt','a') as f:
+                with contextlib.redirect_stdout(f):
+                    model.fit_transform(self.data)
             timescales = model.timescales_
             self.hde_objs.append(model)
             hde_timescales = timescales
@@ -244,11 +307,57 @@ class HDEReducer(DimReduction):
                 n_components=n_comp, 
                 n_epochs=20, 
                 lag_time=lag,
-                batch_normalization=True
+                batch_size=self.data.shape[0],
+                batch_normalization=False
             )
         self.reducer = self.hde_obj
-        self.transformed_data = self.hde_obj.fit_transform(self.data)
+        with open('HDE_log.txt','a') as f:
+            with contextlib.redirect_stdout(f):
+                self.transformed_data = self.hde_obj.fit_transform(self.data)
+    
+    
+    def resolved_processes(self, timescales, lag):
+        tmp_diff = np.sort(np.abs(np.diff(timescales)))[::-1]
+        signifficant_thr = np.mean(tmp_diff)+2*np.std(tmp_diff)
+        diff = np.abs(np.diff(timescales))
+        resolved_p = []
+        for i, elem in enumerate(list(diff)):
+            if elem < signifficant_thr: break
+            if elem < lag: break
+            resolved_p.append((i,elem))
+        return resolved_p
 
+    def choose_lag_auto(self):
+        lag_num = len(self.HDE_lagtimes)
+        lag_half = int(lag_num/2)
+        res_ps = self.resolved_processes(self.hde_objs_ts[lag_half], lag_half)
+        print("Number of resolved processes with HDE: {}".format(len(res_ps)))
+        print("Processes (index, timescale): ")
+        print(res_ps)
+        best_lags = []
+        for i, proc in res_ps:
+            process_ts = np.array(self.hde_objs_ts)[:,i]
+            process_ts_diff = np.abs(np.diff(process_ts))
+            mean_diff = np.mean(process_ts_diff)
+            for i, diff in enumerate(list(process_ts_diff)):
+                if diff < mean_diff:
+                    best_lags.append(self.HDE_lagtimes[i])
+                    break
+        best_lag = int(sum(best_lags) / len(best_lags))
+        print("Chosen lag time: {}".format(best_lag))
+        self.hde_obj = HDE(
+                self.data.shape[1], 
+                n_components= self.n_components, 
+                n_epochs=20, 
+                lag_time=best_lag,
+                batch_size=self.data.shape[0],
+                batch_normalization=False
+            )
+        self.reducer = self.hde_obj
+        with open('HDE_log.txt','a') as f:
+            with contextlib.redirect_stdout(f):
+                self.transformed_data = self.hde_obj.fit_transform(self.data)
+        return best_lag
     
     def plot_2d(self, save_loc:str=None) -> None:
         
