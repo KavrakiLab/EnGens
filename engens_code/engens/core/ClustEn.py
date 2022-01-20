@@ -29,6 +29,7 @@ class ClustEn(object):
         self.chosen_index = None
         self.chosen_cluster_ids = None
         self.chosen_frames = None
+        self.thr = None
         super().__init__()
 
     def choose_param(self, index:int):
@@ -42,12 +43,13 @@ class ClustEn(object):
 
     def plot_cluster_weight(self, thr=None):
         if self.chosen_index == None: raise Exception("Choose parameters index first.")
+        self.thr = thr
         weights = self.cluster_weights(self.chosen_index)
         fig = plt.figure()
         plt.bar(range(len(weights)), weights)
         plt.xlabel("Cluster number")
         plt.xticks(np.arange(0, len(weights),1))
-        if not thr is None:
+        if not self.thr is None:
             plt.axhline(y=thr, color='r', linestyle='-')
             plt.text(0,thr+0.02, "thr={:.2f}".format(thr), color="red", ha="right", va="center")
         plt.ylabel("Cluster weight")
