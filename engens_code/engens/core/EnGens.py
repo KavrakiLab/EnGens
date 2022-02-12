@@ -12,7 +12,7 @@ EnGen - the main class for ensemble generation and analysis
 
 class EnGen(object):
 
-    def __init__(self, trajectory, topology, topology_select=None):
+    def __init__(self, trajectory, topology, topology_select=None, align=False):
         """ generates and visualizes conformational ensembles for ensemble docking
         
         Parameters
@@ -24,7 +24,17 @@ class EnGen(object):
         topology_select: str | list, default = None
             a select string that indicates what part of the topology is relevant for featurization
             or an array of atom indices of interest (as required by mdtraj)
+        align: boolean, default = False
+            specify if you wish to align the given trajectory before analyzing
         """
+
+        # perform the alignment if specified
+        if align:
+            tmp_traj = mdtraj.load(trajectory, top=topology)
+            tmp_traj.superpose(reference=tmp_traj)
+            traj_new = trajectory[:trajectory.rfind(".")]+"-aligned.xtc"
+            tmp_traj.save_xtc(traj_new)
+            trajectory = traj_new
 
         self.traj = trajectory
         self.traj_name = trajectory
@@ -121,6 +131,7 @@ class EnGen(object):
         pt_traj = pt.load(self.traj_name, self.ref)
         widget = ngl.show_pytraj(pt_traj, gui=True)
         return widget
+    
 
     #--------------------FEATURIZATION--------------------------#
     

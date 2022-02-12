@@ -37,6 +37,21 @@ class TestEnGens(unittest.TestCase):
         self.assertRaises(Exception, EnGen, test_traj_fail2, test_top_fail2)
         self.assertRaises(Exception, EnGen, test_traj, test_top, select_expresion_fail)
 
+    def test_align(self):
+        test_top = "./tests/ExampleProt.pdb"
+        test_traj = "./tests/ExampleTraj.xtc"
+        engen1 = EnGen(test_traj, test_top, align=True)
+        print(engen1.traj_name)
+        self.assertTrue("aligned" in engen1.traj_name)
+        select_expression = [i for i in range(50)]
+        engen2 = EnGen(test_traj, test_top, select_expression, align=True)
+        self.assertTrue(("aligned" in engen2.traj_name) and ("selected" in engen2.traj_name))
+        engen1.init_featurizers_default()
+        self.assertEquals(len(engen1.featurizers), 3)
+        engen2.init_featurizers_default()
+        self.assertEquals(len(engen2.featurizers), 3)
+
+
     def test_animated_traj(self):
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
