@@ -179,7 +179,7 @@ class TICAReducer(DimReduction):
                 if diff < mean_diff:
                     best_lags.append(self.TICA_lagtimes[i])
                     break
-        best_lag = int(sum(best_lags) / len(best_lags))
+        best_lag = int(min(best_lags))
         print("Chosen lag time: {}".format(best_lag))
         self.tica_obj = pyemma.coordinates.tica(self.data, lag=best_lag)
         self.reducer = self.tica_obj
@@ -343,7 +343,7 @@ class HDEReducer(DimReduction):
                 if diff < mean_diff:
                     best_lags.append(self.HDE_lagtimes[i])
                     break
-        best_lag = int(sum(best_lags) / len(best_lags))
+        best_lag = int(min(best_lags))
         print("Chosen lag time: {}".format(best_lag))
         self.hde_obj = HDE(
                 self.data.shape[1], 
