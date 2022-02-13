@@ -13,10 +13,11 @@ from sklearn.mixture import GaussianMixture
 from sklearn.metrics import pairwise_distances_argmin
 from subprocess import call
 from pathlib import Path
+import statistics as stat
 
 class ClustEn(object):
 
-    def __init__(self, engen:EnGen, clustMethod, metric) -> None:
+    def __init__(self, engen:EnGen, clustMethod, metric, n_rep:int=10) -> None:
         self.engen = engen
         self.data = engen.dimred_data
         if self.data is None: raise Exception("Data for clustering not provided")
@@ -30,6 +31,7 @@ class ClustEn(object):
         self.chosen_cluster_ids = None
         self.chosen_frames = None
         self.thr = None
+        self.n_rep = n_rep
         super().__init__()
 
     def choose_param(self, index:int):
@@ -111,49 +113,26 @@ class ClustEn(object):
     def cluster_multiple_params(self, params:list):
         cls = []
         labels = []
-        metric_vals = []
+        metric_vals = {"mean":[], "std":[]}
         self.params = params
         for p in params:
             print("Clustering with params="+str(p))
-            cl = self.clustMethod(**p)
+            #cluster 10 times to see the variance
+            metrics = []
+            for i in range(self.n_rep):
+                cl = self.clustMethod(**p)
+                cluster_labels = cl.fit_predict(self.data)
+                metrics.append(self.compute_metric(cl))
+            metric_vals["mean"].append(stat.mean(metrics))
+            metric_vals["std"].append(stat.stdev(metrics))
             cls.append(cl)
-            cluster_labels = cl.fit_predict(self.data)
             labels.append(cluster_labels)
-            metric = self.compute_metric(cl)
-            metric_vals.append(metric)
+        metric_vals["mean"] = np.array(metric_vals["mean"])
+        metric_vals["std"] = np.array(metric_vals["std"])
         self.metric_vals = metric_vals
         self.labels = labels
         self.cls = cls
 
-    # Function to plot elbow method analysis
-    def plot_elbow(self, filename:str = None):
-        x_label = [str(i)for i, p in enumerate(self.params)]
-        
-        plt.plot(x_label, self.metric_vals, 'bx-')
-        plt.xlabel('k')
-        plt.ylabel(self.metric)
-        plt.title('Elbow Method For Optimal parameters')
-        if not filename == None: plt.savefig(filename)
-        plt.show()
-
-
-    def analyze_elbow_method(self):
-        self.plot_elbow()
-
-        x1, y1 = 1, self.metric_vals[0]
-        x2, y2 = 100, self.metric_vals[len(self.metric_vals)-1]
-
-        distances = []
-        for i in range(len(self.metric_vals)):
-            x0 = i+2
-            y0 = self.metric_vals[i]
-            numerator = abs((y2-y1)*x0 - (x2-x1)*y0 + x2*y1 - y2*x1)
-            denominator = sqrt((y2 - y1)**2 + (x2 - x1)**2)
-            distances.append(numerator/denominator)
-        optimal_index = distances.index(max(distances))
-        print("Optimal index={}".format(optimal_index))
-        print("Optimal params={}".format(str(self.params[optimal_index])))
-        return optimal_index
 
 
     # Function to plot silhouette score analysis
@@ -259,10 +238,10 @@ class ClustEn(object):
 
 class ClusterKMeans(ClustEn):
 
-    def __init__(self, engen:EnGen) -> None:
-        super().__init__(engen, KMeans, "sum of squared distances")
+    def __init__(self, engen:EnGen, n_rep:int=10) -> None:
+        super().__init__(engen, KMeans, "sum of squared distances", n_rep=n_rep)
 
-    def compute_metric(self, cl:GaussianMixture):
+    def compute_metric(self, cl:KMeans):
         return cl.inertia_
     
     def cluster_center_method(self, cl, data=None, labels=None):
@@ -276,15 +255,51 @@ class ClusterKMeans(ClustEn):
     def cluster_center(self, i):
         return self.cls[i].cluster_centers_
 
+        # Function to plot elbow method analysis
+    def plot_elbow(self, filename:str = None):
+        x_label = [str(p["n_clusters"])for i, p in enumerate(self.params)]
+        
+        plt.plot(x_label, self.metric_vals["mean"], 'bx-')
+        plt.fill_between(x_label, self.metric_vals["mean"]-self.metric_vals["std"], self.metric_vals["mean"]+self.metric_vals["std"], facecolor='blue', alpha=0.4)
+        plt.xlabel('number of clusters')
+        plt.ylabel(self.metric)
+        plt.title('Elbow Method For Optimal parameters')
+        if not filename == None: plt.savefig(filename)
+        plt.show()
+
+
+    def analyze_elbow_method(self):
+        self.plot_elbow()
+
+        x1, y1 = 2, self.metric_vals["mean"][0]
+        x2, y2 = len(self.metric_vals["mean"])+1, self.metric_vals["mean"][len(self.metric_vals["mean"])-1]
+
+        distances = []
+        for i in range(len(self.metric_vals["mean"])):
+            x0 = i+2
+            y0 = self.metric_vals["mean"][i]
+            numerator = abs((y2-y1)*x0 - (x2-x1)*y0 + x2*y1 - y2*x1)
+            denominator = sqrt((y2 - y1)**2 + (x2 - x1)**2)
+            distances.append(numerator/denominator)
+        optimal_index = distances.index(max(distances))
+        print("Optimal index={}".format(optimal_index))
+        print("Optimal params={}".format(str(self.params[optimal_index])))
+        return optimal_index
+
 
 
 class ClusterGMM(ClustEn):
 
-    def __init__(self, engen:EnGen) -> None:
-        super().__init__(engen, GaussianMixture, "bic")
+    def __init__(self, engen:EnGen, type_ic:str="aic", n_rep:int=10) -> None:
+        super().__init__(engen, GaussianMixture, type_ic, n_rep=n_rep)
 
     def compute_metric(self, cl:GaussianMixture):
-        return cl.bic(self.engen.dimred_data)
+        if self.metric == "aic":
+            return cl.aic(self.engen.dimred_data)
+        elif self.metric == "bic":
+            return cl.bic(self.engen.dimred_data)
+        else:
+            raise Exception("Wrong metric given to GMM!")
 
     def cluster_center_method(self, cl, data=None, labels=None):
         return cl.means_
@@ -294,6 +309,39 @@ class ClusterGMM(ClustEn):
 
     def cluster_center(self, i):
         return self.cls[i].means_
+
+    # Function to plot elbow method analysis
+    def plot_ic(self, type_ic:str = "aic", filename:str = None):
+        x_label = [str(p["n_components"])for i, p in enumerate(self.params)]
+
+        plt.plot(x_label, self.metric_vals["mean"], 'bx-')
+        plt.fill_between(x_label, self.metric_vals["mean"]-self.metric_vals["std"], self.metric_vals["mean"]+self.metric_vals["std"], facecolor='blue', alpha=0.4)
+        plt.xlabel('number of components')
+        plt.ylabel(self.metric)
+        plt.title('Information Criterion For Optimal parameters')
+        if not filename == None: plt.savefig(filename)
+        plt.show()
+
+
+    def analyze_ic(self, type_ic:str = "aic", filename:str = None):
+
+        self.plot_ic(type_ic, filename)
+
+        x1, y1 = 2, self.metric_vals["mean"][0]
+        x2, y2 = len(self.metric_vals["mean"])+1, self.metric_vals["mean"][len(self.metric_vals["mean"])-1]
+
+        distances = []
+        for i in range(len(self.metric_vals["mean"])):
+            x0 = i+2
+            y0 = self.metric_vals["mean"][i]
+            numerator = abs((y2-y1)*x0 - (x2-x1)*y0 + x2*y1 - y2*x1)
+            denominator = sqrt((y2 - y1)**2 + (x2 - x1)**2)
+            distances.append(numerator/denominator)
+        optimal_index = distances.index(max(distances))
+        print("Optimal index={}".format(optimal_index))
+        print("Optimal params={}".format(str(self.params[optimal_index])))
+
+        return optimal_index
 
 clusterings = {
     "KM": ClusterKMeans,  

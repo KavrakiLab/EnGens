@@ -5,13 +5,14 @@ import pyemma
 from engens.core.DimReduction import *
 from engens.core.FeatureSelector import *
 from engens.core.ClustEn import *
+import os
 
-class TestDimReds(unittest.TestCase):
+class TestClust(unittest.TestCase):
 
     def test_kmeans(self):
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
-        select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
+        select_expression = "residue>1 and residue<9 or residue>50 and residue<58 or residue>91 and residue<105"
         engen = EnGen(test_traj, test_top, select_expression)
         engen.init_featurizers_default()
         engen.apply_featurizations()
@@ -20,7 +21,7 @@ class TestDimReds(unittest.TestCase):
         reducer = dimreds["TICA"](engen)
         reducer.choose_lag(500)
         reducer.apply()
-        clustering = ClusterKMeans(engen)
+        clustering = ClusterKMeans(engen, n_rep=3)
         params = [{"n_clusters":i} for i in range(2, 6)]
         clustering.cluster_multiple_params(params)
         clustering.plot_elbow("./tests/elbow_test.png")
@@ -39,9 +40,14 @@ class TestDimReds(unittest.TestCase):
         reducer = dimreds["TICA"](engen)
         reducer.choose_lag(500)
         reducer.apply()
-        clustering = ClusterGMM(engen)
+        clustering = ClusterGMM(engen,n_rep=3)
         params = [{"n_components":i} for i in range(2, 6)]
         clustering.cluster_multiple_params(params)
-        clustering.plot_elbow("./tests/elbow_test.png")
-        clustering.analyze_elbow_method()
+        clustering.plot_ic(filename = "./tests/aic_test.png")
+        clustering.analyze_ic()
+        clustering = ClusterGMM(engen, type_ic="bic")
+        params = [{"n_components":i} for i in range(2, 6)]
+        clustering.cluster_multiple_params(params)
+        clustering.plot_ic(filename = "./tests/bic_test.png")
+        clustering.analyze_ic()
         clustering.analyze_silhouette()
