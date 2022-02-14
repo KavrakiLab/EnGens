@@ -27,7 +27,7 @@ class ClustEn(object):
         self.cls = None
         self.labels = None
         self.metric_vals = None
-        self.chosen_index = None
+        self.chosen_param_index = None
         self.chosen_cluster_ids = None
         self.chosen_frames = None
         self.thr = None
@@ -35,7 +35,7 @@ class ClustEn(object):
         super().__init__()
 
     def choose_param(self, index:int):
-        self.chosen_index = index
+        self.chosen_param_index = index
 
     def cluster_weights(self, i):
         pass
@@ -44,9 +44,9 @@ class ClustEn(object):
         pass
 
     def plot_cluster_weight(self, thr=None):
-        if self.chosen_index == None: raise Exception("Choose parameters index first.")
+        if self.chosen_param_index == None: raise Exception("Choose parameters index first.")
         self.thr = thr
-        weights = self.cluster_weights(self.chosen_index)
+        weights = self.cluster_weights(self.chosen_param_index)
         fig = plt.figure()
         plt.bar(range(len(weights)), weights)
         plt.xlabel("Cluster number")
@@ -58,11 +58,11 @@ class ClustEn(object):
 
     def plot_cluster_choice(self):
         
-        centers = self.cluster_center(self.chosen_index)
+        centers = self.cluster_center(self.chosen_param_index)
         chosen_centers = [c for i, c in enumerate(centers) if i in self.chosen_cluster_ids]
         closest_conf = pairwise_distances_argmin(chosen_centers,self.data)
 
-        plt.scatter(self.data[:,0], self.data[:,1], c=self.labels[self.chosen_index],
+        plt.scatter(self.data[:,0], self.data[:,1], c=self.labels[self.chosen_param_index],
             s=10, edgecolor='black', lw = 0.5, alpha=0.4)
 
         plt.scatter(np.array(chosen_centers)[:,0], np.array(chosen_centers)[:,1], c='red',
@@ -78,23 +78,36 @@ class ClustEn(object):
 
 
     def choose_clusters(self, thr):
-        if self.chosen_index == None: raise Exception("Choose parameters index first.")
+        if self.chosen_param_index == None: raise Exception("Choose parameters index first.")
         self.plot_cluster_weight(thr)
-        weights = self.cluster_weights(self.chosen_index)
+        weights = self.cluster_weights(self.chosen_param_index)
         clusters = [i for i, w in enumerate(weights) if w>thr]
         self.chosen_cluster_ids = clusters
         print("Chosen cluster ids: {}".format(clusters))
 
     def choose_conformations(self):
-        if self.chosen_index == None: raise Exception("Choose parameters index first.")
+        #check if parametrization is chosen 
+        if self.chosen_param_index == None: raise Exception("Choose parameters index first.")
+        #check if clusters are chosen with threshold - if not incluse all clusters in analysis
         if self.chosen_cluster_ids == None:
-            n_clust = len(set(self.labels[self.chosen_index]))
+            n_clust = len(set(self.labels[self.chosen_param_index]))
             self.chosen_cluster_ids = list(range(n_clust))
-        centers = self.cluster_center(self.chosen_index)
-        chosen_centers = [c for i, c in enumerate(centers) if i in self.chosen_cluster_ids]
-        print("Chosen centers: {}".format(chosen_centers))
-        closest_conf = pairwise_distances_argmin(chosen_centers,self.data)
-        print("Chosen frames: {}".format(closest_conf))
+        #find cluster centers
+        centers = self.cluster_center(self.chosen_param_index)
+
+        closest_conf = []
+        #for each chosen cluster center find the closest point within the cluster
+        for c_id in self.chosen_cluster_ids:
+            print(c_id)
+            #extract only points within the cluster
+            c_data_ind = np.argwhere(self.labels[self.chosen_param_index]==c_id)
+            c_data = self.data[c_data_ind]
+            c_data = c_data.reshape((c_data.shape[0], c_data.shape[2]))
+            #find the closest point
+            c_data_closest = pairwise_distances_argmin([centers[c_id]],c_data)
+            #append it
+            closest_conf.append(c_data_ind[c_data_closest])
+
         self.chosen_frames = closest_conf
         self.plot_cluster_choice()
 
