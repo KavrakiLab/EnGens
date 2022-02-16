@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import plotly.express as px
 from hde import HDE
+from math import sqrt
 
 
 class DimReduction(object):
@@ -165,25 +166,41 @@ class TICAReducer(DimReduction):
 
     def choose_lag_auto(self):
         lag_num = len(self.TICA_lagtimes)
-        lag_half = int(lag_num/2)
-        res_ps = self.resolved_processes(self.tica_objs_ts[lag_half], lag_half)
-        print("Number of resolved processes with TICA: {}".format(len(res_ps)))
-        print("Processes (index, timescale): ")
-        print(res_ps)
         best_lags = []
-        for i, proc in res_ps:
+        #for all processes 
+        for i in range(len(self.tica_objs_ts[0])):
             process_ts = np.array(self.tica_objs_ts)[:,i]
-            process_ts_diff = np.abs(np.diff(process_ts))
-            mean_diff = np.mean(process_ts_diff)
-            for i, diff in enumerate(list(process_ts_diff)):
-                if diff < mean_diff:
-                    best_lags.append(self.TICA_lagtimes[i])
-                    break
+
+            #if process time scale is below lagtime - do not count it
+            if process_ts[-1] < self.TICA_lagtimes[-1]:
+                break 
+
+            x1, y1 = self.TICA_lagtimes[0], process_ts[0]
+            x2, y2 = self.TICA_lagtimes[lag_num-1], process_ts[lag_num-1]
+            distances = []
+            for j in range(lag_num):
+                x0 = self.TICA_lagtimes[j]
+                y0 = process_ts[j]
+                numerator = abs((y2-y1)*x0 - (x2-x1)*y0 + x2*y1 - y2*x1)
+                denominator = sqrt((y2 - y1)**2 + (x2 - x1)**2)
+                distances.append(numerator/denominator)
+            optimal_j = distances.index(max(distances))
+            optimal_lag = self.TICA_lagtimes[optimal_j]
+            best_lags.append(optimal_lag)
+
+        print(best_lags)
         best_lag = int(min(best_lags))
+        best_lag_index = self.TICA_lagtimes.index(best_lag)
         print("Chosen lag time: {}".format(best_lag))
         self.tica_obj = pyemma.coordinates.tica(self.data, lag=best_lag)
         self.reducer = self.tica_obj
         self.transformed_data = self.tica_obj.get_output()[0]
+        res_proc_n = i
+        print("Number of processes above lag time: {}".format(res_proc_n))
+        res_ps = self.resolved_processes(self.tica_objs_ts[best_lag_index], best_lag_index)
+        print("Number of clearly resolved processes with TICA: {}".format(len(res_ps)))
+        print("Processes (index, timescale): ")
+        print(res_ps)
         return best_lag
     
     def plot_2d(self, save_loc:str=None) -> None:
@@ -328,23 +345,41 @@ class HDEReducer(DimReduction):
         return resolved_p
 
     def choose_lag_auto(self):
-        lag_num = len(self.HDE_lagtimes)
-        lag_half = int(lag_num/2)
-        res_ps = self.resolved_processes(self.hde_objs_ts[lag_half], lag_half)
-        print("Number of resolved processes with HDE: {}".format(len(res_ps)))
+        best_lags = []
+        for i in range(self.n_components):
+            process_ts = np.array(self.hde_objs_ts)[:,i]
+            lag_num = len(process_ts[~np.isnan(process_ts)])
+            # if the process does not have time scales throughout 
+            # the whole lag space it was not resolved and should not be used
+            if lag_num < len(self.HDE_lagtimes):
+                break
+            
+            x1, y1 = self.HDE_lagtimes[0], process_ts[0]
+            x2, y2 = self.HDE_lagtimes[lag_num-1], process_ts[lag_num-1]
+            distances = []
+            for j in range(len(process_ts)):
+                x0 = self.HDE_lagtimes[j]
+                y0 = process_ts[j]
+                numerator = abs((y2-y1)*x0 - (x2-x1)*y0 + x2*y1 - y2*x1)
+                denominator = sqrt((y2 - y1)**2 + (x2 - x1)**2)
+                distances.append(numerator/denominator)
+            optimal_j = distances.index(max(distances))
+            optimal_lag = self.HDE_lagtimes[optimal_j]
+            best_lags.append(optimal_lag)
+
+        if len(best_lags)==0: 
+            print("No processes resolved, no best lag, consider changing HDE output dimensions.")
+            return None
+        res_proc_num = i
+        best_lag = int(min(best_lags))
+        best_lag_index = self.HDE_lagtimes.index(best_lag)
+        print("Chosen lag time: {}".format(best_lag))
+        res_ps = self.resolved_processes(self.hde_objs_ts[best_lag_index], best_lag_index)
+    
+        print("Number of clearly resolved processes with HDE: {}".format(len(res_ps)))
         print("Processes (index, timescale): ")
         print(res_ps)
-        best_lags = []
-        for i, proc in res_ps:
-            process_ts = np.array(self.hde_objs_ts)[:,i]
-            process_ts_diff = np.abs(np.diff(process_ts))
-            mean_diff = np.mean(process_ts_diff)
-            for i, diff in enumerate(list(process_ts_diff)):
-                if diff < mean_diff:
-                    best_lags.append(self.HDE_lagtimes[i])
-                    break
-        best_lag = int(min(best_lags))
-        print("Chosen lag time: {}".format(best_lag))
+
         self.hde_obj = HDE(
                 self.data.shape[1], 
                 n_components= self.n_components, 

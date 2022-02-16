@@ -29,8 +29,8 @@ class TestDimReds(unittest.TestCase):
     def test_tica(self):
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
-        select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
-        engen = EnGen(test_traj, test_top, select_expression)
+        #select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
+        engen = EnGen(test_traj, test_top)
         self.assertRaises(Exception, dimreds["TICA"], engen)
         engen.init_featurizers_default()
         self.assertRaises(Exception, dimreds["TICA"], engen)
@@ -39,6 +39,8 @@ class TestDimReds(unittest.TestCase):
         feat_sele = UserFeatureSelection(2, engen)
         feat_sele.select_feature()
         reducer = dimreds["TICA"](engen)
+        best_lag = reducer.choose_lag_auto()
+        print(best_lag)
         reducer.plot_lag_analysis(save_loc = "test_tica_lags.png")
         reducer.choose_lag(500)
         reducer.plot_2d("test_tica_2d.png")
@@ -57,6 +59,7 @@ class TestDimReds(unittest.TestCase):
         feat_sele = UserFeatureSelection(2, engen)
         feat_sele.select_feature()
         reducer = dimreds["HDE"](engen)
+        reducer.choose_lag_auto()
         reducer.plot_lag_analysis(save_loc = "test_hde_lags.png")
         reducer.choose_lag(500)
         reducer.plot_2d("test_hde_2d.png")
