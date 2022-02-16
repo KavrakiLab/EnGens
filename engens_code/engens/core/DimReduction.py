@@ -119,7 +119,7 @@ class TICAReducer(DimReduction):
         self.tica_objs_ts = []
         for l in TICA_lagtimes:
             print("lag:",l)
-            tica_obj = pyemma.coordinates.tica(self.data, lag=l)
+            tica_obj = pyemma.coordinates.tica(self.data, lag=l, var_cutoff=1)
             self.tica_objs.append(tica_obj)
             tica_timescales = tica_obj.timescales
             self.tica_objs_ts.append(tica_timescales)
@@ -149,7 +149,7 @@ class TICAReducer(DimReduction):
         if not save_loc == None: plt.savefig(save_loc)
 
     def choose_lag(self, lag:int, tic_thr:int=None):
-        self.tica_obj = pyemma.coordinates.tica(self.data, lag=lag)
+        self.tica_obj = pyemma.coordinates.tica(self.data, lag=lag, var_cutoff=1)
         self.reducer = self.tica_obj
         self.transformed_data = self.tica_obj.get_output()[0]
 
@@ -188,11 +188,14 @@ class TICAReducer(DimReduction):
             optimal_lag = self.TICA_lagtimes[optimal_j]
             best_lags.append(optimal_lag)
 
-        print(best_lags)
+        if len(best_lags) == 0:
+            print("No lags found appropriate - adjust your list of lags (make upper bound lower).")
+            return None
+
         best_lag = int(min(best_lags))
         best_lag_index = self.TICA_lagtimes.index(best_lag)
         print("Chosen lag time: {}".format(best_lag))
-        self.tica_obj = pyemma.coordinates.tica(self.data, lag=best_lag)
+        self.tica_obj = pyemma.coordinates.tica(self.data, lag=best_lag, var_cutoff=1)
         self.reducer = self.tica_obj
         self.transformed_data = self.tica_obj.get_output()[0]
         res_proc_n = i
