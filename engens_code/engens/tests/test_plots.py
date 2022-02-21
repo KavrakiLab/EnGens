@@ -43,7 +43,7 @@ class TestPlots(unittest.TestCase):
 
     def test_db1(self):
         p_utils1 = PlotUtils(self.engen, self.clust)
-        p_utils1.dashboard1()
+        p_utils1.dashboard1(".")
         p_utils2 = PlotUtils(self.engen, self.clust, "./tests/plot_util_plots")
-        p_utils2.dashboard1()
+        p_utils2.dashboard1(".")
 
