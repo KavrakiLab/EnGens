@@ -14,10 +14,11 @@ from sklearn.metrics import pairwise_distances_argmin
 from subprocess import call
 from pathlib import Path
 import statistics as stat
+import os
 
 class ClustEn(object):
 
-    def __init__(self, engen:EnGen, clustMethod, metric, n_rep:int=10) -> None:
+    def __init__(self, engen:EnGen, clustMethod, metric, n_rep:int=5) -> None:
         self.engen = engen
         self.data = engen.dimred_data
         if self.data is None: raise Exception("Data for clustering not provided")
@@ -27,15 +28,25 @@ class ClustEn(object):
         self.cls = None
         self.labels = None
         self.metric_vals = None
-        self.chosen_param_index = None
+        self.chosen_index = None
         self.chosen_cluster_ids = None
         self.chosen_frames = None
         self.thr = None
         self.n_rep = n_rep
+        self.n_param_name = None
         super().__init__()
 
     def choose_param(self, index:int):
-        self.chosen_param_index = index
+        self.chosen_index = index
+
+    def choose_n(self, n:int):
+        arr_n = self.get_n_params(self.params)
+        p_index = np.where(arr_n==n)[0][0]
+        self.choose_param(p_index)
+
+    def get_n_params(self, params):
+        params_np = np.array(params)
+        return np.vectorize(lambda x: x[self.n_param_name])(params_np)
 
     def cluster_weights(self, i):
         pass
@@ -44,9 +55,9 @@ class ClustEn(object):
         pass
 
     def plot_cluster_weight(self, thr=None):
-        if self.chosen_param_index == None: raise Exception("Choose parameters index first.")
+        if self.chosen_index == None: raise Exception("Choose parameters index first.")
         self.thr = thr
-        weights = self.cluster_weights(self.chosen_param_index)
+        weights = self.cluster_weights(self.chosen_index)
         fig = plt.figure()
         plt.bar(range(len(weights)), weights)
         plt.xlabel("Cluster number")
@@ -58,11 +69,11 @@ class ClustEn(object):
 
     def plot_cluster_choice(self):
         
-        centers = self.cluster_center(self.chosen_param_index)
+        centers = self.cluster_center(self.chosen_index)
         chosen_centers = [c for i, c in enumerate(centers) if i in self.chosen_cluster_ids]
         closest_conf = pairwise_distances_argmin(chosen_centers,self.data)
 
-        plt.scatter(self.data[:,0], self.data[:,1], c=self.labels[self.chosen_param_index],
+        plt.scatter(self.data[:,0], self.data[:,1], c=self.labels[self.chosen_index],
             s=10, edgecolor='black', lw = 0.5, alpha=0.4)
 
         plt.scatter(np.array(chosen_centers)[:,0], np.array(chosen_centers)[:,1], c='red',
@@ -78,29 +89,29 @@ class ClustEn(object):
 
 
     def choose_clusters(self, thr):
-        if self.chosen_param_index == None: raise Exception("Choose parameters index first.")
+        if self.chosen_index == None: raise Exception("Choose parameters index first.")
         self.plot_cluster_weight(thr)
-        weights = self.cluster_weights(self.chosen_param_index)
+        weights = self.cluster_weights(self.chosen_index)
         clusters = [i for i, w in enumerate(weights) if w>thr]
         self.chosen_cluster_ids = clusters
         print("Chosen cluster ids: {}".format(clusters))
 
     def choose_conformations(self):
         #check if parametrization is chosen 
-        if self.chosen_param_index == None: raise Exception("Choose parameters index first.")
+        if self.chosen_index == None: raise Exception("Choose parameters index first.")
         #check if clusters are chosen with threshold - if not incluse all clusters in analysis
         if self.chosen_cluster_ids == None:
-            n_clust = len(set(self.labels[self.chosen_param_index]))
+            n_clust = len(set(self.labels[self.chosen_index]))
             self.chosen_cluster_ids = list(range(n_clust))
         #find cluster centers
-        centers = self.cluster_center(self.chosen_param_index)
+        centers = self.cluster_center(self.chosen_index)
 
         closest_conf = []
         #for each chosen cluster center find the closest point within the cluster
         for c_id in self.chosen_cluster_ids:
             print(c_id)
             #extract only points within the cluster
-            c_data_ind = np.argwhere(self.labels[self.chosen_param_index]==c_id)
+            c_data_ind = np.argwhere(self.labels[self.chosen_index]==c_id)
             c_data = self.data[c_data_ind]
             c_data = c_data.reshape((c_data.shape[0], c_data.shape[2]))
             #find the closest point
@@ -108,7 +119,7 @@ class ClustEn(object):
             #append it
             closest_conf.append(c_data_ind[c_data_closest])
 
-        self.chosen_frames = closest_conf
+        self.chosen_frames = np.array(closest_conf).flatten()
         self.plot_cluster_choice()
 
     def extract_conformations(self, loc:str):
@@ -120,8 +131,15 @@ class ClustEn(object):
             # since there was only one trajectory, trajindex will always be zero
             # if there are more trajectories, then they will be denoted by trajindex=0,1,2,...
             print("Closest conformation inside cluster " + str(self.chosen_cluster_ids[i]) + " frame " + str(frameindex) + " of the striped trajectory")
-            print("Extracting and saving")
-            call(["mdconvert -t " + self.engen.full_ref + " -o " + str(loc) + "/conf_in_cluster_" + str(i) + ".pdb -i " + str(frameindex) + " " + self.engen.full_traj_name], shell=True)
+            new_file = os.path.join(str(loc),"conf_in_cluster_" + str(i)+".pdb")
+            print("Extracting and saving to {}".format(new_file))
+            if os.path.exists(new_file):
+                print("File with the same name exists")
+                print("Deleting the old file")
+                os.remove(new_file)
+            ret_val = call(["mdconvert -t " + self.engen.full_ref + " -o " + new_file + " -i " + str(frameindex) + " " + self.engen.full_traj_name], shell=True)
+            if not ret_val == 0:
+                raise(Exception("Error saving conformations."))
 
     def cluster_multiple_params(self, params:list):
         cls = []
@@ -136,8 +154,15 @@ class ClustEn(object):
                 cl = self.clustMethod(**p)
                 cluster_labels = cl.fit_predict(self.data)
                 metrics.append(self.compute_metric(cl))
-            metric_vals["mean"].append(stat.mean(metrics))
-            metric_vals["std"].append(stat.stdev(metrics))
+            mean_val = metrics
+            if self.n_rep > 1:
+                mean_val = stat.mean(metrics)
+            std_val = 0
+            if self.n_rep > 1:
+                std_val = stat.stdev(metrics)
+                
+            metric_vals["mean"].append(mean_val)
+            metric_vals["std"].append(std_val)
             cls.append(cl)
             labels.append(cluster_labels)
         metric_vals["mean"] = np.array(metric_vals["mean"])
@@ -244,15 +269,15 @@ class ClustEn(object):
             avg_sil.append(self.plot_silhouette(n_clusters, cluster_labels, X, cluster_centers))
         
         best_index = avg_sil.index(max(avg_sil)) 
-        print("Best parameter index from silhouette analysis are "+str(best_index))  
         print("Best parameters from silhouette analysis are "+str(self.params[best_index])) 
 
 
 
 class ClusterKMeans(ClustEn):
 
-    def __init__(self, engen:EnGen, n_rep:int=10) -> None:
+    def __init__(self, engen:EnGen, n_rep:int=5) -> None:
         super().__init__(engen, KMeans, "sum of squared distances", n_rep=n_rep)
+        self.n_param_name = "n_clusters"
 
     def compute_metric(self, cl:KMeans):
         return cl.inertia_
@@ -266,14 +291,17 @@ class ClusterKMeans(ClustEn):
         return counts/sum(counts)
 
     def cluster_center(self, i):
-        return self.cls[i].cluster_centers_
+        centers = self.cls[i].cluster_centers_
+        return centers 
+
 
         # Function to plot elbow method analysis
     def plot_elbow(self, filename:str = None):
         x_label = [str(p["n_clusters"])for i, p in enumerate(self.params)]
         
         plt.plot(x_label, self.metric_vals["mean"], 'bx-')
-        plt.fill_between(x_label, self.metric_vals["mean"]-self.metric_vals["std"], self.metric_vals["mean"]+self.metric_vals["std"], facecolor='blue', alpha=0.4)
+        if self.n_rep > 1:
+            plt.fill_between(x_label, self.metric_vals["mean"]-self.metric_vals["std"], self.metric_vals["mean"]+self.metric_vals["std"], facecolor='blue', alpha=0.4)
         plt.xlabel('number of clusters')
         plt.ylabel(self.metric)
         plt.title('Elbow Method For Optimal parameters')
@@ -295,16 +323,16 @@ class ClusterKMeans(ClustEn):
             denominator = sqrt((y2 - y1)**2 + (x2 - x1)**2)
             distances.append(numerator/denominator)
         optimal_index = distances.index(max(distances))
-        print("Optimal index={}".format(optimal_index))
         print("Optimal params={}".format(str(self.params[optimal_index])))
-        return optimal_index
+        return self.params[optimal_index]
 
 
 
 class ClusterGMM(ClustEn):
 
-    def __init__(self, engen:EnGen, type_ic:str="aic", n_rep:int=10) -> None:
+    def __init__(self, engen:EnGen, type_ic:str="aic", n_rep:int=5) -> None:
         super().__init__(engen, GaussianMixture, type_ic, n_rep=n_rep)
+        self.n_param_name = "n_components"
 
     def compute_metric(self, cl:GaussianMixture):
         if self.metric == "aic":
@@ -321,20 +349,25 @@ class ClusterGMM(ClustEn):
         return self.cls[i].weights_        
 
     def cluster_center(self, i):
-        return self.cls[i].means_
+        centers = self.cls[i].means_
+        return centers
 
     # Function to plot elbow method analysis
     def plot_ic(self, type_ic:str = "aic", filename:str = None):
         x_label = [str(p["n_components"])for i, p in enumerate(self.params)]
 
         plt.plot(x_label, self.metric_vals["mean"], 'bx-')
-        plt.fill_between(x_label, self.metric_vals["mean"]-self.metric_vals["std"], self.metric_vals["mean"]+self.metric_vals["std"], facecolor='blue', alpha=0.4)
+        if self.n_rep > 1:
+            plt.fill_between(x_label, self.metric_vals["mean"]-self.metric_vals["std"], self.metric_vals["mean"]+self.metric_vals["std"], facecolor='blue', alpha=0.4)
         plt.xlabel('number of components')
         plt.ylabel(self.metric)
         plt.title('Information Criterion For Optimal parameters')
         if not filename == None: plt.savefig(filename)
         plt.show()
 
+    def analyze_elbow_method(self, type_ic:str = "aic", filename:str = None):
+        self.analyze_ic(type_ic, filename)
+    
 
     def analyze_ic(self, type_ic:str = "aic", filename:str = None):
 
@@ -351,10 +384,10 @@ class ClusterGMM(ClustEn):
             denominator = sqrt((y2 - y1)**2 + (x2 - x1)**2)
             distances.append(numerator/denominator)
         optimal_index = distances.index(max(distances))
-        print("Optimal index={}".format(optimal_index))
+        
         print("Optimal params={}".format(str(self.params[optimal_index])))
 
-        return optimal_index
+        return self.params[optimal_index]
 
 clusterings = {
     "KM": ClusterKMeans,  

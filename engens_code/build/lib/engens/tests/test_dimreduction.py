@@ -29,8 +29,8 @@ class TestDimReds(unittest.TestCase):
     def test_tica(self):
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
-        #select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
-        engen = EnGen(test_traj, test_top)
+        select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
+        engen = EnGen(test_traj, test_top, select_expression)
         self.assertRaises(Exception, dimreds["TICA"], engen)
         engen.init_featurizers_default()
         self.assertRaises(Exception, dimreds["TICA"], engen)

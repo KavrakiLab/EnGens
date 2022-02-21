@@ -6,6 +6,7 @@ import numpy as np
 import plotly.express as px
 from hde import HDE
 from math import sqrt
+import tensorflow as tf
 
 
 class DimReduction(object):
@@ -20,6 +21,7 @@ class DimReduction(object):
     def apply(self):
         #implement feature selection
         self.engen.dimred_data = self.transformed_data
+        self.engen.data = self.transformed_data
 
     def choose_n(self, n:int):
         self.component_number = n
@@ -91,7 +93,7 @@ class PCAReducer(DimReduction):
         variance = np.cumsum(pca_eigenvalues)/np.sum(pca_eigenvalues) * 100
         pca_num = 0
         for i, v in enumerate(variance):
-            if v >= var_thr:
+            if round(v, 4) >= var_thr:
                 pca_num = i
                 break
         print("PCA explained variance (with thr = {}) by first {} components".format(var_thr, pca_num))
@@ -119,11 +121,11 @@ class TICAReducer(DimReduction):
         self.tica_objs_ts = []
         for l in TICA_lagtimes:
             print("lag:",l)
-            tica_obj = pyemma.coordinates.tica(self.data, lag=l)
+            tica_obj = pyemma.coordinates.tica(self.data, lag=l, var_cutoff=1)
             self.tica_objs.append(tica_obj)
             tica_timescales = tica_obj.timescales
             self.tica_objs_ts.append(tica_timescales)
-        self.tice_obj = None
+        self.tica_obj = None
         self.transformed_data = None
         self.component_number = None
 
@@ -135,6 +137,7 @@ class TICAReducer(DimReduction):
         # Plot tica timescales as a function of lag time
         lags = self.TICA_lagtimes
         nlags = len(lags)
+        timescale_num = min(timescale_num, self.tica_objs_ts[0].shape[0])
         ts_list = np.zeros((nlags, timescale_num))
         for i, lag in enumerate(lags):
             timescales = self.tica_objs_ts[i]
@@ -149,7 +152,7 @@ class TICAReducer(DimReduction):
         if not save_loc == None: plt.savefig(save_loc)
 
     def choose_lag(self, lag:int, tic_thr:int=None):
-        self.tica_obj = pyemma.coordinates.tica(self.data, lag=lag)
+        self.tica_obj = pyemma.coordinates.tica(self.data, lag=lag, var_cutoff=1)
         self.reducer = self.tica_obj
         self.transformed_data = self.tica_obj.get_output()[0]
 
@@ -168,8 +171,8 @@ class TICAReducer(DimReduction):
         lag_num = len(self.TICA_lagtimes)
         best_lags = []
         #for all processes 
-        for i in range(len(self.tica_objs_ts[0])):
-            process_ts = np.array(self.tica_objs_ts)[:,i]
+        for i in range(lag_num):
+            process_ts = [ts[i] for ts in self.tica_objs_ts]
 
             #if process time scale is below lagtime - do not count it
             if process_ts[-1] < self.TICA_lagtimes[-1]:
@@ -188,11 +191,14 @@ class TICAReducer(DimReduction):
             optimal_lag = self.TICA_lagtimes[optimal_j]
             best_lags.append(optimal_lag)
 
-        print(best_lags)
+        if len(best_lags) == 0:
+            print("No lags found appropriate - adjust your list of lags (make upper bound lower).")
+            return None
+
         best_lag = int(min(best_lags))
         best_lag_index = self.TICA_lagtimes.index(best_lag)
         print("Chosen lag time: {}".format(best_lag))
-        self.tica_obj = pyemma.coordinates.tica(self.data, lag=best_lag)
+        self.tica_obj = pyemma.coordinates.tica(self.data, lag=best_lag, var_cutoff=1)
         self.reducer = self.tica_obj
         self.transformed_data = self.tica_obj.get_output()[0]
         res_proc_n = i
@@ -201,6 +207,7 @@ class TICAReducer(DimReduction):
         print("Number of clearly resolved processes with TICA: {}".format(len(res_ps)))
         print("Processes (index, timescale): ")
         print(res_ps)
+        self.choose_lag(best_lag)
         return best_lag
     
     def plot_2d(self, save_loc:str=None) -> None:
@@ -251,7 +258,7 @@ class TICAReducer(DimReduction):
         variance = np.cumsum(tica_eigenvalues**2)/ np.sum(tica_eigenvalues**2)*100
         tica_num = 0
         for i, v in enumerate(variance):
-            if v >= var_thr:
+            if round(v, 4) >= var_thr:
                 tica_num = i
                 break
         print("TICA explained variance (with thr = {}) by first {} components".format(var_thr, tica_num))
@@ -264,6 +271,8 @@ class HDEReducer(DimReduction):
         
         super().__init__()
         
+        tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+
         if engen.data == None:
             raise Exception("No data generated with this EnGen!")
 

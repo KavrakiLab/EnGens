@@ -72,7 +72,8 @@ class TestEnGens(unittest.TestCase):
     def test_default_featurize_init(self):
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
-        engen = EnGen(test_traj, test_top)
+        select_expression = [i for i in range(50)]
+        engen = EnGen(test_traj, test_top, select_expression)
         engen.init_featurizers_default()
         self.assertEquals(len(engen.featurizers), 3)
 
@@ -90,7 +91,8 @@ class TestEnGens(unittest.TestCase):
     def test_feat_describe(self):
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
-        engen = EnGen(test_traj, test_top)
+        select_expression = [i for i in range(50)]
+        engen = EnGen(test_traj, test_top, select_expression)
         engen.init_featurizers_default()
         res_desc = engen.describe_featurizers()
         self.assertTrue(not res_desc == "")
@@ -99,7 +101,8 @@ class TestEnGens(unittest.TestCase):
         print(os.listdir("."))
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
-        engen = EnGen(test_traj, test_top)
+        select_expression = [i for i in range(50)]
+        engen = EnGen(test_traj, test_top, select_expression)
         engen.init_featurizers_default()
         engen.reset_featurizers()
         self.assertTrue(len(engen.featurizers) == 0)
@@ -108,7 +111,8 @@ class TestEnGens(unittest.TestCase):
     def test_feat_names(self):
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
-        engen = EnGen(test_traj, test_top)
+        select_expression = [i for i in range(50)]
+        engen = EnGen(test_traj, test_top, select_expression)
         engen.init_featurizers_default()
         self.assertTrue(len(engen.featurizer_names) == 3)
         print(engen.featurizer_names)
@@ -117,7 +121,8 @@ class TestEnGens(unittest.TestCase):
     def test_choose_feat(self):
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
-        engen = EnGen(test_traj, test_top)
+        select_expression = [i for i in range(50)]
+        engen = EnGen(test_traj, test_top, select_expression)
         engen.init_featurizers_default()
         featsel = fs.UserFeatureSelection(2, engen)
         featsel.select_feature()
@@ -129,11 +134,11 @@ class TestEnGens(unittest.TestCase):
     def test_choose_vamp(self):
         test_top = "./tests/ExampleProt.pdb"
         test_traj = "./tests/ExampleTraj.xtc"
-        select_expression = "residue>27 and residue<34 or residue>50 and residue<58 or residue>91 and residue<105"
+        select_expression = "residue>0 and residue<20"
         engen = EnGen(test_traj, test_top, select_expression)
         engen.init_featurizers_default()
-        lags = [5, 10]
-        dims = [2, 5]
+        lags = [10, 15]
+        dims = [10, 11]
         featsel = fs.VAMP2FeatureSelection(lags, dims, engen)
         featsel.select_feature()
         self.assertNotEqual(engen.chosen_feat_index, None)

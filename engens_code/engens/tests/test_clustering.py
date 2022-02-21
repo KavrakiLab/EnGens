@@ -39,19 +39,21 @@ class TestClust(unittest.TestCase):
         params = [{"n_clusters":i} for i in range(2, 6)]
         clustering.cluster_multiple_params(params)
         clustering.choose_param(3)
+        clustering.choose_n(3)
         clustering.choose_conformations()
         clustering.extract_conformations(".")
         for i, elem in enumerate(clustering.chosen_frames):
-            self.assertTrue(clustering.labels[clustering.chosen_param_index][elem] == clustering.chosen_cluster_ids[i])
+            self.assertTrue(clustering.labels[clustering.chosen_index][elem] == clustering.chosen_cluster_ids[i])
         #test GMM
         clustering = ClusterGMM(self.engen, n_rep=3)
         params = [{"n_components":i} for i in range(2, 6)]
         clustering.cluster_multiple_params(params)
         clustering.choose_param(3)
+        clustering.choose_n(3)
         clustering.choose_conformations()
         clustering.extract_conformations(".")
         for i, elem in enumerate(clustering.chosen_frames):
-            self.assertTrue(clustering.labels[clustering.chosen_param_index][elem] == clustering.chosen_cluster_ids[i])
+            self.assertTrue(clustering.labels[clustering.chosen_index][elem] == clustering.chosen_cluster_ids[i])
         
 
 
