@@ -35,7 +35,7 @@ class PCAReducer(DimReduction):
     def __init__(self, engen:EnGen) -> None:
         
         super().__init__()
-        if engen.data == None:
+        if engen.data is None:
             raise Exception("No data generated with this EnGen!")
             return
         if engen.chosen_feat_index == -1:
@@ -58,7 +58,7 @@ class PCAReducer(DimReduction):
         pyemma.plots.plot_free_energy(y[:,0], y[:,1], cbar=True)
         plt.xlabel("PC1")
         plt.ylabel("PC2")
-        if not save_loc == None: plt.savefig(save_loc)
+        if not save_loc is None: plt.savefig(save_loc)
 
     def plot_3d(self, save_loc:str=None) -> None:
         # Plot PC1, PC2, PC3
@@ -69,7 +69,7 @@ class PCAReducer(DimReduction):
                                                 color='DarkSlateGrey')),
                         selector=dict(mode='markers'))
         fig.show()
-        if not save_loc == None: fig.write_image(save_loc)
+        if not save_loc is None: fig.write_image(save_loc)
 
     def plot_variance(self, var_thr=90, save_loc:str=None)->None:
         pca_eigenvalues = self.reducer.eigenvalues
@@ -84,7 +84,7 @@ class PCAReducer(DimReduction):
         plt.xlabel("Principal Components (Eigenvalue Index)")
         plt.ylabel("Variance explained (%) (Eigenvalue)")
         plt.title("PCA explained variance (with thr = {})".format(var_thr))
-        if not save_loc == None: plt.savefig(save_loc)
+        if not save_loc is None: plt.savefig(save_loc)
 
         print("Total of "+str(v)+"% of variance explaned by first "+str(pca_num)+" PCs.")
 
@@ -107,7 +107,7 @@ class TICAReducer(DimReduction):
         
         super().__init__()
         
-        if engen.data == None:
+        if engen.data is None:
             raise Exception("No data generated with this EnGen!")
             return
         if engen.chosen_feat_index == -1:
@@ -149,7 +149,7 @@ class TICAReducer(DimReduction):
         plt.xlabel('Lag time (ns)')
         plt.fill_between(lags, 1, lags, facecolor='Gray')
         plt.axvline(chosen_lag, linewidth=2, color='black')
-        if not save_loc == None: plt.savefig(save_loc)
+        if not save_loc is None: plt.savefig(save_loc)
 
     def choose_lag(self, lag:int, tic_thr:int=None):
         self.tica_obj = pyemma.coordinates.tica(self.data, lag=lag, var_cutoff=1)
@@ -212,16 +212,16 @@ class TICAReducer(DimReduction):
     
     def plot_2d(self, save_loc:str=None) -> None:
         
-        if self.tica_obj == None: raise Exception("Lag not chosen!")
+        if self.tica_obj is None: raise Exception("Lag not chosen!")
         y = self.transformed_data
         Y_concat = y
         pyemma.plots.plot_free_energy(Y_concat[:,0], Y_concat[:,1], cbar=True)
         plt.xlabel("TIC1")
         plt.ylabel("TIC2")
-        if not save_loc == None: plt.savefig(save_loc)
+        if not save_loc is None: plt.savefig(save_loc)
 
     def plot_3d(self, save_loc:str=None) -> None:
-        if self.tica_obj == None: raise Exception("Lag not chosen!")
+        if self.tica_obj is None: raise Exception("Lag not chosen!")
         # Plot PC1, PC2, PC3
         y = self.transformed_data
         fig = px.scatter_3d(x=y[:,0], y=y[:,1], z=y[:,2], color=list(range(y.shape[0])))
@@ -231,11 +231,11 @@ class TICAReducer(DimReduction):
                         selector=dict(mode='markers'))
         fig.layout.coloraxis.colorbar.title = 'frame number'
         fig.show()
-        if not save_loc == None: fig.write_image(save_loc)
+        if not save_loc is None: fig.write_image(save_loc)
 
     def plot_variance(self, var_thr=90, save_loc:str=None)->None:
         
-        if self.tica_obj == None: raise Exception("Lag not chosen!")
+        if self.tica_obj is None: raise Exception("Lag not chosen!")
         tica_eigenvalues = self.tica_obj.eigenvalues
         variance = np.cumsum(tica_eigenvalues**2)/ np.sum(tica_eigenvalues**2)*100
         tica_num = 0
@@ -249,11 +249,11 @@ class TICAReducer(DimReduction):
         plt.ylabel("Kinetic variance explained (%) (Eigenvalue^2)")
         plt.axvline(tica_num, color='red')
         print("Total of "+str(v)+"% of variance explaned by first "+str(tica_num)+" ICs.")
-        if not save_loc == None: plt.savefig(save_loc)
+        if not save_loc is None: plt.savefig(save_loc)
         
     def get_variance(self, var_thr=90, save_loc:str=None)->None:
         
-        if self.tica_obj == None: raise Exception("Lag not chosen!")
+        if self.tica_obj is None: raise Exception("Lag not chosen!")
         tica_eigenvalues = self.tica_obj.eigenvalues
         variance = np.cumsum(tica_eigenvalues**2)/ np.sum(tica_eigenvalues**2)*100
         tica_num = 0
@@ -273,7 +273,7 @@ class HDEReducer(DimReduction):
         
         tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
-        if engen.data == None:
+        if engen.data is None:
             raise Exception("No data generated with this EnGen!")
 
         if engen.chosen_feat_index == -1:
@@ -325,7 +325,7 @@ class HDEReducer(DimReduction):
         plt.xlabel('Lag time (ns)')
         plt.fill_between(lags, 1, lags, facecolor='Gray')
         plt.axvline(chosen_lag, linewidth=2, color='black')
-        if not save_loc == None: plt.savefig(save_loc)
+        if not save_loc is None: plt.savefig(save_loc)
 
     def choose_lag(self, lag:int, n_comp:int=20):
         self.hde_obj = HDE(
@@ -405,15 +405,15 @@ class HDEReducer(DimReduction):
     
     def plot_2d(self, save_loc:str=None) -> None:
         
-        if self.hde_obj == None: raise Exception("Lag not chosen!")
+        if self.hde_obj is None: raise Exception("Lag not chosen!")
         y = self.transformed_data
         pyemma.plots.plot_free_energy(y[:,0], y[:,1], cbar=True)
         plt.xlabel("HDE-C1")
         plt.ylabel("HDE-C2")
-        if not save_loc == None: plt.savefig(save_loc)
+        if not save_loc is None: plt.savefig(save_loc)
 
     def plot_3d(self, save_loc:str=None) -> None:
-        if self.hde_obj == None: raise Exception("Lag not chosen!")
+        if self.hde_obj is None: raise Exception("Lag not chosen!")
         # Plot PC1, PC2, PC3
         y = self.transformed_data
         fig = px.scatter_3d(x=y[:,0], y=y[:,1], z=y[:,2], color=list(range(y.shape[0])))
@@ -423,7 +423,7 @@ class HDEReducer(DimReduction):
                         selector=dict(mode='markers'))
         fig.layout.coloraxis.colorbar.title = 'frame number'
         fig.show()
-        if not save_loc == None: fig.write_image(save_loc)
+        if not save_loc is None: fig.write_image(save_loc)
 
 
 dimreds = {
