@@ -1,0 +1,253 @@
+msg during HDE processing
+
+Transforming with HDE - might take some time!
+lag: 1
+number of components: 50
+feat shape: 309
+data shape: 3000
+
+/usr/local/lib/python3.6/site-packages/keras/optimizer_v2/optimizer_v2.py:356: UserWarning:
+
+The `lr` argument is deprecated, use `learning_rate` instead.
+
+/usr/local/lib/python3.6/site-packages/hde/hde.py:265: RuntimeWarning:
+
+invalid value encountered in log
+
+lag: 5
+number of components: 50
+feat shape: 309
+data shape: 3000
+...
+
+=====================================================================
+RESULTS
+=====================================================================
+
+Binding site: residues at 6A around adenosine (ligand) in structure 2YDO
+Selection: 7:at-f or 61:at-f or 64:at-f or 65:at-f or 79:at-f or 82:at-f or 83:at-f or 86:at-f or 87:at-f or 165:at-f or 166:at-f or 167:at-f or 175:at-f or 179:at-f or 244:at-f or 247:at-f or 248:at-f or 250:at-f or 251:at-f or 263:at-f or 268:at-f or 271:at-f or 272:at-f or 275:at-f or 276:at-f or 
+
+=================================================================================
+Data reduction: PCA
+Featurization: residue_COM&distances_ca
+Clustering: Elbow (2-100) - Kmeans
+
+18 clusters -> threshold 0.005 -> see below:
+
+1
+2
+5
+6
+7
+8
+9
+10
+11
+12
+14
+15
+16
+17
+Closest conformation inside cluster 1 frame 114 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 2 frame 809 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_1.pdb
+Closest conformation inside cluster 5 frame 1375 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_2.pdb
+Closest conformation inside cluster 6 frame 892 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_3.pdb
+Closest conformation inside cluster 7 frame 916 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_4.pdb
+Closest conformation inside cluster 8 frame 1695 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_5.pdb
+Closest conformation inside cluster 9 frame 594 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_6.pdb
+Closest conformation inside cluster 10 frame 1214 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_7.pdb
+Closest conformation inside cluster 11 frame 2132 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_8.pdb
+Closest conformation inside cluster 12 frame 642 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_9.pdb
+Closest conformation inside cluster 14 frame 1915 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_10.pdb
+Closest conformation inside cluster 15 frame 894 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_11.pdb
+Closest conformation inside cluster 16 frame 1754 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_12.pdb
+Closest conformation inside cluster 17 frame 1304 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_kmeans_0.05/conf_in_cluster_13.pdb
+
+=================================================================================
+Data reduction: PCA
+Featurization: residue_COM&distances_ca
+Clustering: Silhouette - Kmeans
+
+0
+1
+Closest conformation inside cluster 0 frame 348 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_silhouette_kmeans_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 1 frame 1229 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_silhouette_kmeans_0.05/conf_in_cluster_1.pdb
+
+=================================================================================
+Data reduction: PCA
+Featurization: residue_COM&distances_ca
+Clustering: Elbow (2-100) - GMMs
+
+06 clusters -> threshold 0.005 -> see below:
+
+0
+1
+2
+3
+4
+5
+Closest conformation inside cluster 0 frame 113 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_GMMs_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 1 frame 2181 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_GMMs_0.05/conf_in_cluster_1.pdb
+Closest conformation inside cluster 2 frame 1414 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_GMMs_0.05/conf_in_cluster_2.pdb
+Closest conformation inside cluster 3 frame 916 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_GMMs_0.05/conf_in_cluster_3.pdb
+Closest conformation inside cluster 4 frame 348 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_GMMs_0.05/conf_in_cluster_4.pdb
+Closest conformation inside cluster 5 frame 2793 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_elbow_GMMs_0.05/conf_in_cluster_5.pdb
+
+=================================================================================
+Data reduction: PCA
+Featurization: residue_COM&distances_ca
+Clustering: Silhouette - GMMs
+
+0
+1
+Closest conformation inside cluster 0 frame 1229 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_silhouette_GMMs_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 1 frame 154 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_PCA_silhouette_GMMs_0.05/conf_in_cluster_1.pdb
+
+=================================================================================
+Data reduction: TICA
+Featurization: residue_COM&distances_ca
+Clustering: Elbow (2-100) - Kmeans
+
+27 clusters -> threshold 0.005 -> see below:
+
+Closest conformation inside cluster 0 frame 876 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 1 frame 1417 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_1.pdb
+Closest conformation inside cluster 2 frame 2970 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_2.pdb
+Closest conformation inside cluster 4 frame 1842 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_3.pdb
+Closest conformation inside cluster 7 frame 2424 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_4.pdb
+Closest conformation inside cluster 8 frame 2110 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_5.pdb
+Closest conformation inside cluster 10 frame 36 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_6.pdb
+Closest conformation inside cluster 13 frame 2807 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_7.pdb
+Closest conformation inside cluster 14 frame 1610 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_8.pdb
+Closest conformation inside cluster 15 frame 2299 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_9.pdb
+Closest conformation inside cluster 16 frame 1081 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_kmeans_0.05/conf_in_cluster_10.pdb
+
+=================================================================================
+Data reduction: TICA
+Featurization: residue_COM&distances_ca
+Clustering: Silhouette - Kmeans
+
+0
+1
+2
+Closest conformation inside cluster 0 frame 858 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA__silhouette_kmeans_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 1 frame 1590 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA__silhouette_kmeans_0.05/conf_in_cluster_1.pdb
+Closest conformation inside cluster 2 frame 1107 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA__silhouette_kmeans_0.05/conf_in_cluster_2.pdb
+
+=================================================================================
+Data reduction: TICA
+Featurization: residue_COM&distances_ca
+Clustering: Elbow (2-100) - GMMs
+
+26 clusters -> threshold 0.005 -> see below:
+
+3
+16
+21
+24
+Closest conformation inside cluster 3 frame 2381 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_silhouette_GMMs_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 16 frame 2424 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_silhouette_GMMs_0.05/conf_in_cluster_1.pdb
+Closest conformation inside cluster 21 frame 2970 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_silhouette_GMMs_0.05/conf_in_cluster_2.pdb
+Closest conformation inside cluster 24 frame 2498 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_silhouette_GMMs_0.05/conf_in_cluster_3.pdb
+
+=================================================================================
+Data reduction: TICA
+Featurization: residue_COM&distances_ca
+Clustering: Silhouette - GMMs
+
+0
+1
+2
+Closest conformation inside cluster 0 frame 858 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_silhouette_GMMs_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 1 frame 1590 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_silhouette_GMMs_0.05/conf_in_cluster_1.pdb
+Closest conformation inside cluster 2 frame 1107 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_TICA_silhouette_GMMs_0.05/conf_in_cluster_2.pdb
+
+=================================================================================
+Data reduction: HDE
+Featurization: residue_COM&distances_ca
+Clustering: Elbow (2-100) - Kmeans
+
+28 clusters -> threshold 0.005 -> see below:
+
+6
+Closest conformation inside cluster 6 frame 1444 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_HDE_elbow_kmeans_0.05/conf_in_cluster_0.pdb
+
+=================================================================================
+Data reduction: HDE
+Featurization: residue_COM&distances_ca
+Clustering: Silhouette - Kmeans
+
+0
+1
+Closest conformation inside cluster 0 frame 1419 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_HDE_silhouette_kmeans_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 1 frame 858 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_HDE_silhouette_kmeans_0.05/conf_in_cluster_1.pdb
+
+=================================================================================
+Data reduction: HDE
+Featurization: residue_COM&distances_ca
+Clustering: Elbow (2-100) - GMMs
+
+53 clusters -> threshold 0.005 -> 0 (zero clusters)
+
+
+=================================================================================
+Data reduction: HDE
+Featurization: residue_COM&distances_ca
+Clustering: Silhouette - GMMs
+
+0
+1
+Closest conformation inside cluster 0 frame 1419 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_HDE_silhouette_GMMs_0.05/conf_in_cluster_0.pdb
+Closest conformation inside cluster 1 frame 858 of the striped trajectory
+Extracting and saving to ./res_ensemble_6A_HDE_silhouette_GMMs_0.05/conf_in_cluster_1.pdb
+
+================================================================================

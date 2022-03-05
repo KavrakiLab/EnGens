@@ -1,0 +1,13 @@
+,id,dimred,feat,clust,thr,conf_cnt,conf_cnt_pre_thr
+0,0,PCA,residue_COM&distances_ca,Elbow (2-100) - Kmeans,0.005,14,18
+1,1,PCA,residue_COM&distances_ca,Silhouette - Kmeans,-,2,no thr
+2,2,PCA,residue_COM&distances_ca,Elbow (2-100) - GMMs,0.005,6,6
+3,3,PCA,residue_COM&distances_ca,Silhouette - GMMs,-,2,no thr
+4,4,TICA,residue_COM&distances_ca,Elbow (2-100) - Kmeans,0.005,11,27
+5,5,TICA,residue_COM&distances_ca,Silhouette - Kmeans,-,3,no thr
+6,6,TICA,residue_COM&distances_ca,Elbow (2-100) - GMMs,0.005,4,26
+7,7,TICA,residue_COM&distances_ca,Silhouette - GMMs,-,3,no thr
+8,8,HDE,residue_COM&distances_ca,Elbow (2-100) - Kmeans,0.005,1,28
+9,9,HDE,residue_COM&distances_ca,Silhouette - Kmeans,-,2,no thr
+10,10,HDE,residue_COM&distances_ca,Elbow (2-100) - GMMs,0.005,0,53
+11,11,HDE,residue_COM&distances_ca,Silhouette - GMMs,-,2,no thr
