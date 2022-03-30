@@ -1,0 +1,54 @@
+MODEL        0
+ATOM      1  N   ILE A   1      34.620  44.140  89.950  1.00  0.00      at-f N  
+ATOM      2  CA  ILE A   1      35.690  44.160  88.930  1.00  0.00      at-f C  
+ATOM      3  CB  ILE A   1      36.700  45.210  89.400  1.00  0.00      at-f C  
+ATOM      4  CG1 ILE A   1      37.750  45.500  88.320  1.00  0.00      at-f C  
+ATOM      5  CG2 ILE A   1      37.380  44.920  90.740  1.00  0.00      at-f C  
+ATOM      6  CD1 ILE A   1      37.450  46.710  87.440  1.00  0.00      at-f C  
+ATOM      7  C   ILE A   1      36.250  42.750  88.750  1.00  0.00      at-f C  
+ATOM      8  O   ILE A   1      37.440  42.560  88.990  1.00  0.00      at-f O  
+ATOM      9  N   MET A   2      35.470  41.700  88.560  1.00  0.00      at-f N  
+ATOM     10  CA  MET A   2      36.060  40.360  88.740  1.00  0.00      at-f C  
+ATOM     11  CB  MET A   2      35.800  39.920  90.180  1.00  0.00      at-f C  
+ATOM     12  CG  MET A   2      36.950  39.120  90.800  1.00  0.00      at-f C  
+ATOM     13  SD  MET A   2      38.360  40.190  91.260  1.00  0.00      at-f S  
+ATOM     14  CE  MET A   2      39.640  39.120  90.620  1.00  0.00      at-f C  
+ATOM     15  C   MET A   2      35.560  39.360  87.700  1.00  0.00      at-f C  
+ATOM     16  O   MET A   2      36.060  39.380  86.570  1.00  0.00      at-f O  
+ATOM     17  N   GLY A   3      34.520  38.640  88.090  1.00  0.00      at-f N  
+ATOM     18  CA  GLY A   3      33.780  37.710  87.230  1.00  0.00      at-f C  
+ATOM     19  C   GLY A   3      32.640  38.390  86.470  1.00  0.00      at-f C  
+ATOM     20  O   GLY A   3      31.530  38.330  87.000  1.00  0.00      at-f O  
+ATOM     21  N   SER A   4      32.860  39.060  85.340  1.00  0.00      at-f N  
+ATOM     22  CA  SER A   4      31.700  39.530  84.570  1.00  0.00      at-f C  
+ATOM     23  CB  SER A   4      31.510  41.020  84.320  1.00  0.00      at-f C  
+ATOM     24  OG  SER A   4      30.300  41.220  83.590  1.00  0.00      at-f O  
+ATOM     25  C   SER A   4      31.690  38.840  83.200  1.00  0.00      at-f C  
+ATOM     26  O   SER A   4      32.420  39.240  82.300  1.00  0.00      at-f O  
+ATOM     27  N   SER A   5      30.790  37.870  83.090  1.00  0.00      at-f N  
+ATOM     28  CA  SER A   5      30.990  36.980  81.930  1.00  0.00      at-f C  
+ATOM     29  CB  SER A   5      30.560  35.540  82.200  1.00  0.00      at-f C  
+ATOM     30  OG  SER A   5      31.040  34.650  81.190  1.00  0.00      at-f O  
+ATOM     31  C   SER A   5      30.360  37.560  80.660  1.00  0.00      at-f C  
+ATOM     32  O   SER A   5      29.720  36.830  79.890  1.00  0.00      at-f O  
+ATOM     33  N   VAL A   6      30.300  38.880  80.500  1.00  0.00      at-f N  
+ATOM     34  CA  VAL A   6      30.070  39.560  79.220  1.00  0.00      at-f C  
+ATOM     35  CB  VAL A   6      29.130  40.770  79.230  1.00  0.00      at-f C  
+ATOM     36  CG1 VAL A   6      28.830  41.220  77.800  1.00  0.00      at-f C  
+ATOM     37  CG2 VAL A   6      27.830  40.520  80.000  1.00  0.00      at-f C  
+ATOM     38  C   VAL A   6      31.420  39.900  78.590  1.00  0.00      at-f C  
+ATOM     39  O   VAL A   6      31.410  39.750  77.370  1.00  0.00      at-f O  
+ATOM     40  N   TYR A   7      32.500  40.060  79.360  1.00  0.00      at-f N  
+ATOM     41  CA  TYR A   7      33.780  40.340  78.710  1.00  0.00      at-f C  
+ATOM     42  CB  TYR A   7      34.940  40.870  79.560  1.00  0.00      at-f C  
+ATOM     43  CG  TYR A   7      36.040  41.660  78.840  1.00  0.00      at-f C  
+ATOM     44  CD1 TYR A   7      36.110  41.760  77.460  1.00  0.00      at-f C  
+ATOM     45  CD2 TYR A   7      37.070  42.220  79.590  1.00  0.00      at-f C  
+ATOM     46  CE1 TYR A   7      37.230  42.290  76.820  1.00  0.00      at-f C  
+ATOM     47  CE2 TYR A   7      38.200  42.690  78.930  1.00  0.00      at-f C  
+ATOM     48  CZ  TYR A   7      38.320  42.760  77.550  1.00  0.00      at-f C  
+ATOM     49  OH  TYR A   7      39.350  43.440  76.990  1.00  0.00      at-f O  
+ATOM     50  C   TYR A   7      34.240  39.090  77.970  1.00  0.00      at-f C  
+TER      51      TYR A   7
+ENDMDL
+END

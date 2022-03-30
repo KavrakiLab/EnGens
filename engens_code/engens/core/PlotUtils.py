@@ -23,30 +23,35 @@ import pytraj as pt
 
 class PlotUtils(object):
 
-    def __init__(self, engen:EnGen, clust: ClustEn, file_loc: str = "./") -> None:
+    def __init__(self, engen:EnGen, clust: ClustEn, file_loc: str = "./", stride: int = 1) -> None:
         self.engen = engen
         self.clust = clust
         self.root_loc = file_loc
+        self.stride = stride
         if not os.path.exists(self.root_loc):
             os.makedirs(self.root_loc)
 
         # (x,y) coordinates of the transformed data
-        self.x = engen.dimred_data[:,0]
-        self.y =  engen.dimred_data[:,1]
+        self.x = engen.dimred_data[::self.stride,0]
+        self.y =  engen.dimred_data[::self.stride,1]
 
         # number of cluster representative
         self.rep_fnum = np.array(clust.chosen_frames).flatten()
         
         # (x,y) coordinates of cluster representative
-        self.rep_x = self.x[self.rep_fnum]
-        self.rep_y = self.y[self.rep_fnum]
+        self.rep_x = engen.dimred_data[::,0][self.rep_fnum]
+        self.rep_y = engen.dimred_data[::,1][self.rep_fnum]
 
     def view_timeline(self):
         pfig = go.Figure()
-        scatter = go.Scatter(x=list(range(5001)), y=self.clust.labels[self.clust.chosen_index],              
+        clust_data = self.clust.labels[self.clust.chosen_index]
+        clust_data_chosen = clust_data[::self.stride]
+
+        x_linspace = np.arange(start = 1, stop = clust_data.shape[0], step = self.stride)
+        scatter = go.Scatter(x=x_linspace, y=clust_data_chosen,              
                 marker=dict(
                     size=3,
-                    color=self.clust.labels[self.clust.chosen_index],
+                    color=clust_data_chosen,
                     colorscale="Viridis"
                 ),
             mode="markers"
@@ -73,15 +78,19 @@ class PlotUtils(object):
 
     def view_PCs(self):
         marker_labels = []
-        lablist = list(self.clust.labels[self.clust.chosen_index])
+        clust_data = self.clust.labels[self.clust.chosen_index]
+        clust_data_chosen = clust_data if self.stride == 0 else clust_data[::self.stride]
+        lablist = list(clust_data_chosen)
+        frame_ids = np.arange(0,clust_data.shape[0], step=self.stride)
+
         for i, elem in enumerate(lablist):
-            marker_labels.append("cluster="+str(elem)+" \n frame="+str(i))
+            marker_labels.append("cluster="+str(elem)+" \n frame="+str(frame_ids[i]))
         
         pfig = go.Figure()
         scatter = go.Scatter(x=self.x, y=self.y,              
                 marker=dict(
                     size=3,
-                    color=self.clust.labels[self.clust.chosen_index],
+                    color=clust_data_chosen,
                     colorscale="Viridis"
                 ),
             mode="markers",

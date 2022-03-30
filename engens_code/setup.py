@@ -5,7 +5,7 @@ setuptools.setup(
      version='0.0',
      scripts=[] ,
      author="kavrakilab&antuneslab",
-     author_email="ac121t@rice.edu",
+     author_email="ac121@rice.edu",
      description="Ensemble Genration Package",
      long_description="Ensemble Genration Package",
    long_description_content_type="text/markdown",

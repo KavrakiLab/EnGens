@@ -8,8 +8,10 @@ engens/core/ClustEn.py
 engens/core/DimReduction.py
 engens/core/EnGens.py
 engens/core/FeatureSelector.py
+engens/core/PlotUtils.py
 engens/core/__init__.py
 engens/tests/__init__.py
 engens/tests/test_EnGens.py
 engens/tests/test_clustering.py
 engens/tests/test_dimreduction.py
+engens/tests/test_plots.py
