@@ -11,6 +11,7 @@ import numpy as np
 import tqdm
 import importlib
 import nglview
+from Bio import PDB
 from subprocess import call
 
 '''
@@ -19,7 +20,12 @@ EnGen - the main class for ensemble generation and analysis
 
 class EnGen(object):
 
-    def __init__(self, trajectory, topology, topology_select=None, align=False, chunk_size=1000):
+    def __init__(self, trajectory, topology, 
+                topology_select=None,
+                cryst_pdb_list = False,
+                file_names = None, 
+                align=False, 
+                chunk_size=1000):
         """ generates and visualizes conformational ensembles for ensemble docking
         
         Parameters
@@ -31,6 +37,10 @@ class EnGen(object):
         topology_select: str | list, default = None
             a select string that indicates what part of the topology is relevant for featurization
             or an array of atom indices of interest (as required by mdtraj)
+        cryst_pdb_list: boolean, default = False
+            is your input a list of crystal structure files??
+        file_names: list, default = None
+            if your input is the list of PDB files, provide the list here
         align: boolean, default = False
             specify if you wish to align the given trajectory before analyzing
         chunk_size: int, default = 1000
@@ -49,13 +59,33 @@ class EnGen(object):
         self._selection_indices = None
         self.chunk_size = chunk_size
         self.mdtrajref = mdtraj.load(self.ref).topology
+        self.crystal_flag = cryst_pdb_list
+        self.pdb_files = file_names
+        self.pdb_list = None
+        self.mdtraj_list = []
 
-        if align:
+        if align or cryst_pdb_list:
             traj_new = trajectory[:trajectory.rfind(".")]+"-aligned.xtc"
             self.align_trajectory(traj_new)
             self.traj = traj_new
             self.traj_name = traj_new
             self.full_traj_name = traj_new
+
+        if align and cryst_pdb_list:
+            self.align_pdb_files()
+
+
+        if self.crystal_flag and self.refrestraint is None:
+            self.pdb_list = []
+            self.mdtraj_list = []
+            for elem in tqdm.tqdm(self.pdb_files, "Loading files (might take a while)"):
+                elem_frame = mdtraj.load(elem)
+                elem_frame_dst = elem[:-4]+"_tmp.xtc"
+                elem_frame.save(elem_frame_dst)
+                self.mdtraj_list.append(elem_frame)
+                pyemma_frame = pyemma.coordinates.source(elem_frame_dst, top=elem)
+                self.pdb_list.append(pyemma_frame)
+
 
         # load a restrained trajectory based on a selection/list/None
         if isinstance(self.refrestraint, str):
@@ -115,6 +145,37 @@ class EnGen(object):
             raise Exception("Topology restraint must be a string")
         self._refrestraint = r
     
+
+    def align_pdb_files(self):
+
+        parser = PDB.PDBParser(QUIET = True)
+        # first structure as reference structure
+        ref_structure = parser.get_structure("tmp_ref", self.pdb_files[0])
+        ref_atoms = [] # only align C- alpha
+        # Iterate of all chains in the model in order to find all residues
+        for ref_chain in ref_structure[0]:
+            # Iterate of all residues in each model in order to find proper atoms
+            for ref_res in ref_chain:
+                ref_atoms.append(ref_res['CA'])
+
+        for elem in tqdm.tqdm(self.pdb_files, "Aligning pdb files (might take a while)"):
+            sample_structure = parser.get_structure("tmp_sample", elem)
+            sample_model = sample_structure[0]
+            sample_atoms = [] # only Calpha
+            for sample_chain in sample_model:
+                for sample_res in sample_chain:
+                    sample_atoms.append(sample_res['CA'])
+            # Now we initiate the superimposer:
+            super_imposer = PDB.Superimposer()
+            super_imposer.set_atoms(ref_atoms, sample_atoms)
+            super_imposer.apply(sample_model.get_atoms())
+            # Save the aligned version of 1UBQ.pdb
+            io = PDB.PDBIO()
+            io.set_structure(sample_structure) 
+            io.save(elem[:-4]+"_algn.pdb")
+        
+        self.pdb_files = [ f[:-4]+"_algn.pdb" for f in self.pdb_files]
+
     def show_animated_traj(self):
         """
         Returns an animated nglview widget with the loaded trajectory
@@ -127,9 +188,28 @@ class EnGen(object):
         pt_traj = pt.load(self.traj_name, self.ref)
         widget = ngl.show_pytraj(pt_traj, gui=True)
         return widget
+
+    def select_atoms_pdb_list(self, selected_atoms):
+
+        self.pdb_list = []
+        old_files = self.pdb_files
+        self.pdb_files = []
+        self.mdtraj_list = []
+        for elem in tqdm.tqdm(old_files, "Loading PDB files with atom selection"):
+            elem_frame = mdtraj.load(elem, atom_indices= selected_atoms)
+            elem_frame_dst = elem[:-4]+"_tmp.xtc"
+            elem_frame.save(elem_frame_dst)
+            pyemma_frame = pyemma.coordinates.source(elem_frame_dst, top=elem_frame)
+            self.mdtraj_list.append(elem_frame)
+            self.pdb_list.append(pyemma_frame)
+            elem_frame_dst = elem[:-4]+"_tmp.pdb"
+            elem_frame.save(elem_frame_dst)
+            self.pdb_files.append(elem_frame_dst)
     
     def select_atoms_trajectory(self, selected_atoms):
-
+        
+        if self.crystal_flag:
+            self.select_atoms_pdb_list(selected_atoms)
         tmp_traj = mdtraj.iterload(self.traj, top=self.ref, atom_indices=selected_atoms)
          # see trajectory length
         tmp_pe = pyemma.coordinates.source(self.traj, top=self.ref)
@@ -240,16 +320,31 @@ class EnGen(object):
                 "add_feature_func_name" should be an add function of pyemma.coordinates.featurizer.MDFeaturizer
                 params should be parameters of the given function
         """
-        pyemma_feat = pyemma.coordinates.featurizer(self.mdtrajref) 
-        name = ""
-        for key, params in feats.items():
-            name+=key[len("add_"):]
-            name+="&"
-            func =  getattr(pyemma_feat, key)
-            func(**params)
-        name = name[:-1]
-        self.featurizer_names.append(name)
-        self.featurizers.append(pyemma_feat)
+        if self.crystal_flag:
+            pyemma_feat = []
+            for elem in tqdm.tqdm(self.pdb_files, "Adding featurizers per PDB file.."):
+                name = ""
+                tmp_top = pyemma.coordinates.featurizer(elem)
+                for key, params in feats.items():
+                    name+=key[len("add_"):]
+                    name+="&"
+                    func =  getattr(tmp_top, key)
+                    func(**params)
+                name = name[:-1]
+                pyemma_feat.append(tmp_top)
+            self.featurizer_names.append(name)
+            self.featurizers.append(pyemma_feat)
+        else:
+            pyemma_feat = pyemma.coordinates.featurizer(self.mdtrajref) 
+            name = ""
+            for key, params in feats.items():
+                name+=key[len("add_"):]
+                name+="&"
+                func =  getattr(pyemma_feat, key)
+                func(**params)
+            name = name[:-1]
+            self.featurizer_names.append(name)
+            self.featurizers.append(pyemma_feat)
 
     def add_pyemma_featurizer(self, pyemma_feat: pyemma.coordinates.data.MDFeaturizer, name: str):
         """
@@ -277,19 +372,28 @@ class EnGen(object):
         if not len(self.featurizers) == 0:
             return
 
-        default_feat1 = {
-            "add_residue_mindist": {"scheme":'closest-heavy'}
-        }
-        default_feat2 = {
-            "add_backbone_torsions": {"cossin":True, "periodic":False}
+        if not self.crystal_flag:
+            default_feat1 = {
+                "add_residue_mindist": {"scheme":'closest-heavy'}
+            }
+            default_feat2 = {
+                "add_backbone_torsions": {"cossin":True, "periodic":False}
 
-        }
-        default_feat3 = {
-            "add_backbone_torsions": {"cossin":True, "periodic":False},
-            "add_residue_mindist": {"scheme":'closest-heavy'}
+            }
+            default_feat3 = {
+                "add_backbone_torsions": {"cossin":True, "periodic":False},
+                "add_residue_mindist": {"scheme":'closest-heavy'}
 
-        }
-        default_feats = [default_feat1, default_feat2, default_feat3]
+            }
+        else:
+            
+            n_residues = min(mdtraj.load(file).top.n_residues for file in self.pdb_files)
+            all_resi = [i for i in range(n_residues)]
+            default_feat1 = {
+                "add_residue_COM": {"residue_indices":all_resi ,"scheme":'all'}
+            }
+
+        default_feats = [default_feat1]
 
         for feat_dict in default_feats:
             self.add_featurizer(feat_dict)
@@ -297,15 +401,39 @@ class EnGen(object):
     def apply_featurizations(self):
         self.data = []
         for f in self.featurizers:
-            self.data+=pyemma.coordinates.source(self.traj, features=f)
+            if not self.crystal_flag:
+                self.data+=pyemma.coordinates.source(self.traj, features=f)
+            else:
+                per_pdb_data = None
+                for i, elem in tqdm.tqdm(enumerate(self.mdtraj_list), "Applying featurization per PDB file"):
+                    tmp_name = self.pdb_files[i][:-4]+".xtc"
+                    elem.save(tmp_name)
+                    data = pyemma.coordinates.load(tmp_name, features=f[i])
+                    if per_pdb_data is None: 
+                        per_pdb_data = data
+                    else:
+                       per_pdb_data = np.vstack((per_pdb_data, data)) 
+                self.data.append((0, per_pdb_data))
+        # free this space
+        self.mdtraj_list = None
+        self.pdb_list = None
+
 
     def describe_featurizers(self):
         res = ""
-        for i, f in enumerate(self.featurizers):
-            res += "Featurizer no. "+str(i)+":\n "
-            res += self.featurizer_names[i] + "\n"
-            desc_tmp = f.describe()
-            res += str(desc_tmp[:10]) +"..." + str(desc_tmp[-10:]) +"\n "
+        if not self.crystal_flag:
+            for i, f in enumerate(self.featurizers):
+                res += "Featurizer no. "+str(i)+":\n "
+                res += self.featurizer_names[i] + "\n"
+                desc_tmp = f.describe()
+                res += str(desc_tmp[:10]) +"..." + str(desc_tmp[-10:]) +"\n "
+        else:
+            for i, f in enumerate(self.featurizers):
+                res += "Featurizer no. (residues may differ from file to file) "+str(i)+":\n "
+                res += self.featurizer_names[i] + "\n"
+                desc_tmp = f[i].describe()
+                res += str(desc_tmp[:10]) +"..." + str(desc_tmp[-10:]) +"\n "
+
         return res
 
 js_script = """

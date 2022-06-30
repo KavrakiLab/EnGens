@@ -43,38 +43,75 @@ class PlotUtils(object):
         self.rep_y = engen.dimred_data[::,1][self.rep_fnum]
 
     def view_timeline(self):
-        pfig = go.Figure()
-        clust_data = self.clust.labels[self.clust.chosen_index]
-        clust_data_chosen = clust_data[::self.stride]
+        if self.engen.crystal_flag == True:
+            # plot for crystals
+            pfig = go.Figure()
+            clust_data = self.clust.labels[self.clust.chosen_index]
+            clust_data_chosen = clust_data[::self.stride]
 
-        x_linspace = np.arange(start = 1, stop = clust_data.shape[0], step = self.stride)
-        scatter = go.Scatter(x=x_linspace, y=clust_data_chosen,              
-                marker=dict(
-                    size=3,
-                    color=clust_data_chosen,
-                    colorscale="Viridis"
-                ),
-            mode="markers"
-            )
-        pfig.add_trace(scatter)
-        colors = cm.viridis(np.linspace(0, self.clust.chosen_index+2, self.clust.chosen_index+2)/(self.clust.chosen_index+2))
-        for i, rf in enumerate(self.rep_fnum): 
-            atxt = "<b>C"+str(self.clust.labels[self.clust.chosen_index][rf])+"; F"+str(rf)+"</b>"
-            pfig.add_vline(x=rf, line_width=1, line_dash="dash", line_color="red")
-            pfig.add_annotation(text=atxt,
-                    x=rf, y=1.06, showarrow=False,
-                    xref="x", yref="paper",
-                    font=dict(
-                            color="rgb"+str(mc.to_rgb(colors[self.clust.labels[self.clust.chosen_index][rf]][:3]))
+            x_labs = [x for x in self.engen.pdb_files]
+
+            scatter = go.Scatter(x=x_labs, y=clust_data_chosen,              
+                    marker=dict(
+                        size=5,
+                        color=clust_data_chosen,
+                        colorscale="Viridis"
                     ),
-                    textangle=20)
-        pfig.update_layout(go.Layout(width=800, height=400),
-        xaxis_title="trajectory frames",
-        yaxis_title="cluster",
-        hovermode="x"
-                    )
-        pfig.update_yaxes(dtick="d")
-        iplot(pfig)
+                mode="markers"
+                )
+            pfig.add_trace(scatter)
+            colors = cm.viridis(np.linspace(0, self.clust.chosen_index+2, self.clust.chosen_index+2)/(self.clust.chosen_index+2))
+            for i, rf in enumerate(self.rep_fnum): 
+                atxt = "<b>C"+str(self.clust.labels[self.clust.chosen_index][rf])+"; F"+str(rf)+"</b>"
+                pfig.add_vline(x=rf, line_width=1, line_dash="dash", line_color="red")
+                pfig.add_annotation(text=atxt,
+                        x=rf, y=1.06, showarrow=False,
+                        xref="x", yref="paper",
+                        font=dict(
+                                color="rgb"+str(mc.to_rgb(colors[self.clust.labels[self.clust.chosen_index][rf]][:3]))
+                        ),
+                        textangle=20)
+            pfig.update_layout(go.Layout(width=800, height=400),
+            xaxis_title="pdb_files",
+            yaxis_title="cluster",
+            hovermode="x"
+                        )
+            pfig.update_yaxes(dtick="d")
+            iplot(pfig)
+        else:
+            #plot for trajectory
+            pfig = go.Figure()
+            clust_data = self.clust.labels[self.clust.chosen_index]
+            clust_data_chosen = clust_data[::self.stride]
+
+            x_linspace = np.arange(start = 1, stop = clust_data.shape[0], step = self.stride)
+            scatter = go.Scatter(x=x_linspace, y=clust_data_chosen,              
+                    marker=dict(
+                        size=3,
+                        color=clust_data_chosen,
+                        colorscale="Viridis"
+                    ),
+                mode="markers"
+                )
+            pfig.add_trace(scatter)
+            colors = cm.viridis(np.linspace(0, self.clust.chosen_index+2, self.clust.chosen_index+2)/(self.clust.chosen_index+2))
+            for i, rf in enumerate(self.rep_fnum): 
+                atxt = "<b>C"+str(self.clust.labels[self.clust.chosen_index][rf])+"; F"+str(rf)+"</b>"
+                pfig.add_vline(x=rf, line_width=1, line_dash="dash", line_color="red")
+                pfig.add_annotation(text=atxt,
+                        x=rf, y=1.06, showarrow=False,
+                        xref="x", yref="paper",
+                        font=dict(
+                                color="rgb"+str(mc.to_rgb(colors[self.clust.labels[self.clust.chosen_index][rf]][:3]))
+                        ),
+                        textangle=20)
+            pfig.update_layout(go.Layout(width=800, height=400),
+            xaxis_title="trajectory frames",
+            yaxis_title="cluster",
+            hovermode="x"
+                        )
+            pfig.update_yaxes(dtick="d")
+            iplot(pfig)
 
     def view_PCs(self):
         marker_labels = []
@@ -84,7 +121,10 @@ class PlotUtils(object):
         frame_ids = np.arange(0,clust_data.shape[0], step=self.stride)
 
         for i, elem in enumerate(lablist):
-            marker_labels.append("cluster="+str(elem)+" \n frame="+str(frame_ids[i]))
+            if self.engen.crystal_flag == True:
+                marker_labels.append("cluster="+str(elem)+" \n pdb file ="+str(self.engen.pdb_files[i]))
+            else:
+                marker_labels.append("cluster="+str(elem)+" \n frame="+str(frame_ids[i]))
         
         pfig = go.Figure()
         scatter = go.Scatter(x=self.x, y=self.y,              
@@ -148,7 +188,7 @@ class PlotUtils(object):
             clust_n = self.clust.labels[self.clust.chosen_index][self.clust.chosen_frames[i]] 
             name = "Cluster - "+str(clust_n)
             nw.add_component(os.path.join(path,pdb_file), name=name, default_representation=False, ext="pdb")
-            nw[i].add_ball_and_stick(color = mc.rgb2hex(colors[clust_n]))
+            nw[i].add_cartoon(color = mc.rgb2hex(colors[clust_n]))
         nw.center()
         return nw
 
@@ -158,18 +198,16 @@ class PlotUtils(object):
         def on_frame_change(change):
             frame = change['new']
             c = mc.rgb2hex(frame_colors[frame])
-            if repr == "cartoon":
-                view.update_cartoon(color=c)
-            elif repr == "ball_and_stick":
-                view.update_ball_and_stick(color=c)
+            update_func = getattr(view, "update_"+repr)
+            update_func(color = c)
             time.sleep(0.01)
         view = nv.show_pytraj(pt.load(self.engen.full_traj_name, self.engen.full_ref))
         view.clear_representations()
-        if repr == "cartoon":
-            view.add_cartoon()
-        elif repr == "ball_and_stick":
-            view.add_ball_and_stick()
-        view.update_ball_and_stick(color = mc.rgb2hex(frame_colors[0]))
+        key = "add_"+repr
+        add_func = getattr(view, key)
+        add_func()
+        update_func = getattr(view, "update_"+repr)
+        update_func(color = mc.rgb2hex(frame_colors[0]))
 
         view.observe(on_frame_change, names=['frame'])
         return view

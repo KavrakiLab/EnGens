@@ -29,7 +29,9 @@ class UserFeatureSelection(FeatureSelection):
         else:
             self.engen.chosen_feat_index = self.index  
             print("Picked featurized no. "+str(self.index)+": "+self.engen.featurizer_names[self.index])
-            print(self.engen.featurizers[self.index ].describe())
+            f = self.engen.featurizers[self.index]
+            if self.engen.crystal_flag: f = f[0]
+            print(f.describe())
 
 class VAMP2FeatureSelection(FeatureSelection):
 

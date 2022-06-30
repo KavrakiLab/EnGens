@@ -55,7 +55,10 @@ class PCAReducer(DimReduction):
     def plot_2d(self, save_loc:str=None) -> None:
         
         y = self.transformed_data
-        pyemma.plots.plot_free_energy(y[:,0], y[:,1], cbar=True)
+        if self.engen.crystal_flag:
+            plt.scatter(y[:,0], y[:,1], c='g', s=14)
+        else:
+            pyemma.plots.plot_free_energy(y[:,0], y[:,1], cbar=True)
         plt.xlabel("PC1")
         plt.ylabel("PC2")
         if not save_loc is None: plt.savefig(save_loc)
@@ -106,7 +109,10 @@ class TICAReducer(DimReduction):
     def __init__(self, engen:EnGen, TICA_lagtimes:list=[1,2, 5, 10, 25, 50]) -> None:
         
         super().__init__()
-        
+
+        if engen.crystal_flag==True:
+            raise Exception("Attempting TICA for crustal structures!! Please use PCA")
+            return        
         if engen.data is None:
             raise Exception("No data generated with this EnGen!")
             return
@@ -272,6 +278,9 @@ class HDEReducer(DimReduction):
         super().__init__()
         
         tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+        if engen.crystal_flag == True:
+            raise Exception("Attempting SRV for crustal structures!! Please use PCA.")
+
 
         if engen.data is None:
             raise Exception("No data generated with this EnGen!")
