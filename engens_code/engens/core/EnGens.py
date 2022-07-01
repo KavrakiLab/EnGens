@@ -385,6 +385,8 @@ class EnGen(object):
                 "add_residue_mindist": {"scheme":'closest-heavy'}
 
             }
+            default_feats = [default_feat1, default_feat2, default_feat3]
+
         else:
             
             n_residues = min(mdtraj.load(file).top.n_residues for file in self.pdb_files)
@@ -392,8 +394,7 @@ class EnGen(object):
             default_feat1 = {
                 "add_residue_COM": {"residue_indices":all_resi ,"scheme":'all'}
             }
-
-        default_feats = [default_feat1]
+            default_feats = [default_feat1]
 
         for feat_dict in default_feats:
             self.add_featurizer(feat_dict)

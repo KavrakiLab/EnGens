@@ -18,7 +18,7 @@ class TestClust(unittest.TestCase):
         engen = EnGen(test_traj, test_top, select_expression)
         engen.init_featurizers_default()
         engen.apply_featurizations()
-        feat_sele = UserFeatureSelection(2, engen)
+        feat_sele = UserFeatureSelection(0, engen)
         feat_sele.select_feature()
         reducer = dimreds["TICA"](engen)
         reducer.choose_lag(500)
