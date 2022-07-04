@@ -414,10 +414,13 @@ class EnGen(object):
                     else:
                        per_pdb_data = np.vstack((per_pdb_data, data)) 
                 self.data.append((0, per_pdb_data))
-        # free this space
-        self.mdtraj_list = None
-        self.pdb_list = None
 
+
+    def clean(self):
+        if self.crystal_flag == True:
+            # free this space
+            self.mdtraj_list = None
+            self.pdb_list = None
 
     def describe_featurizers(self):
         res = ""
