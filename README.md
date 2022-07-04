@@ -59,6 +59,7 @@ You can find the three workflows inside the `./notebooks/` directory. To perform
 ## Code
 
 All the code and classes used in the notebooks are found in the directory `./EnGeNs/engens_code/engens/core/`
+
 ___
 
 P.S. Folder **./baudry-data-scripts** contains various scripts used to analyse this data: generating trajectory from pdbqt files, extracting the binding site.
