@@ -23,7 +23,7 @@ We built a docker image that contains all dependences required to run the notebo
 
 ### Step 2 - run the following command from the working directory with this code
 
-`docker run -it --rm -v $(pwd):/home/engen/ -p 8888:8888 ac121/engens:latest jupyter-lab --allow-root --ip=0.0.0.0 --port=8888`
+`docker run -it --rm -v $(pwd):/home/engen/ -p 8888:8888 ac121/engens:latest jupyter notebook --allow-root --ip=0.0.0.0 --port=8888`
 
 
 ## Workflows
