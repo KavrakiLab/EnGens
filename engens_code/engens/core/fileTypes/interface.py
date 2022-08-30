@@ -4,7 +4,11 @@ Module holds all interfaces relevant to file types.
 import abc
 from abc import ABC
 from pathlib import Path
-from typing import List
+from typing import List, TypeVar
+
+from Bio import PDB
+
+T = TypeVar("T")
 
 
 class FileTypeNotSupported(Exception):
@@ -56,7 +60,35 @@ class SimulationFile(ABC):
         raise NotImplementedError
 
 
+class SimulationTool(ABC):
+    """
+    A simulation file with actionable tools.
+    """
+    def __init__(self):
+        self._tool: T = None
+
+    @abc.abstractmethod
+    @property
+    def tool(self) -> T:
+        raise NotImplementedError
+
+
+class PDBParserTool(SimulationTool):
+    """
+    PDB parser tool
+    """
+
+    @property
+    def tool(self) -> PDB.PDBParser:
+        if self._tool is None:
+            self._tool = PDB.PDBParser(QUIET=True)
+        return self._tool
+
+
 class Alignable(ABC):
+
+    def __init__(self) -> None:
+        self.aligned: bool = False
 
     @abc.abstractmethod
     def align(self, simulation_file: SimulationFile) -> None:

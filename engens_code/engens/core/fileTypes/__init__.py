@@ -1,9 +1,9 @@
 from trajectory import TrajectoryFile
-from pdb import Pdb
+from .pdb import PDBFile
 from const import TrajectoryFileTypes, PDBFileTypes
 
 __all__ = [
-    "Pdb",
+    "PDBFile",
     "TrajectoryFile",
     "TrajectoryFileTypes",
     "PDBFileTypes"
