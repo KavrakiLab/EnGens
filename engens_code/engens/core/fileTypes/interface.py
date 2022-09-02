@@ -41,14 +41,14 @@ class SimulationFile(ABC):
         return self._path
 
     @path.setter
-    def path(self, path: Path) -> None:
-        if type(path) != Path:
-            raise TypeError(f"Type provided doesn't match what's requested, {type(path)}")
-        if not path.exists():
-            raise FileNotFoundError(f"Path provided, {path} does not exist.")
-        if path.suffix not in SimulationFile.supported_extensions():
+    def path(self, pure_path: Path) -> None:
+        if type(pure_path) != Path:
+            raise TypeError(f"Type provided doesn't match what's requested, {type(pure_path)}")
+        if not pure_path.exists():
+            raise FileNotFoundError(f"Path provided, {pure_path} does not exist.")
+        if pure_path.suffix not in SimulationFile.supported_extensions():
             raise FileTypeNotSupported
-        self._path = path
+        self._path = pure_path
 
     @classmethod
     @abc.abstractmethod
@@ -88,10 +88,22 @@ class PDBParserTool(SimulationTool):
 class Alignable(ABC):
 
     def __init__(self) -> None:
-        self.aligned: bool = False
+        self._aligned: bool = False
+
+    @property
+    def aligned(self) -> bool:
+        if self._aligned is None:
+            raise ValueError("Alignment value not set.")
+        return self._aligned
+
+    @aligned.setter
+    def aligned(self, alignment: bool):
+        if type(alignment) != bool:
+            raise TypeError(f"Did not pass in type, boolean, instead {type(alignment)}.")
+        self._aligned = alignment
 
     @abc.abstractmethod
-    def align(self, simulation_file: SimulationFile) -> None:
+    def align(self, simulation_file: SimulationFile, *tools) -> None:
         """
         Performs alignment on self. I.E. trajectory file alignment, PDB alignment.
 

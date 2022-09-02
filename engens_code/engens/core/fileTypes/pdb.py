@@ -9,7 +9,7 @@ from const import PDBFileTypes
 from interface import Alignable, SimulationFile, PDBParserTool
 
 
-class PDBFile(SimulationFile,  PDBParserTool, Alignable):
+class PDBFile(SimulationFile, Alignable):
     """
     Trajectory File class to hold all trajectory files relevant
     """
@@ -21,7 +21,7 @@ class PDBFile(SimulationFile,  PDBParserTool, Alignable):
     def supported_extensions(cls) -> List[str]:
         return PDBFileTypes.get_all()
 
-    def align(self, reference_file: SimulationFile) -> None:
+    def align(self, reference_file: SimulationFile, *tools) -> None:
 
         # first structure as reference structure
         ref_structure = self.tool.get_structure("tmp_ref", self.path)
@@ -32,8 +32,8 @@ class PDBFile(SimulationFile,  PDBParserTool, Alignable):
             for ref_res in ref_chain:
                 ref_atoms.append(ref_res['CA'])
 
-        x = tqdm.tqdm(self.pdb_files, "Aligning pdb files (might take a while)"):
-        sample_structure = parser.get_structure("tmp_sample", elem)
+        x = tqdm.tqdm(self.path, f"Aligning pdb file {self.path}")
+        sample_structure = self.tool.get_structure("tmp_sample", x)
         sample_model = sample_structure[0]
         sample_atoms = []  # only Calpha
         for sample_chain in sample_model:
