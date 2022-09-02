@@ -21,10 +21,10 @@ class PDBFile(SimulationFile, Alignable):
     def supported_extensions(cls) -> List[str]:
         return PDBFileTypes.get_all()
 
-    def align(self, reference_file: SimulationFile, *tools) -> None:
+    def align(self, reference_file: SimulationFile, pdb_parser: PDBParserTool ) -> None:
 
         # first structure as reference structure
-        ref_structure = self.tool.get_structure("tmp_ref", self.path)
+        ref_structure = pdb_parser.tool.get_structure("tmp_ref", self.path)
         ref_atoms = []  # only align C- alpha
         # Iterate of all chains in the model in order to find all residues
         for ref_chain in ref_structure[0]:
@@ -33,7 +33,7 @@ class PDBFile(SimulationFile, Alignable):
                 ref_atoms.append(ref_res['CA'])
 
         x = tqdm.tqdm(self.path, f"Aligning pdb file {self.path}")
-        sample_structure = self.tool.get_structure("tmp_sample", x)
+        sample_structure = pdb_parser.tool.get_structure("tmp_sample", x)
         sample_model = sample_structure[0]
         sample_atoms = []  # only Calpha
         for sample_chain in sample_model:

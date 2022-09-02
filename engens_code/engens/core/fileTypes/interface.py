@@ -103,7 +103,7 @@ class Alignable(ABC):
         self._aligned = alignment
 
     @abc.abstractmethod
-    def align(self, simulation_file: SimulationFile, *tools) -> None:
+    def align(self, simulation_file: SimulationFile, tool: SimulationTool) -> None:
         """
         Performs alignment on self. I.E. trajectory file alignment, PDB alignment.
 
