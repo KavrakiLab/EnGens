@@ -17,6 +17,18 @@ class FileTypeNotSupported(Exception):
     """
 
 
+class Loadable(ABC):
+
+    @abc.abstractmethod
+    def load(self, *args, **kwargs) -> None:
+        """
+        Loads file into desired object
+
+        :return: None
+        """
+        raise NotImplementedError
+
+
 class SimulationFile(ABC):
     """
     Abstract class providing common structure for all simulation file types such as trajectory, and PDB files.
@@ -103,11 +115,12 @@ class Alignable(ABC):
         self._aligned = alignment
 
     @abc.abstractmethod
-    def align(self, simulation_file: SimulationFile, tool: SimulationTool) -> None:
+    def align(self, simulation_file: SimulationFile, tool: SimulationTool, **kwargs) -> None:
         """
         Performs alignment on self. I.E. trajectory file alignment, PDB alignment.
 
         :param simulation_file: Simulation file needed for alignment such as a reference structure.
+        :param tool: tool used to apply alignment. Should be of type simulation tool
         :return: None
         """
         raise NotImplementedError

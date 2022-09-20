@@ -29,3 +29,8 @@ class TrajectoryFileTypes(SupportedFileTypes):
 
 class PDBFileTypes(SupportedFileTypes):
     PDB = "pdb"
+
+
+class TopologyFileTypes(SupportedFileTypes):
+    TPR = "tpr"
+    PDB = "pdb"
