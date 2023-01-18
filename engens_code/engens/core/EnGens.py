@@ -24,8 +24,9 @@ class EnGen(object):
                 topology_select=None,
                 cryst_pdb_list = False,
                 file_names = None, 
+                structure_names = None, 
                 align=False, 
-                chunk_size=1000):
+                chunk_size=None):
         """ generates and visualizes conformational ensembles for ensemble docking
         
         Parameters
@@ -41,6 +42,8 @@ class EnGen(object):
             is your input a list of crystal structure files??
         file_names: list, default = None
             if your input is the list of PDB files, provide the list here
+        structure_names: list, default = None
+            if your input is the list of PDB files, provide their names here
         align: boolean, default = False
             specify if you wish to align the given trajectory before analyzing
         chunk_size: int, default = 1000
@@ -58,9 +61,14 @@ class EnGen(object):
         self.refrestraint = topology_select
         self._selection_indices = None
         self.chunk_size = chunk_size
+        if chunk_size is None:
+            self.chunk_size = mdtraj.load(trajectory, top=self.ref).n_frames
+
         self.mdtrajref = mdtraj.load(self.ref).topology
         self.crystal_flag = cryst_pdb_list
         self.pdb_files = file_names
+        self.structure_names = structure_names
+        if structure_names is None: self.structure_names = file_names
         self.pdb_list = None
         self.mdtraj_list = []
 
@@ -83,7 +91,7 @@ class EnGen(object):
                 elem_frame_dst = elem[:-4]+"_tmp.xtc"
                 elem_frame.save(elem_frame_dst)
                 self.mdtraj_list.append(elem_frame)
-                pyemma_frame = pyemma.coordinates.source(elem_frame_dst, top=elem)
+                pyemma_frame = pyemma.coordinates.source(elem_frame_dst, top=elem, chunksize=self.chunk_size)
                 self.pdb_list.append(pyemma_frame)
 
 
@@ -105,6 +113,7 @@ class EnGen(object):
         self.cluster = None 
         self.chosen_feat_index = -1
         self.dimred_data = None
+        self.dimred_featcorr = None
 
     @property
     def traj_name(self):
@@ -176,7 +185,7 @@ class EnGen(object):
         
         self.pdb_files = [ f[:-4]+"_algn.pdb" for f in self.pdb_files]
 
-    def show_animated_traj(self):
+    def show_animated_traj(self, stride=None):
         """
         Returns an animated nglview widget with the loaded trajectory
 
@@ -185,7 +194,7 @@ class EnGen(object):
         widget: NGLWidget object with loaded pytraj
 
         """
-        pt_traj = pt.load(self.traj_name, self.ref)
+        pt_traj = pt.load(self.traj_name, self.ref, stride=stride)
         widget = ngl.show_pytraj(pt_traj, gui=True)
         return widget
 
@@ -212,7 +221,7 @@ class EnGen(object):
             self.select_atoms_pdb_list(selected_atoms)
         tmp_traj = mdtraj.iterload(self.traj, top=self.ref, atom_indices=selected_atoms)
          # see trajectory length
-        tmp_pe = pyemma.coordinates.source(self.traj, top=self.ref)
+        tmp_pe = pyemma.coordinates.source(self.traj, top=self.ref, chunksize=self.chunk_size)
         traj_len = tmp_pe.trajectory_length(0)
         file_names = []
         n_iter = ceil(traj_len/self.chunk_size)
@@ -267,7 +276,7 @@ class EnGen(object):
         # create the iterator
         mdl = mdtraj.iterload(traj_name, top=ref_name, chunk=self.chunk_size)
         # see trajectory length
-        tmp_pe = pyemma.coordinates.source(traj_name, top=ref_name)
+        tmp_pe = pyemma.coordinates.source(traj_name, top=ref_name, chunksize=self.chunk_size)
         traj_len = tmp_pe.trajectory_length(0)
         first_frame = None
         file_names = []
@@ -403,7 +412,7 @@ class EnGen(object):
         self.data = []
         for f in self.featurizers:
             if not self.crystal_flag:
-                self.data+=pyemma.coordinates.source(self.traj, features=f)
+                self.data+=pyemma.coordinates.source(self.traj, features=f, chunksize=self.chunk_size)
             else:
                 per_pdb_data = None
                 for i, elem in tqdm.tqdm(enumerate(self.mdtraj_list), "Applying featurization per PDB file"):

@@ -15,6 +15,12 @@ from subprocess import call
 from pathlib import Path
 import statistics as stat
 import os
+import plotly.graph_objects as go
+import plotly.figure_factory as ff
+
+import numpy as np
+from scipy.spatial.distance import pdist, squareform
+from scipy.spatial.distance import cdist
 
 class ClustEn(object):
 
@@ -54,7 +60,7 @@ class ClustEn(object):
     def cluster_center(self, i):
         pass
 
-    def plot_cluster_weight(self, thr=None):
+    def plot_cluster_weight(self, thr=None, filename=None):
         if self.chosen_index == None: raise Exception("Choose parameters index first.")
         self.thr = thr
         weights = self.cluster_weights(self.chosen_index)
@@ -66,12 +72,14 @@ class ClustEn(object):
             plt.axhline(y=thr, color='r', linestyle='-')
             plt.text(0,thr+0.02, "thr={:.2f}".format(thr), color="red", ha="right", va="center")
         plt.ylabel("Cluster weight")
+        if not filename == None: plt.savefig(filename)
 
-    def plot_cluster_choice(self):
+
+    def plot_cluster_choice(self, filename=None):
         
         centers = self.cluster_center(self.chosen_index)
         chosen_centers = [c for i, c in enumerate(centers) if i in self.chosen_cluster_ids]
-        closest_conf = pairwise_distances_argmin(chosen_centers,self.data)
+        chosen_frames = self.chosen_frames
 
         plt.scatter(self.data[:,0], self.data[:,1], c=self.labels[self.chosen_index],
             s=10, edgecolor='black', lw = 0.5, alpha=0.4)
@@ -79,13 +87,14 @@ class ClustEn(object):
         plt.scatter(np.array(chosen_centers)[:,0], np.array(chosen_centers)[:,1], c='red',
                     s=50, edgecolor='black', lw = 1)
 
-        plt.scatter(self.data[closest_conf][:,0], self.data[closest_conf][:,1], c='yellow',
+        plt.scatter(self.data[chosen_frames][:,0], self.data[chosen_frames][:,1], c='yellow',
                     s=50, edgecolor='black', lw = 1)
 
         plt.legend([ "colored by cluster membership: all frames", "red: cluster_centers", "yellow: chosen_frames"],
                 bbox_to_anchor=(1.05, 1.0), loc='upper left')
         plt.xlabel("C1")
         plt.ylabel("C2")
+        if not filename == None: plt.savefig(filename)
 
 
     def choose_clusters(self, thr):
@@ -96,13 +105,7 @@ class ClustEn(object):
         self.chosen_cluster_ids = clusters
         print("Chosen cluster ids: {}".format(clusters))
 
-    def choose_conformations(self):
-        #check if parametrization is chosen 
-        if self.chosen_index == None: raise Exception("Choose parameters index first.")
-        #check if clusters are chosen with threshold - if not incluse all clusters in analysis
-        if self.chosen_cluster_ids == None:
-            n_clust = len(set(self.labels[self.chosen_index]))
-            self.chosen_cluster_ids = list(range(n_clust))
+    def choose_conformations_center(self):
         #find cluster centers
         centers = self.cluster_center(self.chosen_index)
 
@@ -120,7 +123,49 @@ class ClustEn(object):
             closest_conf.append(c_data_ind[c_data_closest])
 
         self.chosen_frames = np.array(closest_conf).flatten()
-        self.plot_cluster_choice()
+
+    
+    def choose_conformations_hub(self):
+
+        hub_conf = []
+        #for each chosen cluster center find the closest point within the cluster
+        for c_id in self.chosen_cluster_ids:
+            print(c_id)
+            #extract only points within the cluster
+            c_data_ind = np.argwhere(self.labels[self.chosen_index]==c_id)
+            c_data = self.data[c_data_ind]
+            c_data = c_data.reshape((c_data.shape[0], c_data.shape[2]))
+            #find the sum of the distances within the cluster
+            c_data_dist = cdist(c_data,c_data)
+            c_data_dist_mean = np.mean(c_data_dist.flatten())
+            c_data_neigbors = np.where(c_data_dist <= c_data_dist_mean, 1, 0)
+            c_data_neigbors_cnt = np.sum(c_data_neigbors, axis=0)
+            c_data_hub = np.argmax(c_data_neigbors_cnt)
+            #append it
+            hub_conf.append(c_data_ind[c_data_hub])
+
+        self.chosen_frames = np.array(hub_conf).flatten()
+
+    def choose_conformations(self, filename=None, mode="center"):
+        #check if parametrization is chosen 
+        if self.chosen_index == None: raise Exception("Choose parameters index first.")
+        
+        #check if the correct mode is chosen
+        if not mode in ["center", "hub"]:
+            raise Exception("Mode can be: center|hub")
+
+        #check if clusters are chosen with threshold - if not incluse all clusters in analysis
+        if self.chosen_cluster_ids == None:
+            n_clust = len(set(self.labels[self.chosen_index]))
+            self.chosen_cluster_ids = list(range(n_clust))
+
+        if mode == "center":
+            print("Choosing points closest to the cluster center")
+            self.choose_conformations_center()
+        elif mode == "hub":
+            print("Choosing points closest to all the other points in the cluster")
+            self.choose_conformations_hub()
+        self.plot_cluster_choice(filename=filename)
 
     def extract_conformations(self, loc:str):
         if self.chosen_frames is None: raise Exception("Choose conformations first.")
@@ -174,7 +219,7 @@ class ClustEn(object):
 
 
     # Function to plot silhouette score analysis
-    def plot_silhouette(self, n_clusters, cluster_labels, X, cluster_centers):
+    def plot_silhouette(self, n_clusters, cluster_labels, X, cluster_centers, filename=None):
         fig, (ax1, ax2) = plt.subplots(1, 2)
         fig.set_size_inches(18, 7)
 
@@ -250,6 +295,9 @@ class ClustEn(object):
         plt.suptitle(("Silhouette analysis for KMeans clustering on sample data "
                     "with n_clusters = %d" % n_clusters),
                     fontsize=14, fontweight='bold')
+        
+        if not filename == None: plt.savefig(filename)
+
         return silhouette_avg
     
     def cluster_center_method(self, cl, data, labels):
@@ -258,7 +306,7 @@ class ClustEn(object):
     def compute_metric(self, cl:GaussianMixture):
         pass
 
-    def analyze_silhouette(self):
+    def analyze_silhouette(self, file_prefix = None):
 
         avg_sil = []
         for i,p in enumerate(self.params):
@@ -266,10 +314,106 @@ class ClustEn(object):
             cluster_labels = self.labels[i]
             cluster_centers = self.cluster_center_method(self.cls[i], self.data, cluster_labels)
             X = self.data
-            avg_sil.append(self.plot_silhouette(n_clusters, cluster_labels, X, cluster_centers))
+            if not file_prefix is None: 
+                filename = file_prefix+str(i)+".jpg"
+            else:
+                filename = None
+            avg_sil.append(self.plot_silhouette(n_clusters, cluster_labels, X, cluster_centers, filename))
         
         best_index = avg_sil.index(max(avg_sil)) 
         print("Best parameters from silhouette analysis are "+str(self.params[best_index])) 
+        return self.params[best_index]
+
+    def plot_dendogram(self, filename=None):
+        engen_dimred_distance = cdist(self.engen.dimred_data, self.engen.dimred_data, metric='euclidean')
+        # get data
+        data_array = engen_dimred_distance
+        if self.engen.structure_names is not None:
+            labels = self.engen.structure_names
+        else:
+            labels = self.engen.pdb_files
+
+
+        # Initialize figure by creating upper dendrogram
+        fig = ff.create_dendrogram(data_array, orientation='bottom', labels=labels)
+        for i in range(len(fig['data'])):
+            fig['data'][i]['yaxis'] = 'y2'
+
+        # Create Side Dendrogram
+        dendro_side = ff.create_dendrogram(data_array, orientation='right')
+        for i in range(len(dendro_side['data'])):
+            dendro_side['data'][i]['xaxis'] = 'x2'
+
+        # Add Side Dendrogram Data to Figure
+        for data in dendro_side['data']:
+            fig.add_trace(data)
+
+        # Create Heatmap
+        dendro_leaves = dendro_side['layout']['yaxis']['ticktext']
+        dendro_leaves = list(map(int, dendro_leaves))
+        data_dist = pdist(engen_dimred_distance)
+        heat_data = squareform(data_dist)
+        heat_data = heat_data[dendro_leaves,:]
+        heat_data = heat_data[:,dendro_leaves]
+
+        heatmap = [
+            go.Heatmap(
+                x = dendro_leaves,
+                y = dendro_leaves,
+                z = heat_data,
+                colorscale = 'Blues'
+            )
+        ]
+
+        heatmap[0]['x'] = fig['layout']['xaxis']['tickvals']
+        heatmap[0]['y'] = dendro_side['layout']['yaxis']['tickvals']
+
+        # Add Heatmap Data to Figure
+        for data in heatmap:
+            fig.add_trace(data)
+
+        # Edit Layout
+        fig.update_layout({'width':800, 'height':800,
+                                'showlegend':False, 'hovermode': 'closest',
+                                })
+        # Edit xaxis
+        fig.update_layout(xaxis={'domain': [.15, 1],
+                                        'mirror': False,
+                                        'showgrid': False,
+                                        'showline': False,
+                                        'zeroline': False,
+                                        'ticks':""})
+        # Edit xaxis2
+        fig.update_layout(xaxis2={'domain': [0, .15],
+                                        'mirror': False,
+                                        'showgrid': False,
+                                        'showline': False,
+                                        'zeroline': False,
+                                        'showticklabels': False,
+                                        'ticks':""})
+
+        # Edit yaxis
+        fig.update_layout(yaxis={'domain': [0, .85],
+                                        'mirror': False,
+                                        'showgrid': False,
+                                        'showline': False,
+                                        'zeroline': False,
+                                        'showticklabels': False,
+                                        'ticks': ""
+                                })
+        # Edit yaxis2
+        fig.update_layout(yaxis2={'domain':[.825, .975],
+                                        'mirror': False,
+                                        'showgrid': False,
+                                        'showline': False,
+                                        'zeroline': False,
+                                        'showticklabels': False,
+                                        'ticks':""})
+
+        # Plot!
+        if filename is not None:
+            fig.write_html(filename)
+        return fig
 
 
 
@@ -309,8 +453,8 @@ class ClusterKMeans(ClustEn):
         plt.show()
 
 
-    def analyze_elbow_method(self):
-        self.plot_elbow()
+    def analyze_elbow_method(self, filename=None):
+        self.plot_elbow(filename)
 
         x1, y1 = 2, self.metric_vals["mean"][0]
         x2, y2 = len(self.metric_vals["mean"])+1, self.metric_vals["mean"][len(self.metric_vals["mean"])-1]
@@ -321,7 +465,11 @@ class ClusterKMeans(ClustEn):
             y0 = self.metric_vals["mean"][i]
             numerator = abs((y2-y1)*x0 - (x2-x1)*y0 + x2*y1 - y2*x1)
             denominator = sqrt((y2 - y1)**2 + (x2 - x1)**2)
-            distances.append(numerator/denominator)
+            if denominator == 0:
+                res = 0
+            else:
+                res = numerator/denominator
+            distances.append(res)
         optimal_index = distances.index(max(distances))
         print("Optimal params={}".format(str(self.params[optimal_index])))
         return self.params[optimal_index]

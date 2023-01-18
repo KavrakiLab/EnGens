@@ -3,7 +3,8 @@ import setuptools
 setuptools.setup(
      name='engens',  
      version='0.0',
-     scripts=[] ,
+      scripts=['engens/core/pdbfix.py'],
+      data_files=[('', ['engens/core/template_msa.html'])],
      author="kavrakilab&antuneslab",
      author_email="ac121@rice.edu",
      description="Ensemble Genration Package",

@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+
+<link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+
+
+  <title>MSA</title>
+  
+  
+<script>
+  window.console = window.console || function(t) {};
+</script>
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+</head>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<div class="container-fluid h-100">
+  <div class="row justify-content-center">
+    <div class="col">
+	<protvista-manager attributes="length displaystart displayend variantfilters highlight" displaystart="1" displayend=$SL$ id="example">
+	  <div style="display: flex">
+	    <div style="width: 100px;flexShrink: 0" ></div>
+	    <protvista-navigation length=$SL$ labelWidth="100"></protvista-navigation>
+	  </div>
+	  <div style="display: flex">
+	    <div style="width: 100px;flexShrink: 0"></div>
+	    <protvista-sequence length=$SL$ id="sequence"></protvista-sequence>
+	  </div>
+	  <div style="display: flex">
+	    <div style="width: 100px;flexShrink: 0"></div>
+	    <protvista-track length=$SL$ id="uniprot-track" labelWidth="100"></protvista-track>
+	  </div>
+	  <div style="display: flex">
+	    <div style="width: 100px;flexShrink: 0"></div>
+	    <protvista-interpro-track length=$SL$ id="interpro-track" labelWidth="100"></protvista-interpro-track>
+	  </div>
+	  <div style="display: flex">
+	    <div style="width: 100px;flexShrink: 0"></div>
+	    <protvista-links length=$SL$ id="links" labelWidth="100"></protvista-links>
+	  </div>
+	  <protvista-msa id="msa-track" length=$SL$ use-ctrl-to-zoom labelWidth="100" height="1000"
+	  colorscheme="clustal2"/>
+	</protvista-manager>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.13.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.13.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protvista-utils@3.0.0-alpha.21+d78f7ad/dist/protvista-utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protvista-zoomable@3.0.0-alpha.21+d78f7ad/dist/protvista-zoomable.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protvista-manager@3.0.0-alpha.21+d78f7ad/dist/protvista-manager.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protvista-navigation@3.0.0-alpha.21+d78f7ad/dist/protvista-navigation.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protvista-msa@3.0.0-alpha.21+d78f7ad/dist/protvista-msa.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protvista-track@3.0.0-alpha.21+d78f7ad/dist/protvista-track.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protvista-sequence@3.0.0-alpha.21+d78f7ad/dist/protvista-sequence.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protvista-links@3.0.0-alpha.21+d78f7ad/dist/protvista-links.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/protvista-interpro-track@3.0.0-alpha.21+d78f7ad/dist/protvista-interpro-track.js"></script>
+
+<script id="rendered-js">
+$VARIABLES_PLACEHOLDER$
+
+document.querySelector("#msa-track").data = seqs;
+document.querySelector("#sequence").data = sequence;
+document.querySelector("#uniprot-track").data = features;
+//document.querySelector("#interpro-track").data = features;
+//document.querySelector("#links").data = rawContactsHC;
+//# sourceURL=pen.js
+    </script>
+
+  
+</body>
+
+</html> 
