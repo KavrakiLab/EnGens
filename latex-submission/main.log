@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.5.31)  11 MAR 2023 15:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.5.31)  11 MAR 2023 15:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1000,7 +1000,7 @@ Package epstopdf Info: Source file: <OUP_First_SBk_Bot_8401.eps>
 (epstopdf)                    size: 407286 bytes
 (epstopdf)             Output file: <OUP_First_SBk_Bot_8401-eps-converted-to.pd
 f>
-(epstopdf)                    date: 2023-03-11 15:17:22
+(epstopdf)                    date: 2023-03-11 15:48:55
 (epstopdf)                    size: 9328 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=OUP_First_SBk_Bot_84
 01-eps-converted-to.pdf OUP_First_SBk_Bot_8401.eps>
@@ -1241,6 +1241,10 @@ Package natbib Warning: Citation `barhaghi_py-mcmd_2022' on page 2 undefined on
 
 Package natbib Warning: Citation `prinz_markov_2011' on page 2 undefined on inp
 ut line 148.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 Package natbib Warning: Citation `cock_biopython_2009' on page 2 undefined on i
@@ -1506,36 +1510,111 @@ No file main.bbl.
 Package natbib Warning: Citation `antunes_new_2014' on page 6 undefined on inpu
 t line 270.
 
-<Engens_new.pdf, id=162, 449.03758pt x 845.07718pt>
-File: Engens_new.pdf Graphic file (type pdf)
-<use Engens_new.pdf>
-Package pdftex.def Info: Engens_new.pdf  used on input line 287.
-(pdftex.def)             Requested size: 314.32414pt x 591.55pt.
-<engens-res1.pdf, id=163, 752.81244pt x 590.69855pt>
-File: engens-res1.pdf Graphic file (type pdf)
-<use engens-res1.pdf>
-Package pdftex.def Info: engens-res1.pdf  used on input line 295.
-(pdftex.def)             Requested size: 451.69095pt x 354.42186pt.
-<res-pi3k-md.pdf, id=164, 2703.92337pt x 1144.93408pt>
-File: res-pi3k-md.pdf Graphic file (type pdf)
-<use res-pi3k-md.pdf>
-Package pdftex.def Info: res-pi3k-md.pdf  used on input line 302.
-(pdftex.def)             Requested size: 540.7751pt x 228.98276pt.
+Package epstopdf Info: Source file: <Engens_new.eps>
+(epstopdf)                    date: 2023-03-11 15:30:10
+(epstopdf)                    size: 1959843 bytes
+(epstopdf)             Output file: <Engens_new-eps-converted-to.pdf>
+(epstopdf)                    date: 2023-03-11 15:48:58
+(epstopdf)                    size: 787403 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=Engens_new-eps-conve
+rted-to.pdf Engens_new.eps>
+(epstopdf)             \includegraphics on input line 287.
+Package epstopdf Info: Output file is already uptodate.
 
-Overfull \hbox (52.2751pt too wide) in paragraph at lines 302--303
+
+pdfTeX warning: miktex-pdftex.exe (file ./Engens_new-eps-converted-to.pdf): PDF
+ inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<Engens_new-eps-converted-to.pdf, id=162, 448.67625pt x 845.1575pt>
+File: Engens_new-eps-converted-to.pdf Graphic file (type pdf)
+<use Engens_new-eps-converted-to.pdf>
+Package pdftex.def Info: Engens_new-eps-converted-to.pdf  used on input line 28
+7.
+(pdftex.def)             Requested size: 314.07123pt x 591.60622pt.
+Package epstopdf Info: Source file: <engens-res1.eps>
+(epstopdf)                    date: 2023-03-11 15:35:39
+(epstopdf)                    size: 4304476 bytes
+(epstopdf)             Output file: <engens-res1-eps-converted-to.pdf>
+(epstopdf)                    date: 2023-03-11 15:49:01
+(epstopdf)                    size: 1482587 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=engens-res1-eps-conv
+erted-to.pdf engens-res1.eps>
+(epstopdf)             \includegraphics on input line 295.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: miktex-pdftex.exe (file ./engens-res1-eps-converted-to.pdf): PD
+F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<engens-res1-eps-converted-to.pdf, id=163, 752.8125pt x 591.20876pt>
+File: engens-res1-eps-converted-to.pdf Graphic file (type pdf)
+<use engens-res1-eps-converted-to.pdf>
+Package pdftex.def Info: engens-res1-eps-converted-to.pdf  used on input line 2
+95.
+(pdftex.def)             Requested size: 451.69098pt x 354.72798pt.
+Package epstopdf Info: Source file: <res-pi3k-md.eps>
+(epstopdf)                    date: 2023-03-11 15:38:43
+(epstopdf)                    size: 8287938 bytes
+(epstopdf)             Output file: <res-pi3k-md-eps-converted-to.pdf>
+(epstopdf)                    date: 2023-03-11 15:49:07
+(epstopdf)                    size: 4259344 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=res-pi3k-md-eps-conv
+erted-to.pdf res-pi3k-md.eps>
+(epstopdf)             \includegraphics on input line 302.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: miktex-pdftex.exe (file ./res-pi3k-md-eps-converted-to.pdf): PD
+F inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<res-pi3k-md-eps-converted-to.pdf, id=164, 2704.1025pt x 1145.27875pt>
+File: res-pi3k-md-eps-converted-to.pdf Graphic file (type pdf)
+<use res-pi3k-md-eps-converted-to.pdf>
+Package pdftex.def Info: res-pi3k-md-eps-converted-to.pdf  used on input line 3
+02.
+(pdftex.def)             Requested size: 540.81093pt x 229.05168pt.
+
+Overfull \hbox (52.31093pt too wide) in paragraph at lines 302--303
  [][] 
  []
 
-<compstatin.pdf, id=165, 1630.58624pt x 1196.85266pt>
-File: compstatin.pdf Graphic file (type pdf)
-<use compstatin.pdf>
-Package pdftex.def Info: compstatin.pdf  used on input line 308.
-(pdftex.def)             Requested size: 326.11147pt x 239.36629pt.
-<nelfinavir.pdf, id=166, 682.16275pt x 547.51212pt>
-File: nelfinavir.pdf Graphic file (type pdf)
-<use nelfinavir.pdf>
-Package pdftex.def Info: nelfinavir.pdf  used on input line 315.
-(pdftex.def)             Requested size: 341.08054pt x 273.75539pt.
+Package epstopdf Info: Source file: <compstatin.eps>
+(epstopdf)                    date: 2023-03-11 15:28:59
+(epstopdf)                    size: 2131353 bytes
+(epstopdf)             Output file: <compstatin-eps-converted-to.pdf>
+(epstopdf)                    date: 2023-03-11 15:49:09
+(epstopdf)                    size: 2169747 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=compstatin-eps-conve
+rted-to.pdf compstatin.eps>
+(epstopdf)             \includegraphics on input line 308.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: miktex-pdftex.exe (file ./compstatin-eps-converted-to.pdf): PDF
+ inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<compstatin-eps-converted-to.pdf, id=165, 1631.09375pt x 1197.47375pt>
+File: compstatin-eps-converted-to.pdf Graphic file (type pdf)
+<use compstatin-eps-converted-to.pdf>
+Package pdftex.def Info: compstatin-eps-converted-to.pdf  used on input line 30
+8.
+(pdftex.def)             Requested size: 326.21297pt x 239.49051pt.
+Package epstopdf Info: Source file: <nelfinavir.eps>
+(epstopdf)                    date: 2023-03-11 15:37:06
+(epstopdf)                    size: 9089774 bytes
+(epstopdf)             Output file: <nelfinavir-eps-converted-to.pdf>
+(epstopdf)                    date: 2023-03-11 15:49:15
+(epstopdf)                    size: 1337506 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=nelfinavir-eps-conve
+rted-to.pdf nelfinavir.eps>
+(epstopdf)             \includegraphics on input line 315.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: miktex-pdftex.exe (file ./nelfinavir-eps-converted-to.pdf): PDF
+ inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<nelfinavir-eps-converted-to.pdf, id=166, 682.55pt x 548.0475pt>
+File: nelfinavir-eps-converted-to.pdf Graphic file (type pdf)
+<use nelfinavir-eps-converted-to.pdf>
+Package pdftex.def Info: nelfinavir-eps-converted-to.pdf  used on input line 31
+5.
+(pdftex.def)             Requested size: 341.27417pt x 274.02307pt.
 
 Package natbib Warning: Citation `antunes_new_2014' on page 6 undefined on inpu
 t line 316.
@@ -1602,7 +1681,7 @@ Overfull \vbox (1.0pt too high) has occurred while \output is active []
  [8
 Non-PDF special ignored!
 <special> ps: [{ThisPage} << /CropBox [0 0 595.26013 782.33696] >> /PUT pdf...
- <./Engens_new.pdf>]
+ <./Engens_new-eps-converted-to.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1616,7 +1695,7 @@ Overfull \vbox (1.0pt too high) has occurred while \output is active []
  [9
 Non-PDF special ignored!
 <special> ps: [{ThisPage} << /CropBox [0 0 595.26013 782.33696] >> /PUT pdf...
- <./engens-res1.pdf>]
+ <./engens-res1-eps-converted-to.pdf>]
 Overfull \hbox (253.25pt too wide) has occurred while \output is active
 [][][] 
  []
@@ -1627,11 +1706,7 @@ Overfull \vbox (1.0pt too high) has occurred while \output is active []
  [10
 Non-PDF special ignored!
 <special> ps: [{ThisPage} << /CropBox [0 0 595.26013 782.33696] >> /PUT pdf...
- <./res-pi3k-md.pdf> <./compstatin.pdf
-
-pdfTeX warning: miktex-pdftex.exe (file ./compstatin.pdf): PDF inclusion: multi
-ple pdfs with page group included in a single page
->]
+ <./res-pi3k-md-eps-converted-to.pdf> <./compstatin-eps-converted-to.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1645,7 +1720,7 @@ Overfull \vbox (1.0pt too high) has occurred while \output is active []
  [11
 Non-PDF special ignored!
 <special> ps: [{ThisPage} << /CropBox [0 0 595.26013 782.33696] >> /PUT pdf...
- <./nelfinavir.pdf>]
+ <./nelfinavir-eps-converted-to.pdf>]
 
 Package natbib Warning: There were undefined citations.
 
@@ -1661,7 +1736,7 @@ Package rerunfilecheck Info: File `main.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  25805 strings out of 478614
- 485026 string characters out of 2843122
+ 485366 string characters out of 2843122
  779802 words of memory out of 3000000
  43428 multiletter control sequences out of 15000+600000
  497480 words of font info for 135 fonts, out of 8000000 for 9000
@@ -1690,9 +1765,9 @@ ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Users/ac1
 21/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/U
 sers/ac121/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.p
 fb>
-Output written on main.pdf (11 pages, 17315284 bytes).
+Output written on main.pdf (11 pages, 10360831 bytes).
 PDF statistics:
- 688 PDF objects out of 1000 (max. 8388607)
+ 330 PDF objects out of 1000 (max. 8388607)
  50 named destinations out of 1000 (max. 500000)
  179 words of extra memory for PDF output out of 10000 (max. 10000000)
 

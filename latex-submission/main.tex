@@ -284,7 +284,7 @@ NF-i3 & 2.304 & 2.701 & 2.467 & \textbf{1.336} & 2.572 & 2.292 & 3.563\\
 
 \begin{figure*}[!t]%
 \centering
-{\includegraphics[scale=0.7]{Engens_new.pdf}}
+{\includegraphics[scale=0.7]{Engens_new.eps}}
 \caption{\textbf{\textit{ Overview of the EnGens methodology. }} Workflows
 are listed across the vertical arrow on the left. Individual steps are listed in the diagram on the right.}
 \label{fig-met}
@@ -292,27 +292,27 @@ are listed across the vertical arrow on the left. Individual steps are listed in
 
 \begin{figure*}[!t]%
 \centering
-{\includegraphics[scale=0.6]{engens-res1.pdf}}
+{\includegraphics[scale=0.6]{engens-res1.eps}}
 \caption{\textbf{\textit{EnGens processing of the  Zhang et al. dataset of PI3K crystal structures.}} A) Each point corresponds to a structure from Zhang et al. dataset. Points are colored based on the cluster they were assigned to, and clusters are indicated as large circles on the plot. Points extracted as cluster representatives are highlighted in red. The x and y axis represent the first and second principal components of these data. B) 3D structural models of the EnGens representatives:  upper left - representatives of clusters 2 and 4 (inactive/closed states); bottom left - representatives of clusters 0, 1 and 3  (active/open states); right - comparison between the representative of the active state cluster 1 and the representative of the inactive state cluster 2 (the arrows point to the regions showing the biggest differences). C) PDB codes of the crystal structures are listed on the x axis. These codes are colored based on the conformational state identified by Zhang et al. (black - inactive/closed states; red - active/open states; brown - states active due to mutation). The EnGens cluster assignment is shown on the y axis. Red vertical lines indicate cluster representatives that were selected by EnGens (codes: 2Y3A, 3HHM, 4L23, 5SXD, 5VLR).}\label{fig-res1a}
 \end{figure*}
 
 
 \begin{figure*}[!t]%
 \centering
-{\includegraphics[scale=0.2]{res-pi3k-md.pdf}}
+{\includegraphics[scale=0.2]{res-pi3k-md.eps}}
 \caption{\textbf{\textit{EnGens processing of the Galdadas et al. MD trajectory of PI3K.}} A) The proportion belonging to each cluster is plotted on the y-axis (cluster weight). Cluster indexes are listed on the x-axis. B) Two-dimensional embedding based on the components identified by the SRV method. Datapoints represent frames and are colored based on their respective cluster (same colors as in A). The 3D structural models of the three cluster representatives are shown on the right of this plot. C) The timeline view of the trajectory, where the x-axis lists  the index of each frame, and the y-axis lists the corresponding cluster index. Vertical red lines highlight the representative frames extracted in the generated ensemble. D) The distance between nSH2 and the helical domain of PI3K is plotted on the y-axis. The x-axis lists the clusters. The red horizontal line represents the threshold of 8Å.  E) The distance between Lys545 and Asp421 of the PI3K regulatory unit is plotted on the y-axis. The x-axis lists the clusters.}\label{fig-res1b}
 \end{figure*}
 
 \begin{figure*}[!t]%
 \centering
-{\includegraphics[scale=0.2]{compstatin.pdf}}
+{\includegraphics[scale=0.2]{compstatin.eps}}
 \caption{\textbf{\textit{ EnGens analysis of Compstatin analogs.}} A) UMAP visualization of the MD trajectory of the 4MeW analog. Points represent MD frames, and are colored based on their respective cluster. Cluster representatives (points highlighted in red) were selected as the closest conformation from the k-mean centroid. The 4MeW cartoon backbone for each cluster representative is presented, including a single closed state (Cluster \#2), a single open state (Cluster \#1), and three intermediate states (Cluster \#0, \#3, \#4). B) The Cp10 analog: cartoon backbone visualizations of the three cluster representatives, namely the open opened, closed, and intermediate states, respectively. C) Time-oriented plot displaying the association between each MD frame (x-axis) and the clusters.}
 \label{fig-res2}
 \end{figure*}
 
 \begin{figure*}[!t]%
 \centering
-{\includegraphics[scale=0.5]{nelfinavir.pdf}}
+{\includegraphics[scale=0.5]{nelfinavir.eps}}
 \caption{\textbf{\textit{EnGens analysis of the Nelfinavir trajectory. }} A) Projection of all MD frames into a 2D space produced by SRV. Points are colored based on the cluster to which frames were assigned. B) Three plots showing the representative of the clusters aligned with the conformations identified by \cite{antunes_new_2014} (NF-i1, NF-i2, NF-i3 in pale tan color). C) Timeline of the MD trajectory showing which frame (x-axis) belongs to which cluster (y-axis).}
 \label{fig-res3}
 \end{figure*}
