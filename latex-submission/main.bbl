@@ -1,0 +1,550 @@
+\begin{thebibliography}{}
+
+\bibitem[Abella {\em et~al.}(2020)Abella, Antunes, Jackson, Lizée, Clementi,
+  and Kavraki]{abella_markov_2020}
+Abella, J.~R.  {\em et~al.} (2020).
+\newblock Markov state modeling reveals alternative unbinding pathways for
+  peptide–{MHC} complexes.
+\newblock {\em Proceedings of the National Academy of Sciences\/}, {\bf
+  117}(48), 30610--30618.
+\newblock Publisher: Proceedings of the National Academy of Sciences.
+
+\bibitem[Abraham {\em et~al.}(2015)Abraham, Murtola, Schulz, Páll, Smith,
+  Hess, and Lindahl]{abraham_gromacs_2015}
+Abraham, M.~J.  {\em et~al.} (2015).
+\newblock {GROMACS}: {High} performance molecular simulations through
+  multi-level parallelism from laptops to supercomputers.
+\newblock {\em SoftwareX\/}, {\bf 1-2}, 19--25.
+
+\bibitem[Antunes {\em et~al.}(2014)Antunes, Rigo, Sinigaglia, Medeiros,
+  Junqueira, Almeida, and Vieira]{antunes_new_2014}
+Antunes, D.~A.  {\em et~al.} (2014).
+\newblock New {Insights} into the {In} {Silico} {Prediction} of {HIV}
+  {Protease} {Resistance} to {Nelfinavir}.
+\newblock {\em PLOS ONE\/}, {\bf 9}(1), e87520.
+\newblock Publisher: Public Library of Science.
+
+\bibitem[Baek {\em et~al.}(2021)Baek, DiMaio, Anishchenko, Dauparas,
+  Ovchinnikov, Lee, Wang, Cong, Kinch, Schaeffer, Millán, Park, Adams,
+  Glassman, DeGiovanni, Pereira, Rodrigues, van Dijk, Ebrecht, Opperman,
+  Sagmeister, Buhlheller, Pavkov-Keller, Rathinaswamy, Dalwadi, Yip, Burke,
+  Garcia, Grishin, Adams, Read, and Baker]{baek_accurate_2021}
+Baek, M.  {\em et~al.} (2021).
+\newblock Accurate prediction of protein structures and interactions using a
+  three-track neural network.
+\newblock {\em Science\/}, {\bf 373}(6557), 871--876.
+\newblock Publisher: American Association for the Advancement of Science.
+
+\bibitem[Bakan {\em et~al.}(2011)Bakan, Meireles, and Bahar]{bakan_prody_2011}
+Bakan, A.  {\em et~al.} (2011).
+\newblock {ProDy}: {Protein} {Dynamics} {Inferred} from {Theory} and
+  {Experiments}.
+\newblock {\em Bioinformatics\/}, {\bf 27}(11), 1575--1577.
+
+\bibitem[Barhaghi {\em et~al.}(2022)Barhaghi, Crawford, Schwing, Hardy, Stone,
+  Schwiebert, Potoff, and Tajkhorshid]{barhaghi_py-mcmd_2022}
+Barhaghi, M.~S.  {\em et~al.} (2022).
+\newblock py-{MCMD}: {Python} {Software} for {Performing} {Hybrid} {Monte}
+  {Carlo}/{Molecular} {Dynamics} {Simulations} with {GOMC} and {NAMD}.
+\newblock {\em Journal of Chemical Theory and Computation\/}, {\bf 18}(8),
+  4983--4994.
+\newblock Publisher: American Chemical Society.
+
+\bibitem[BEKKER {\em et~al.}(1993)BEKKER, BERENDSEN, DIJKSTRA, ACHTEROP,
+  VONDRUMEN, VANDERSPOEL, SIJBERS, Keegstra, and RENARDUS]{bekker_gromacs_1993}
+BEKKER, H.  {\em et~al.} (1993).
+\newblock {GROMACS} - {A} {PARALLEL} {COMPUTER} {FOR} {MOLECULAR}-{DYNAMICS}
+  {SIMULATIONS}: 4th {International} {Conference} on {Computational} {Physics}
+  ({PC} 92).
+\newblock {\em PHYSICS COMPUTING '92\/}, pages 252--256.
+\newblock Place: SINGAPORE Publisher: World Scientific Publishing.
+
+\bibitem[Berendsen {\em et~al.}(1995)Berendsen, van~der Spoel, and van
+  Drunen]{berendsen_gromacs_1995}
+Berendsen, H. J.~C.  {\em et~al.} (1995).
+\newblock {GROMACS}: {A} message-passing parallel molecular dynamics
+  implementation.
+\newblock {\em Computer Physics Communications\/}, {\bf 91}(1), 43--56.
+
+\bibitem[Bernetti {\em et~al.}(2019)Bernetti, Masetti, Recanatini, Amaro, and
+  Cavalli]{bernetti_integrated_2019}
+Bernetti, M.  {\em et~al.} (2019).
+\newblock An {Integrated} {Markov} {State} {Model} and {Path} {Metadynamics}
+  {Approach} {To} {Characterize} {Drug} {Binding} {Processes}.
+\newblock {\em Journal of Chemical Theory and Computation\/}, {\bf 15}(10),
+  5689--5702.
+\newblock Publisher: American Chemical Society.
+
+\bibitem[Brooks {\em et~al.}(2009)Brooks, Brooks, MacKerell, Nilsson, Petrella,
+  Roux, Won, Archontis, Bartels, Boresch, Caflisch, Caves, Cui, Dinner, Feig,
+  Fischer, Gao, Hodoscek, Im, Kuczera, Lazaridis, Ma, Ovchinnikov, Paci,
+  Pastor, Post, Pu, Schaefer, Tidor, Venable, Woodcock, Wu, Yang, York, and
+  Karplus]{brooks_charmm_2009}
+Brooks, B.  {\em et~al.} (2009).
+\newblock {CHARMM}: {The} {Biomolecular} {Simulation} {Program}.
+\newblock {\em Journal of computational chemistry\/}, {\bf 30}(10), 1545--1614.
+
+\bibitem[Buckles {\em et~al.}(2017)Buckles, Ziemba, Masson, Williams, and
+  Falke]{buckles_single-molecule_2017}
+Buckles, T.~C.  {\em et~al.} (2017).
+\newblock Single-{Molecule} {Study} {Reveals} {How} {Receptor} and {Ras}
+  {Synergistically} {Activate} {PI3Kα} and {PIP3} {Signaling}.
+\newblock {\em Biophysical Journal\/}, {\bf 113}(11), 2396--2405.
+
+\bibitem[Burley {\em et~al.}(2021)Burley, Bhikadiya, Bi, Bittrich, Chen,
+  Crichlow, Christie, Dalenberg, Di~Costanzo, Duarte, Dutta, Feng, Ganesan,
+  Goodsell, Ghosh, Green, Guranović, Guzenko, Hudson, Lawson, Liang, Lowe,
+  Namkoong, Peisach, Persikova, Randle, Rose, Rose, Sali, Segura, Sekharan,
+  Shao, Tao, Voigt, Westbrook, Young, Zardecki, and
+  Zhuravleva]{burley_rcsb_2021}
+Burley, S.~K.  {\em et~al.} (2021).
+\newblock {RCSB} {Protein} {Data} {Bank}: powerful new tools for exploring {3D}
+  structures of biological macromolecules for basic and applied research and
+  education in fundamental biology, biomedicine, biotechnology, bioengineering
+  and energy sciences.
+\newblock {\em Nucleic Acids Research\/}, {\bf 49}(D1), D437--D451.
+
+\bibitem[Chan and Shukla(2021)Chan and Shukla]{chan_markov_2021}
+Chan, M.~C. and Shukla, D. (2021).
+\newblock Markov state modeling of membrane transport proteins.
+\newblock {\em Journal of Structural Biology\/}, {\bf 213}(4), 107800.
+
+\bibitem[Chen {\em et~al.}(2019)Chen, Sidky, and Ferguson]{chen_nonlinear_2019}
+Chen, W.  {\em et~al.} (2019).
+\newblock Nonlinear discovery of slow molecular modes using state-free
+  reversible {VAMPnets}.
+\newblock {\em The Journal of Chemical Physics\/}, {\bf 150}(21), 214114.
+\newblock Publisher: American Institute of Physics.
+
+\bibitem[Cock {\em et~al.}(2009)Cock, Antao, Chang, Chapman, Cox, Dalke,
+  Friedberg, Hamelryck, Kauff, Wilczynski, and de~Hoon]{cock_biopython_2009}
+Cock, P. J.~A.  {\em et~al.} (2009).
+\newblock Biopython: freely available {Python} tools for computational
+  molecular biology and bioinformatics.
+\newblock {\em Bioinformatics\/}, {\bf 25}(11), 1422--1423.
+
+\bibitem[Devaurs {\em et~al.}(2020)Devaurs, Antunes, and
+  Kavraki]{devaurs_computational_2020}
+Devaurs, D.  {\em et~al.} (2020).
+\newblock Computational analysis of complement inhibitor compstatin using
+  molecular dynamics.
+\newblock {\em Journal of Molecular Modeling\/}, {\bf 26}(9), 231.
+
+\bibitem[Dishman and Volkman(2018)Dishman and Volkman]{dishman_unfolding_2018}
+Dishman, A.~F. and Volkman, B.~F. (2018).
+\newblock Unfolding the {Mysteries} of {Protein} {Metamorphosis}.
+\newblock {\em ACS Chemical Biology\/}, {\bf 13}(6), 1438--1446.
+
+\bibitem[Dishman and Volkman(2022)Dishman and Volkman]{dishman_design_2022}
+Dishman, A.~F. and Volkman, B.~F. (2022).
+\newblock Design and discovery of metamorphic proteins.
+\newblock {\em Current Opinion in Structural Biology\/}, {\bf 74}, 102380.
+
+\bibitem[Eastman {\em et~al.}(2013)Eastman, Friedrichs, Chodera, Radmer, Bruns,
+  Ku, Beauchamp, Lane, Wang, Shukla, Tye, Houston, Stich, Klein, Shirts, and
+  Pande]{eastman_openmm_2013}
+Eastman, P.  {\em et~al.} (2013).
+\newblock {OpenMM} 4: {A} {Reusable}, {Extensible}, {Hardware} {Independent}
+  {Library} for {High} {Performance} {Molecular} {Simulation}.
+\newblock {\em Journal of Chemical Theory and Computation\/}, {\bf 9}(1),
+  461--469.
+\newblock Publisher: American Chemical Society.
+
+\bibitem[Eastman {\em et~al.}(2017)Eastman, Swails, Chodera, McGibbon, Zhao,
+  Beauchamp, Wang, Simmonett, Harrigan, Stern, Wiewiora, Brooks, and
+  Pande]{eastman_openmm_2017}
+Eastman, P.  {\em et~al.} (2017).
+\newblock {OpenMM} 7: {Rapid} development of high performance algorithms for
+  molecular dynamics.
+\newblock {\em PLoS computational biology\/}, {\bf 13}(7), e1005659.
+
+\bibitem[Frauenfelder {\em et~al.}(1991)Frauenfelder, Sligar, and
+  Wolynes]{frauenfelder_energy_1991}
+Frauenfelder, H.  {\em et~al.} (1991).
+\newblock The {Energy} {Landscapes} and {Motions} of {Proteins}.
+\newblock {\em Science\/}, {\bf 254}(5038), 1598--1603.
+\newblock Publisher: American Association for the Advancement of Science.
+
+\bibitem[Galdadas {\em et~al.}(2020)Galdadas, Gervasio, and
+  Cournia]{galdadas_unravelling_2020}
+Galdadas, I.  {\em et~al.} (2020).
+\newblock Unravelling the effect of the {E545K} mutation on {PI3Kα} kinase.
+\newblock {\em Chemical Science\/}, {\bf 11}(13), 3511--3515.
+\newblock Publisher: The Royal Society of Chemistry.
+
+\bibitem[Glielmo {\em et~al.}(2021)Glielmo, Husic, Rodriguez, Clementi, Noé,
+  and Laio]{glielmo_unsupervised_2021}
+Glielmo, A.  {\em et~al.} (2021).
+\newblock Unsupervised {Learning} {Methods} for {Molecular} {Simulation}
+  {Data}.
+\newblock {\em Chemical Reviews\/}, {\bf 121}(16), 9722--9758.
+
+\bibitem[Hall-Swan {\em et~al.}(2021)Hall-Swan, Devaurs, Rigo, Antunes,
+  Kavraki, and Zanatta]{hall-swan_dinc-covid_2021}
+Hall-Swan, S.  {\em et~al.} (2021).
+\newblock {DINC}-{COVID}: {A} webserver for ensemble docking with flexible
+  {SARS}-{CoV}-2 proteins.
+\newblock {\em Computers in Biology and Medicine\/}, {\bf 139}, 104943.
+
+\bibitem[Hartigan and Wong(1979)Hartigan and Wong]{hartigan_algorithm_1979}
+Hartigan, J.~A. and Wong, M.~A. (1979).
+\newblock Algorithm {AS} 136: {A} {K}-{Means} {Clustering} {Algorithm}.
+\newblock {\em Journal of the Royal Statistical Society. Series C (Applied
+  Statistics)\/}, {\bf 28}(1), 100--108.
+\newblock Publisher: [Wiley, Royal Statistical Society].
+
+\bibitem[Henzler-Wildman and Kern(2007)Henzler-Wildman and
+  Kern]{henzler-wildman_dynamic_2007}
+Henzler-Wildman, K. and Kern, D. (2007).
+\newblock Dynamic personalities of proteins.
+\newblock {\em Nature\/}, {\bf 450}(7172), 964--972.
+\newblock Number: 7172 Publisher: Nature Publishing Group.
+
+\bibitem[Hoffmann {\em et~al.}(2021)Hoffmann, Scherer, Hempel, Mardt, Silva,
+  Husic, Klus, Wu, Kutz, Brunton, and Noé]{hoffmann_deeptime_2021}
+Hoffmann, M.  {\em et~al.} (2021).
+\newblock Deeptime: a {Python} library for machine learning dynamical models
+  from time series data.
+\newblock {\em Machine Learning: Science and Technology\/}, {\bf 3}(1), 015009.
+\newblock Publisher: IOP Publishing.
+
+\bibitem[Husic and Pande(2018)Husic and Pande]{husic_markov_2018}
+Husic, B.~E. and Pande, V.~S. (2018).
+\newblock Markov {State} {Models}: {From} an {Art} to a {Science}.
+\newblock {\em Journal of the American Chemical Society\/}, {\bf 140}(7),
+  2386--2396.
+\newblock Publisher: American Chemical Society.
+
+\bibitem[Husic {\em et~al.}(2020)Husic, Charron, Lemm, Wang, Pérez, Majewski,
+  Krämer, Chen, Olsson, de~Fabritiis, Noé, and Clementi]{husic_coarse_2020}
+Husic, B.~E.  {\em et~al.} (2020).
+\newblock Coarse graining molecular dynamics with graph neural networks.
+\newblock {\em The Journal of Chemical Physics\/}, {\bf 153}(19), 194101.
+\newblock Publisher: American Institute of Physics.
+
+\bibitem[Hénin {\em et~al.}(2022)Hénin, Lelièvre, Shirts, Valsson, and
+  Delemotte]{henin_enhanced_2022}
+Hénin, J.  {\em et~al.} (2022).
+\newblock Enhanced sampling methods for molecular dynamics simulations.
+\newblock {\em Living Journal of Computational Molecular Science\/}, {\bf
+  4}(1).
+\newblock arXiv:2202.04164 [cond-mat, physics:physics].
+
+\bibitem[Jumper {\em et~al.}(2021)Jumper, Evans, Pritzel, Green, Figurnov,
+  Ronneberger, Tunyasuvunakool, Bates, Žídek, Potapenko, Bridgland, Meyer,
+  Kohl, Ballard, Cowie, Romera-Paredes, Nikolov, Jain, Adler, Back, Petersen,
+  Reiman, Clancy, Zielinski, Steinegger, Pacholska, Berghammer, Bodenstein,
+  Silver, Vinyals, Senior, Kavukcuoglu, Kohli, and
+  Hassabis]{jumper_highly_2021}
+Jumper, J.  {\em et~al.} (2021).
+\newblock Highly accurate protein structure prediction with {AlphaFold}.
+\newblock {\em Nature\/}, {\bf 596}(7873), 583--589.
+\newblock Number: 7873 Publisher: Nature Publishing Group.
+
+\bibitem[Kannan and Naganathan(2022)Kannan and
+  Naganathan]{kannan_ensemble_2022}
+Kannan, A. and Naganathan, A.~N. (2022).
+\newblock Ensemble origins and distance-dependence of long-range mutational
+  effects in proteins.
+\newblock {\em iScience\/}, {\bf 25}(10), 105181.
+
+\bibitem[Kessel and Ben-Tal(2018)Kessel and Ben-Tal]{kessel__2018}
+Kessel, A. and Ben-Tal, N. (2018).
+\newblock {\em : {Structure}, {Function}, and {Motion}, {Second} {Edition}\/}.
+\newblock Chapman and Hall/CRC, New York, 2 edition.
+
+\bibitem[Kim and Porter(2021)Kim and Porter]{kim_functional_2021}
+Kim, A.~K. and Porter, L.~L. (2021).
+\newblock Functional and {Regulatory} {Roles} of {Fold}-{Switching} {Proteins}.
+\newblock {\em Structure\/}, {\bf 29}(1), 6--14.
+
+\bibitem[Kumar {\em et~al.}(2000)Kumar, Ma, Tsai, Sinha, and
+  Nussinov]{kumar_folding_2000}
+Kumar, S.  {\em et~al.} (2000).
+\newblock Folding and binding cascades: {Dynamic} landscapes and population
+  shifts.
+\newblock {\em Protein Science\/}, {\bf 9}(1), 10--19.
+\newblock Publisher: Cambridge University Press.
+
+\bibitem[Lee {\em et~al.}(2022)Lee, Chamzas, and Kavraki]{lee_adaptive_2022}
+Lee, Y.  {\em et~al.} (2022).
+\newblock Adaptive {Experience} {Sampling} for {Motion} {Planning} {Using} the
+  {Generator}-{Critic} {Framework}.
+\newblock {\em IEEE Robotics and Automation Letters\/}, {\bf 7}(4), 9437--9444.
+\newblock Conference Name: IEEE Robotics and Automation Letters.
+
+\bibitem[Lella and Mahalakshmi(2017)Lella and
+  Mahalakshmi]{lella_metamorphic_2017}
+Lella, M. and Mahalakshmi, R. (2017).
+\newblock Metamorphic {Proteins}: {Emergence} of {Dual} {Protein} {Folds} from
+  {One} {Primary} {Sequence}.
+\newblock {\em Biochemistry\/}, {\bf 56}(24), 2971--2984.
+\newblock Publisher: American Chemical Society.
+
+\bibitem[Lin {\em et~al.}(2022)Lin, Akin, Rao, Hie, Zhu, Lu, Smetanin, Verkuil,
+  Kabeli, Shmueli, Costa, Fazel-Zarandi, Sercu, Candido, and
+  Rives]{lin_evolutionary-scale_2022}
+Lin, Z.  {\em et~al.} (2022).
+\newblock Evolutionary-scale prediction of atomic level protein structure with
+  a language model.
+\newblock Pages: 2022.07.20.500902 Section: New Results.
+
+\bibitem[Lindsay {\em et~al.}(1989)Lindsay, McLachlan, Basford, and
+  Dekker]{lindsay_mixture_1989}
+Lindsay, B.  {\em et~al.} (1989).
+\newblock Mixture {Models}: {Inference} and {Applications} to {Clustering}.
+\newblock In {\em Journal of the {American} {Statistical} {Association}\/},
+  volume~84, page 337.
+\newblock ISSN: 01621459 Issue: 405 Journal Abbreviation: Journal of the
+  American Statistical Association.
+
+\bibitem[Lorpaiboon {\em et~al.}(2020)Lorpaiboon, Thiede, Webber, Weare, and
+  Dinner]{lorpaiboon_integrated_2020}
+Lorpaiboon, C.  {\em et~al.} (2020).
+\newblock Integrated {Variational} {Approach} to {Conformational} {Dynamics}:
+  {A} {Robust} {Strategy} for {Identifying} {Eigenfunctions} of {Dynamical}
+  {Operators}.
+\newblock {\em The Journal of Physical Chemistry B\/}, {\bf 124}(42),
+  9354--9364.
+\newblock Publisher: American Chemical Society.
+
+\bibitem[Martini {\em et~al.}(2014)Martini, De~Santis, Braccini, Gulluni, and
+  Hirsch]{martini_pi3kakt_2014}
+Martini, M.  {\em et~al.} (2014).
+\newblock {PI3K}/{AKT} signaling pathway and cancer: an updated review.
+\newblock {\em Annals of Medicine\/}, {\bf 46}(6), 372--383.
+\newblock Publisher: Taylor \& Francis \_eprint:
+  https://doi.org/10.3109/07853890.2014.912836.
+
+\bibitem[McGibbon {\em et~al.}(2015)McGibbon, Beauchamp, Harrigan, Klein,
+  Swails, Hernández, Schwantes, Wang, Lane, and Pande]{mcgibbon_mdtraj_2015}
+McGibbon, R.  {\em et~al.} (2015).
+\newblock {MDTraj}: {A} {Modern} {Open} {Library} for the {Analysis} of
+  {Molecular} {Dynamics} {Trajectories}.
+\newblock {\em Biophysical Journal\/}, {\bf 109}(8), 1528--1532.
+
+\bibitem[Miller {\em et~al.}(2014)Miller, Schmidt-Kittler, Bolduc, Brower,
+  Chaves-Moreira, Allaire, Kinzler, Jennings, Thompson, Cole, Amzel,
+  Vogelstein, and Gabelli]{miller_structural_2014}
+Miller, M.~S.  {\em et~al.} (2014).
+\newblock Structural basis of {nSH2} regulation and lipid binding in {PI3Kα}.
+\newblock {\em Oncotarget\/}, {\bf 5}(14), 5198--5208.
+
+\bibitem[Murtagh and Contreras(2012)Murtagh and
+  Contreras]{murtagh_algorithms_2012}
+Murtagh, F. and Contreras, P. (2012).
+\newblock Algorithms for hierarchical clustering: an overview.
+\newblock {\em WIREs Data Mining and Knowledge Discovery\/}, {\bf 2}(1),
+  86--97.
+\newblock \_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/widm.53.
+
+\bibitem[Nolte {\em et~al.}(1996)Nolte, Eck, Schlessinger, Shoelson, and
+  Harrison]{nolte_crystal_1996}
+Nolte, R.~T.  {\em et~al.} (1996).
+\newblock Crystal structure of the {PI} 3-kinase p85 amino-terminal {SH2}
+  domain and its phosphopeptide complexes.
+\newblock {\em Nature Structural Biology\/}, {\bf 3}(4), 364--374.
+\newblock Number: 4 Publisher: Nature Publishing Group.
+
+\bibitem[Nussinov and Tsai(2013)Nussinov and Tsai]{nussinov_allostery_2013}
+Nussinov, R. and Tsai, C.-J. (2013).
+\newblock Allostery in {Disease} and in {Drug} {Discovery}.
+\newblock {\em Cell\/}, {\bf 153}(2), 293--305.
+
+\bibitem[Onuchic {\em et~al.}(1997)Onuchic, Luthey-Schulten, and
+  Wolynes]{onuchic_theory_1997}
+Onuchic, J.~N.  {\em et~al.} (1997).
+\newblock Theory of protein folding: the energy landscape perspective.
+\newblock {\em Annual Review of Physical Chemistry\/}, {\bf 48}, 545--600.
+
+\bibitem[Pearson(1901)Pearson]{pearson_liii_1901}
+Pearson, K. (1901).
+\newblock {LIII}. {On} lines and planes of closest fit to systems of points in
+  space.
+\newblock {\em The London, Edinburgh, and Dublin Philosophical Magazine and
+  Journal of Science\/}, {\bf 2}(11), 559--572.
+\newblock Publisher: Taylor \& Francis \_eprint:
+  https://doi.org/10.1080/14786440109462720.
+
+\bibitem[Pedregosa {\em et~al.}(2011)Pedregosa, Varoquaux, Gramfort, Michel,
+  Thirion, Grisel, Blondel, Prettenhofer, Weiss, Dubourg, Vanderplas, Passos,
+  Cournapeau, Brucher, Perrot, and Duchesnay]{pedregosa_scikit-learn_2011}
+Pedregosa, F.  {\em et~al.} (2011).
+\newblock Scikit-learn: {Machine} {Learning} in {Python}.
+\newblock {\em Journal of Machine Learning Research\/}, {\bf 12}(85),
+  2825--2830.
+
+\bibitem[Peng {\em et~al.}(2018)Peng, Wang, Yu, Gu, and
+  Huang]{peng_clustering_2018}
+Peng, J.-h.  {\em et~al.} (2018).
+\newblock Clustering algorithms to analyze molecular dynamics simulation
+  trajectories for complex chemical and biological systems.
+\newblock {\em Chinese Journal of Chemical Physics\/}, {\bf 31}(4), 404--420.
+\newblock Publisher: American Institute of Physics.
+
+\bibitem[Phillips {\em et~al.}(2020)Phillips, Hardy, Maia, Stone, Ribeiro,
+  Bernardi, Buch, Fiorin, Hénin, Jiang, McGreevy, Melo, Radak, Skeel,
+  Singharoy, Wang, Roux, Aksimentiev, Luthey-Schulten, Kalé, Schulten, Chipot,
+  and Tajkhorshid]{phillips_scalable_2020}
+Phillips, J.~C.  {\em et~al.} (2020).
+\newblock Scalable molecular dynamics on {CPU} and {GPU} architectures with
+  {NAMD}.
+\newblock {\em The Journal of Chemical Physics\/}, {\bf 153}(4), 044130.
+\newblock Publisher: American Institute of Physics.
+
+\bibitem[Prinz {\em et~al.}(2011)Prinz, Wu, Sarich, Keller, Senne, Held,
+  Chodera, Schütte, and Noé]{prinz_markov_2011}
+Prinz, J.-H.  {\em et~al.} (2011).
+\newblock Markov models of molecular kinetics: {Generation} and validation.
+\newblock {\em The Journal of Chemical Physics\/}, {\bf 134}(17), 174105.
+\newblock Publisher: American Institute of Physics.
+
+\bibitem[Pérez-Hernández {\em et~al.}(2013)Pérez-Hernández, Paul, Giorgino,
+  De~Fabritiis, and Noé]{perez-hernandez_identification_2013}
+Pérez-Hernández, G.  {\em et~al.} (2013).
+\newblock Identification of slow molecular order parameters for {Markov} model
+  construction.
+\newblock {\em The Journal of Chemical Physics\/}, {\bf 139}(1), 015102.
+\newblock Publisher: American Institute of Physics.
+
+\bibitem[Salomon-Ferrer {\em et~al.}(2013)Salomon-Ferrer, Case, and
+  Walker]{salomon-ferrer_overview_2013}
+Salomon-Ferrer, R.  {\em et~al.} (2013).
+\newblock An overview of the {Amber} biomolecular simulation package.
+\newblock {\em WIREs Computational Molecular Science\/}, {\bf 3}(2), 198--210.
+\newblock \_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/wcms.1121.
+
+\bibitem[Scherer {\em et~al.}(2015)Scherer, Trendelkamp-Schroer, Paul,
+  Pérez-Hernández, Hoffmann, Plattner, Wehmeyer, Prinz, and
+  Noé]{scherer_pyemma_2015}
+Scherer, M.~K.  {\em et~al.} (2015).
+\newblock {PyEMMA} 2: {A} {Software} {Package} for {Estimation}, {Validation},
+  and {Analysis} of {Markov} {Models}.
+\newblock {\em Journal of Chemical Theory and Computation\/}, {\bf 11}(11),
+  5525--5542.
+\newblock Publisher: American Chemical Society.
+
+\bibitem[Schwantes and Pande(2015)Schwantes and Pande]{schwantes_modeling_2015}
+Schwantes, C.~R. and Pande, V.~S. (2015).
+\newblock Modeling {Molecular} {Kinetics} with {tICA} and the {Kernel} {Trick}.
+\newblock {\em Journal of Chemical Theory and Computation\/}, {\bf 11}(2),
+  600--608.
+\newblock Publisher: American Chemical Society.
+
+\bibitem[Takei and Ishida(2022)Takei and Ishida]{takei_how_2022}
+Takei, Y. and Ishida, T. (2022).
+\newblock How to select the best model from {AlphaFold2} structures?
+\newblock preprint, Bioinformatics.
+
+\bibitem[Todd {\em et~al.}(2002)Todd, Orengo, and
+  Thornton]{todd_plasticity_2002}
+Todd, A.~E.  {\em et~al.} (2002).
+\newblock Plasticity of enzyme active sites.
+\newblock {\em Trends in Biochemical Sciences\/}, {\bf 27}(8), 419--426.
+\newblock Publisher: Elsevier.
+
+\bibitem[Trozzi {\em et~al.}(2021)Trozzi, Wang, and Tao]{trozzi_umap_2021}
+Trozzi, F.  {\em et~al.} (2021).
+\newblock {UMAP} as a {Dimensionality} {Reduction} {Tool} for {Molecular}
+  {Dynamics} {Simulations} of {Biomacromolecules}: {A} {Comparison} {Study}.
+\newblock {\em The Journal of Physical Chemistry B\/}, {\bf 125}(19),
+  5022--5034.
+\newblock Publisher: American Chemical Society.
+
+\bibitem[Tsou(1998)Tsou]{tsou_active_1998}
+Tsou, C.-L. (1998).
+\newblock Active {Site} {Flexibility} in {Enzyme} {Catalysisa}.
+\newblock {\em Annals of the New York Academy of Sciences\/}, {\bf 864}(1),
+  1--8.
+\newblock \_eprint:
+  https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1749-6632.1998.tb10282.x.
+
+\bibitem[Uversky(2016)Uversky]{uversky_p53_2016}
+Uversky, V.~N. (2016).
+\newblock p53 {Proteoforms} and {Intrinsic} {Disorder}: {An} {Illustration} of
+  the {Protein} {Structure}–{Function} {Continuum} {Concept}.
+\newblock {\em International Journal of Molecular Sciences\/}, {\bf 17}(11),
+  1874.
+
+\bibitem[Vadas {\em et~al.}(2011)Vadas, Burke, Zhang, Berndt, and
+  Williams]{vadas_structural_2011}
+Vadas, O.  {\em et~al.} (2011).
+\newblock Structural {Basis} for {Activation} and {Inhibition} of {Class} {I}
+  {Phosphoinositide} 3-{Kinases}.
+\newblock {\em Science Signaling\/}, {\bf 4}(195), re2--re2.
+\newblock Publisher: American Association for the Advancement of Science.
+
+\bibitem[Varadi {\em et~al.}(2022)Varadi, Anyango, Deshpande, Nair, Natassia,
+  Yordanova, Yuan, Stroe, Wood, Laydon, Žídek, Green, Tunyasuvunakool,
+  Petersen, Jumper, Clancy, Green, Vora, Lutfi, Figurnov, Cowie, Hobbs, Kohli,
+  Kleywegt, Birney, Hassabis, and Velankar]{varadi_alphafold_2022}
+Varadi, M.  {\em et~al.} (2022).
+\newblock {AlphaFold} {Protein} {Structure} {Database}: massively expanding the
+  structural coverage of protein-sequence space with high-accuracy models.
+\newblock {\em Nucleic Acids Research\/}, {\bf 50}(D1), D439--D444.
+
+\bibitem[Vögele {\em et~al.}(2022a)Vögele, Thomson, McAvity, and
+  Mick]{vogele_drorlabpensa_2022}
+Vögele, M.  {\em et~al.} (2022a).
+\newblock drorlab/pensa: {PENSA} 0.2.8.
+
+\bibitem[Vögele {\em et~al.}(2022b)Vögele, Thomson, Truong, McAvity,
+  Zachariae, and Dror]{vogele_systematic_2022}
+Vögele, M.  {\em et~al.} (2022b).
+\newblock Systematic {Analysis} of {Biomolecular} {Conformational} {Ensembles}
+  with {PENSA}.
+\newblock arXiv:2212.02714 [physics, q-bio].
+
+\bibitem[Warshel and Levitt(1976)Warshel and Levitt]{warshel_theoretical_1976}
+Warshel, A. and Levitt, M. (1976).
+\newblock Theoretical studies of enzymic reactions: {Dielectric}, electrostatic
+  and steric stabilization of the carbonium ion in the reaction of lysozyme.
+\newblock {\em Journal of Molecular Biology\/}, {\bf 103}(2), 227--249.
+
+\bibitem[Weng {\em et~al.}(2011)Weng, Chang, Huang, and Lin]{weng_study_2011}
+Weng, Y.-Z.  {\em et~al.} (2011).
+\newblock A study on the flexibility of enzyme active sites.
+\newblock {\em BMC Bioinformatics\/}, {\bf 12}(1), S32.
+
+\bibitem[Wu and Noé(2020)Wu and Noé]{wu_variational_2020}
+Wu, H. and Noé, F. (2020).
+\newblock Variational {Approach} for {Learning} {Markov} {Processes} from
+  {Time} {Series} {Data}.
+\newblock {\em Journal of Nonlinear Science\/}, {\bf 30}(1), 23--66.
+
+\bibitem[{wwPDB consortium}(2019){wwPDB
+  consortium}]{wwpdb_consortium_protein_2019}
+{wwPDB consortium} (2019).
+\newblock Protein {Data} {Bank}: the single global archive for {3D}
+  macromolecular structure data.
+\newblock {\em Nucleic Acids Research\/}, {\bf 47}(D1), D520--D528.
+
+\bibitem[Yu {\em et~al.}(1998)Yu, Wjasow, and Backer]{yu_regulation_1998}
+Yu, J.  {\em et~al.} (1998).
+\newblock Regulation of the p85/p110α {Phosphatidylinositol} 3′-{Kinase}:
+  {DISTINCT} {ROLES} {FOR} {THE} {N}-{TERMINAL} {AND} {C}-{TERMINAL} {SH2}
+  {DOMAINS}*.
+\newblock {\em Journal of Biological Chemistry\/}, {\bf 273}(46), 30199--30203.
+
+\bibitem[Zhang {\em et~al.}(2020)Zhang, Jang, and
+  Nussinov]{zhang_structural_2020}
+Zhang, M.  {\em et~al.} (2020).
+\newblock Structural {Features} that {Distinguish} {Inactive} and {Active}
+  {PI3K} {Lipid} {Kinases}.
+\newblock {\em Journal of Molecular Biology\/}, {\bf 432}(22), 5849--5859.
+
+\bibitem[Zhang {\em et~al.}(2021)Zhang, Krieger, Zhang, Kaya, Kaynak,
+  Mikulska-Ruminska, Doruker, Li, and Bahar]{zhang_prody_2021}
+Zhang, S.  {\em et~al.} (2021).
+\newblock {ProDy} 2.0: increased scale and scope after 10 years of protein
+  dynamics modelling with {Python}.
+\newblock {\em Bioinformatics\/}, {\bf 37}(20), 3657--3659.
+
+\bibitem[Ángyán {\em et~al.}(2010)Ángyán, Szappanos, Perczel, and
+  Gáspári]{angyan_consensx_2010}
+Ángyán, A.~F.  {\em et~al.} (2010).
+\newblock {CoNSEnsX}: an ensemble view of protein structures and {NMR}-derived
+  experimental data.
+\newblock {\em BMC Structural Biology\/}, {\bf 10}(1), 39.
+
+\end{thebibliography}

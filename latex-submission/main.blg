@@ -1,0 +1,57 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+Reallocating 'name_of_file' (item size: 1) to 7 items.
+The style file: natbib.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Database file #1: zotero_ref.bib
+Repeated entry---line 2083 of file zotero_ref.bib
+ : @article{kim_functional_2021
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2256 of file zotero_ref.bib
+ : @article{glielmo_unsupervised_2021
+ :                                   ,
+I'm skipping whatever remains of this entry
+You've used 73 entries,
+            2401 wiz_defined-function locations,
+            985 strings with 25510 characters,
+and the built_in function-call counts, 41576 in all, are:
+= -- 3855
+> -- 2792
+< -- 23
++ -- 891
+- -- 813
+* -- 4251
+:= -- 7211
+add.period$ -- 430
+call.type$ -- 73
+change.case$ -- 455
+chr.to.int$ -- 72
+cite$ -- 73
+duplicate$ -- 1520
+empty$ -- 2454
+format.name$ -- 918
+if$ -- 8082
+int.to.chr$ -- 2
+int.to.str$ -- 0
+missing$ -- 70
+newline$ -- 404
+num.names$ -- 292
+pop$ -- 407
+preamble$ -- 1
+purify$ -- 454
+quote$ -- 0
+skip$ -- 989
+stack$ -- 0
+substring$ -- 2697
+swap$ -- 331
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 654
+warning$ -- 0
+while$ -- 337
+width$ -- 0
+write$ -- 1022
+(There were 2 error messages)
