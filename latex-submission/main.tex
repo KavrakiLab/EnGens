@@ -1,0 +1,320 @@
+%%
+%% Copyright 2022 OXFORD UNIVERSITY PRESS
+%%
+%% This file is part of the 'oup-authoring-template Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'oup-authoring-template Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for OXFORD UNIVERSITY PRESS's document class `oup-authoring-template'
+%% with bibliographic references
+%%
+
+%%%CONTEMPORARY%%%
+%\documentclass[unnumsec,webpdf,contemporary,large]{oup-authoring-template}%
+%\documentclass[unnumsec,webpdf,contemporary,large,namedate]{oup-authoring-template}% uncomment this line for author year citations and comment the above
+%\documentclass[unnumsec,webpdf,contemporary,medium]{oup-authoring-template}
+%\documentclass[unnumsec,webpdf,contemporary,small]{oup-authoring-template}
+
+%%%MODERN%%%
+\documentclass[numsec,webpdf,contemporary,large]{oup-authoring-template}
+%\documentclass[numsec,webpdf,modern,large,namedate]{oup-authoring-template}% uncomment this line for author year citations and comment the above
+%\documentclass[unnumsec,webpdf,modern,medium]{oup-authoring-template}
+%\documentclass[unnumsec,webpdf,modern,small]{oup-authoring-template}
+
+%%%TRADITIONAL%%%
+%\documentclass[unnumsec,webpdf,traditional,large]{oup-authoring-template}
+%\documentclass[unnumsec,webpdf,traditional,large,namedate]{oup-authoring-template}% uncomment this line for author year citations and comment the above
+%\documentclass[unnumsec,namedate,webpdf,traditional,medium]{oup-authoring-template}
+%\documentclass[namedate,webpdf,traditional,small]{oup-authoring-template}
+
+%\onecolumn % for one column layouts
+
+%\usepackage{showframe}
+
+\def\ouplogo{{\fboxsep0pt\fcolorbox{black50}{black50}{\textcolor{white}{\vbox to 62pt{\vfil\hbox to 85pt{\hfil\fontsize{16}{16}\selectfont OXFORD\hfil}\vspace*{10pt}}}}}\hspace*{12pt}}
+
+\graphicspath{{Fig/}}
+
+% line numbers
+%\usepackage[mathlines, switch]{lineno}
+%\usepackage[right]{lineno}
+
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}%
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}
+
+\usepackage{diagbox}
+
+\begin{document}
+
+\journaltitle{Briefings in Bioinformatics}
+\DOI{preprint}
+\copyrightyear{preprint}
+\pubyear{preprint}
+%\access{preprint}
+%\appnotes{Preprint}
+\copyrightmessage{Manuscript version for review.}
+
+\firstpage{1}
+
+%\subtitle{Subject Section}
+
+\title[EnGens]{EnGens: a computational framework for generation and analysis of representative protein conformational ensembles}
+
+\author[1]{Anja Conev \ORCID{0000-0001-9049-0266}}
+\author[1]{Mauricio Menagatti Rigo \ORCID{0000-0002-1584-6194}}
+\author[2]{Didier Devaurs \ORCID{0000-0002-3415-9816}}
+\author[3]{André Faustino Fonseca }
+\author[3]{Hussain Kalavadwala}
+\author[3]{Martiela Vaz de Freitas \ORCID{0000-0003-4178-6604}}
+\author[4]{Cecilia Clementi \ORCID{0000-0001-9221-2358} }
+\author[5]{Geancarlo Zanatta \ORCID{0000-0003-0111-5347}}
+\author[3,$\ast$]{Dinler Amaral Antunes \ORCID{0000-0001-7947-6455}} 
+\author[1,$\ast$]{Lydia Kavraki \ORCID{0000-0003-0699-8038}}
+
+%\author[3]{Fourth Author}
+%\author[4]{Fifth Author\ORCID{0000-0000-0000-0000}}
+
+\authormark{Conev et al.}
+
+\address[1]{
+\orgdiv{Department of Computer Science}, 
+\orgname{Rice University}, \orgaddress{\street{Houston}, \postcode{77005}, \state{TX}, \country{USA}}
+}
+\address[2]{
+\orgdiv{MRC Institute of Genetics and Cancer}, \orgname{University of Edinburgh}, \orgaddress{\street{Edinburgh}, \postcode{EH4 2XU}, \country{UK}}}
+
+\address[3]{\orgdiv{Department of Biology and Biochemistry}, \orgname{University of Houston}, \orgaddress{\street{Houston}, \postcode{77004}, \state{TX}, \country{USA}}}
+
+\address[4]{\orgdiv{Department of Physics}, \orgname{Freie Universität Berlin}, \orgaddress{\street{Berlin}, \postcode{14195}, \country{Germany}}}
+
+\address[5]{\orgdiv{Department of Biophysics}, \orgname{Institute of Biosciences, Federal University of Rio Grande do Sul}, \orgaddress{\street{Porto Alegre}, \postcode{91501-970}, \country{Brazil}}}
+
+\corresp[$\ast$]{Corresponding author. \href{email:antunesda@central.uh.edu}{antunesda@central.uh.edu}}
+\corresp[$\ast$]{Corresponding author. \href{email:kavraki@rice.edu}{kavraki@rice.edu}}
+
+%\received{Date}{0}{Year}
+%\revised{Date}{0}{Year}
+%\accepted{Date}{0}{Year}
+
+%\editor{Associate Editor: Name}
+
+%\abstract{
+%\textbf{Motivation:} .\\
+%\textbf{Results:} .\\
+%\textbf{Availability:} .\\
+%\textbf{Contact:} \href{name@email.com}{name@email.com}\\
+%\textbf{Supplementary information:} Supplementary data are available at \textit{Journal Name}
+%online.}
+
+\abstract{Proteins are dynamic macromolecules that perform vital functions in cells.  A protein structure determines its function, but this structure is not static, as proteins change their conformation to achieve various functions. Understanding the conformational landscapes of proteins is essential to understand their mechanism of action. Sets of carefully chosen conformations can summarize such complex landscapes and provide better insights into protein function than single conformations. We refer to these sets as representative conformational ensembles. Recent advances in computational methods have led to an increase in number of available structural datasets spanning conformational landscapes. However, extracting representative conformational ensembles from such datasets is not an easy task and many methods have been developed to tackle it. Our new approach, EnGens (short for ensemble generation), collects these methods into a unified framework for generating and analyzing protein conformational ensembles. In this work we: (1) provide an overview of existing methods and tools for protein structural ensemble generation and analysis; (2) unify existing approaches in an open-source Python package, and a portable Docker image, providing interactive visualizations within a Jupyter Notebook pipeline; (3) test our pipeline on a few canonical examples found in the literature.  Representative ensembles produced by EnGens can be used for many downstream tasks such as protein-ligand ensemble docking, Markov state modeling of protein dynamics and analysis of the effect of single-point mutations.}
+\keywords{proteins,  conformational ensembles, clustering , dimensionality reduction, molecular dynamics (MD), crystal structure analysis}
+
+% \boxedtext{
+% \begin{itemize}
+% \item Key boxed text here.
+% \item Key boxed text here.
+% \item Key boxed text here.
+% \end{itemize}}
+
+\maketitle
+\section{Introduction}
+
+Proteins are the main building blocks of cells, executing a variety of functions vital to life, such as signal transduction, immune defense, and DNA replication. These functions are driven by the three-dimensional arrangement (i.e., the structural conformation) of proteins \citep{kessel__2018}. However, proteins exist in a highly complex environment and are not static entities. The following examples demonstrate that a single protein conformation is not enough to characterize important protein dynamics driving diverse functions. First, allosteric modulations, driven by mutations or drug interactions far from the protein's active site, induce conformational changes within the active site \citep{nussinov_allostery_2013}, which can modify the protein’s activity \citep{todd_plasticity_2002, tsou_active_1998, weng_study_2011}. Second, metamorphic proteins \citep{dishman_unfolding_2018, dishman_design_2022, lella_metamorphic_2017} switch between drastically different folds of the same sequence, thereby performing different functions \citep{kim_functional_2021}. Finally, intrinsically disordered proteins and intrinsically disordered protein regions constitute extreme examples of highly flexible structures. They exist as highly dynamic structural ensembles \citep{uversky_p53_2016} failing to form a globally stable three-dimensional shape in physiological solution, thereby performing different functions. All these examples demonstrate the importance of comprehensively characterizing a protein conformational landscape and identifying key conformational states to understand protein function \citep{henzler-wildman_dynamic_2007}. 
+
+The energy landscape theory \citep{frauenfelder_energy_1991, kumar_folding_2000, onuchic_theory_1997} is one framework that provides an understanding of protein structure and dynamics by analyzing a protein’s free energy landscape (or free energy surface - FES) as a function of a few collective variables (CVs). However, the exact determination of the FES for large proteins is challenging, as it requires extensive sampling of the protein's conformational space. New methods for computational protein structure prediction \citep{jumper_highly_2021, baek_accurate_2021, lin_evolutionary-scale_2022} and simulation \citep{barhaghi_py-mcmd_2022, abraham_gromacs_2015, eastman_openmm_2013, husic_coarse_2020, henin_enhanced_2022} are emerging and there is an increased availability protein structure datasets. However, a full understanding of a protein's dynamics can be reached only when the dataset spans the FES sufficiently, allowing quantitative methods (such as Markov state modeling) to be applied. In this work, we do not tackle the sampling problem, as we rely on previously generated datasets. In other words, our approach focuses on structurally representative ensembles and not on thermodynamic ensembles. 
+
+There is a need to rapidly extract useful information from conformational datasets \citep{peng_clustering_2018} without directly modeling the dynamics. Subsets of conformations extracted to represent major conformational states contained within the data provide a useful conformational summary. We call such sets \textit{representative conformational ensembles}. Note that, in this context, the term ensemble does not refer to a statistical ensemble. The task we address is that of extracting described representative conformational ensembles from datasets of protein structures. Extracted representative ensembles can be useful for many downstream tasks such as protein-ligand ensemble docking \citep{hall-swan_dinc-covid_2021}, analysis of mutational effects \citep{kannan_ensemble_2022} and extensive Markov state modeling of protein dynamics \citep{abella_markov_2020, chan_markov_2021}. It is important to provide sufficient analysis of the extracted ensemble to summarize important properties of each protein state (e.g., the distance between protein domains or the distance between important residues in the active site) and help derive more intuitive insights (e.g., whether a member of the ensemble represents the protein in its active or inactive form). In this work, we develop EnGens - a computational pipeline for the generation and analysis of representative protein conformational ensembles.
+
+Sources of protein structural datasets are now diverse. The Protein Data Bank (PDB) \citep{wwpdb_consortium_protein_2019, burley_rcsb_2021}, first established in 1971, has experienced steady growth over the past decade. With more than 10,000 experimentally solved protein structures deposited annually, the total number of available entries to date is around 200,000. These data have allowed for new breakthroughs in the field of protein structure prediction, including machine learning techniques such as AlphaFold2 \citep{jumper_highly_2021}, RosettaFold \citep{baek_accurate_2021} or ESMFold \citep{lin_evolutionary-scale_2022}. The AlphaFold database \citep{varadi_alphafold_2022} was released with over 200 million protein structure predictions. ESMFold has recently reported comparable performance to AlphaFold2 with the ESM Metagenomic Atlas, which contains 617 million predicted metagenomic structures. This vast amount of available data allows researchers to collect multiple conformations of the same protein \citep{takei_how_2022}. Collected conformations make up datasets whose content can be summarized and analyzed with EnGens. We call such datasets ``static'' to highlight the fact that the conformations they contain are independent and not derived from simulating protein dynamics. 
+
+A more extensive analysis of protein dynamics can be performed using simulations that generate so-called ``dynamic" datasets. Conformations within these datasets are not independent - they are time-ordered and form trajectories. Molecular dynamics (MD) simulations, first developed in the late 70s \citep{warshel_theoretical_1976}, have been established as a gold standard for exploring protein dynamics. Many computational packages have since been developed, including NAMD \citep{phillips_scalable_2020}, GROMACS \citep{bekker_gromacs_1993, berendsen_gromacs_1995}, AMBER \citep{salomon-ferrer_overview_2013}, CHARMM \citep{brooks_charmm_2009}, OpenMM \citep{eastman_openmm_2017}. MD software is becoming more accessible with python plugins and graphical user interfaces \citep{barhaghi_py-mcmd_2022}. Markov State Modelling (MSM) approaches for interpreting MD simulations \citep{prinz_markov_2011} have recently gained popularity. but constructing MSMs can be a lengthy process as this requires extensive sampling. On the other hand, EnGens can be used to gain insights into the content of MD datasets without fully modeling the dynamics.
+
+Our approach recognizes and addresses the need for a unified computational framework to help researchers summarize the vast amount of newly available structural data in an effort to understand the conformational landscape driving protein function. EnGens builds on several existing tools that have proven useful for protein structure analysis. For the computational representation of protein structure, EnGens utilizes the PDB module of BioPython \citep{cock_biopython_2009} as well as the rich featurization module of PyEmma \citep{scherer_pyemma_2015}, powered by MDTraj \citep{mcgibbon_mdtraj_2015}. For dimensionality reduction and clustering steps EnGens provides a diverse set of algorithms implemented across deeptime \citep{hoffmann_deeptime_2021}, scikit-learn \citep{pedregosa_scikit-learn_2011}, UMAP \citep{trozzi_umap_2021} and SRV \citep{chen_nonlinear_2019}. EnGens brings all these tools closer to the community by providing an open-source pipeline wrapped into a portable Docker image and accompanied by extensive example workflows written in Jupyter Notebooks. Additionally, EnGens implements a set of customizable interactive visualizations that provide users with detailed insight into the generated conformational ensembles. 
+
+Other similar tools complement EnGens (Table S1). CoNSEnsX \citep{angyan_consensx_2010} generates ensembles based on available NMR data. PENSA \citep{vogele_systematic_2022, vogele_drorlabpensa_2022} provides different metrics (Jensen-Shannon Distance, Kolmogorov-Smirnov Statistic, Overall Ensemble Similarity) for the comparison of generated ensembles. ProDy \citep{bakan_prody_2011, zhang_prody_2021} provides a set of algorithms for studying protein dynamics, which includes normal mode analysis. The specificity of EnGens lies in that: (1) it provides customizable PyEmma featurization for both static and dynamic datasets; (2) it contains both linear and nonlinear dimensionality reduction techniques (linear PCA \citep{pearson_liii_1901} and TICA \citep{perez-hernandez_identification_2013, schwantes_modeling_2015}; nonlinear UMAP and SRV); (3) it provides different clustering methods (hierarchical, K-means and Gaussian Mixture Models); (4) it is wrapped in an accessible Docker image and includes interactive Jupyter Notebook Workflows with rich ensemble visualizations. With these unique properties, EnGens enables users to automate the generation and analysis of protein conformational ensembles. We envision EnGens as an important and useful resource for data analysis of protein structure to support researchers in the era of big data.
+
+In the following sections, we describe methods involved in the EnGens pipeline. Note that these methods have been previously published and extensively validated \citep{scherer_pyemma_2015, chen_nonlinear_2019, trozzi_umap_2021, perez-hernandez_identification_2013, schwantes_modeling_2015}. Hence, validating these methods is outside of the scope of our work. Instead, we showcase the use of the full EnGens pipeline on a set of example molecules from the literature for which static or dynamic datasets are available. This includes molecules of different scales: a large protein complex (PI3K kinase), a peptide drug (Compstatin) and a small molecule (Nelfinavir). 
+
+\section{Methods}\label{sec2}
+
+We have developed EnGens, an automated pipeline for generating and analyzing protein conformational ensembles, given a dataset of protein structures as input. Note that EnGens pipeline has two distinct use-cases: i) processing static protein datasets (e.g., experimental structures); ii) processing  dynamic protein datasets (e.g., MD simulations). 
+
+A static structural dataset could be experimentally derived and collected from the PDB or modeled computationally (e.g., using AlphaFold or Modeller). For a dataset extracted from the PDB, EnGens can be used to reveal different conformational states and extract a representative ensemble summarizing the dataset. For a dataset compiled by computationally modeling a protein and its common mutants, EnGens can describe the conformational landscape of mutants and help point out the impact of mutations.
+
+A dynamic structural dataset is generally a trajectory derived from an MD simulation. If the simulation involves a protein with a ligand in its active site, EnGens can point out conformational changes that occur upon binding. It is important to note that for the analysis of MD-derived data much work has been done in the field of Markov state modeling \citep{abella_markov_2020, husic_markov_2018, bernetti_integrated_2019}. Modeling the dynamics of a system is outside of the scope of EnGens pipeline as its goal is only to generate and analyze the representative conformational ensemble. However, the dynamic use-case is largely inspired by the insights from Markov modeling approaches. For example, one important insight is that resolving slow processes can help identify biologically relevant conformational changes. Thus, using methods related to Markov modeling helps EnGens uncover conformational states and ensembles with biological relevance. 
+
+Both static and dynamic datasets can potentially include large numbers of structures that are difficult to systematically inspect visually. To address this issue, EnGens partitions the structural dataset into clusters and extracts a representative conformation from each cluster to form a structurally diverse conformational ensemble. The EnGens pipeline is divided into four workflows that are summarized in Figure \ref{fig-met}. Below we give an overview of the workflows and their respective goals. A detailed description of each workflow is provided in the supplementary text. 
+
+
+\subsection{\textit{\textbf{Workflow 1:} Extracting featurized representations from raw data}}\label{wf1}
+
+The first important step in computational analysis of protein structure is finding an appropriate representation for the data. We use the term raw data to refer to the form in which protein structure is stored in databases such as the PDB. Raw data is extracted from a comperhensive experimental study or simulation, and usually contains the three dimensional coordinates of all atoms.  However, these coordinates are often redundant and noisy. To benefit from the downstream computational pipeline and avoid the effects of noise, extracting useful components from the raw data and generating a featurized representation is essential. Some features commonly used to describe the input proteins include: dihedral angles of the backbone, pairwise distances between residues and RMSD distances to a reference structure.  The featurized representation of a protein structure is a numerical vector, which standard data science methods (such as dimensionality reduction and clustering) rely on.  
+
+\subsection{\textit{\textbf{Workflow 2:} Projecting the featurized representation into an embedding in low dimensional space}}\label{wf1}
+
+Numerical vectors extracted from the first workflow often have very high dimensionality. Depending on the size of the protein and the type of featurization, this vector could contain thousands of elements to represent one structure. High dimensional data presents unique challenges for clustering algorithms, as metrics lose their utility in high dimensional spaces. It is thus important to embed the information into a lower dimensional space before clustering. In Workflow2 we provide implementations of four widely used algorithms for dimensionality reduction. For the static use-case we provide two standard methods: principal components analysis (PCA) and uniform manifold approximation and projection (UMAP). For the dynamic use-case we provide two additional methods that make use of the time ordered nature of the data: time-lagged independent components analysis (TICA) and state-free reversible VAMPnet (SRV).  TICA and SRV are not suitable for static datasets, which lack the time component that is exploited by these methods. TICA and PCA are linear methods, while UMAP and SRV are non linear and can thus identify non linear relationships between features. The result of Workflow2 is an embedding of the data in a lower dimensional space, in which the data can be more efficiently partitioned into clusters to identify a representative ensemble.
+
+\subsection{\textit{\textbf{Workflow 3:} Clustering embeddings and extracting the ensemble}}\label{wf1}
+
+Low dimensional embeddings represent each conformation in the dataset. Various distance metrics can be used to calculate similarity between two conformations. This allows us to identify clusters of similar datapoints. In Workflow 3 we provide implementations of three widely used clustering algorithms: hierarchical clustering \citep{murtagh_algorithms_2012}, K-means \citep{hartigan_algorithm_1979} and  gaussian mixture models (GMM) \citep{lindsay_mixture_1989}. Hierarchical clustering provides a dendrogram of the data, allowing users to visually inspect the clusters and their relationships. The lower computational complexity of K-means makes it more suitable for large datasets. While K-means assumes a spherical data distribution, GMM can handle more complex distributions and provide a probabilistic model. Whatever the method, resulting clusters correspond to groups of structurally similar conformations. Then, we find the hub of each cluster as the point with the most neighbors and call it a cluster representative. Finally, we generate the resulting ensemble by extracting cluster representatives.  
+
+\subsection{\textit{\textbf{Workflow 4:} Visualizing the data and analyzing the ensemble}}\label{wf1}
+
+In the final workflow we provide a set of customizable interactive plots to analyze the generated ensemble. Users can visualize and inspect the 2D embeddings and their clustering. The extracted representatives are highlighted and their position within the 2D embedding space can be identified. Additionally, users can visualize the 3D atomic-resolution conformations of the extracted representatives. The ensemble can be further analyzed by generating a scatterplot of interesting features (e.g., the distance between important residues or RMSD to a template conformation) for each conformation. The same information can be summarized per cluster as a box plot. These visualizations are meant to help users interpret the ensemble (e.g., understand if the active and inactive states of a protein are represented within the ensemble).
+
+
+\section{Results}
+
+The algorithms gathered under the umbrella of the EnGens pipeline have been validated in past literature \citep{scherer_pyemma_2015, chen_nonlinear_2019, trozzi_umap_2021, perez-hernandez_identification_2013, schwantes_modeling_2015}. The validation of these methods being therefore outside of the scope of this work, in this section we showcase the use of the full EnGens pipeline. To this end, we have selected proteins for which structural data had been analyzed manually via often laborious processes to extract a conformational ensemble. We process the data entirely within the EnGens pipeline, and show that we can generate the same conformational ensemble as reported in previous studies. The examples we picked cover three systems of varying complexities. First, we process a large PI3K protein complex within both use-cases: a crystal structure dataset and an MD trajectory. Second, we apply EnGens to an MD trajectory of the peptide ligand Compstatin. Finally, we use the same methodology to process an MD trajectory of the small drug Nelfinavir.
+
+
+\subsection{Class I PI3K (PI3K-I) experiments}
+
+PI3K-I is a family of lipid kinase proteins that phosphorylate a lipid found on the plasma membrane, regulating cell growth and proliferation \citep{martini_pi3kakt_2014}. Increased activity of PI3K-I has been associated with oncogenesis and its the structural aspects have been widely studied. Members of PI3K-IA subfamily contain a regulatory (p85) and a catalytic (p110) subunit (Figure S1). Kinase activity is autoinhibited by the interaction between the nSH2 domain of the regulatory unit and the C2 domain of the catalytic unit \citep{yu_regulation_1998, miller_structural_2014}. For instance, it has been shown that the nSH2 domain moves away from the catalytic unit upon contact with a phosphorylated tyrosine pY of the receptor tyrosine kinase (RTK). This movement leads to the activation of PI3K-IA \citep{buckles_single-molecule_2017, nolte_crystal_1996, vadas_structural_2011}. Two recent works performed further structural analysis of the PI3K, one using available PI3K crystal structure data \citep{zhang_structural_2020}  and another performing and analyzing MD simulations of a mutant \citep{galdadas_unravelling_2020}. 
+
+
+\subsubsection{PI3K-IA: crystal structure dataset}
+
+We base this experiment on a study by \cite{zhang_structural_2020} that extracted from the PDB a dataset of 49 dimer structures corresponding to alpha, beta and delta isoforms of PI3K-IA (Table S4). While all structures are dimers (containing both catalytic and regulatory units), they differ in the portion of the regulatory unit that is crystalized, namely the nSH2, iSH2 and cSH2 domains. 10 structures were crystalized without the nSH2 domain ( PI3K$\Delta$nSH2), while the rest contain the nSH2 domain (PI3K+nSH2). The analysis by Zhang et al. was performed by manually engineering the feature of interest as distance between the C2 domain and the kinase domain of the PI3K catalytic unit. With a manually set threshold they divide the 49 structures in two groups: active/open (12) and inactive/closed (37). Zhang et al. conclude that all 10 PI3K$\Delta$nSH2 structures have nSH2 released and are active/open. Additionally, two of the PI3K+nSH2 structures have a mutation that leads to the activation. The other 37 structures are considered autoinhibited and are labeled inactive/closed.
+
+When processing this dataset with the EnGens pipeline, our goal was to test the ability of EnGens to generate a diverse ensemble of structures that would include representative structures of the active and inactive states. We use PDB codes of the dataset as input (Table S4). EnGens extracts the maximum common substructure (MCS) for each structure (see Supplementary Material: Workflow 1S-2). The MCS includes the catalytic unit and the iSH2 domain of the regulatory unit (Figures S2, S3, S4). We featurize each structure by using the pairwise distances between the centers of mass of the MCS chains. We choose the PCA option for dimensionality reduction step and K-means for clustering. Results of the analysis as provided by the EnGens dashboard are shown in Figure \ref{fig-res1a}. 
+
+The dataset is clustered into five clusters. Cluster \#0 contains active/open conformations of the PI3K alpha isoform (with pdb codes: 3HHM, 3HIZ and 5DXH). Cluster \#1 contains eight active/open conformations of the delta isoform. Cluster \#3 contains a single active/open conformation of the beta isoform (2Y3A). Clusters \#2 and \#4 contain the remaining 37 inactive/closed conformations of the PI3K alpha isoform. The ensemble generated by EnGens contains the following representatives: 3HHM (cluster 0), 5VLR (cluster 1), 4L23 (cluster 2), 2Y3A (cluster 3),  5SXD (cluster 4). This ensemble is structurally diverse and contains both active (3HHM, 5VLR, 2Y3A) and inactive (4L23, 5SXD) conformations. Additionally, the clusters separate the isoforms present in the dataset, namely the alpha (3HHM, 4L23, 5SXD), beta (2Y3A) and delta (5VLR) isoforms. 
+
+
+\subsubsection{PI3K-IA: MD trajectory}
+
+
+This experiment is based on a study by \cite{galdadas_unravelling_2020} involving MD simulations of a PI3K-IA (with a hotspot E545K mutation leading to its increased activity), based on multiple walkers metadynamics simulations. Galdadas et al. manually defined two collective variables: CV1 - distance between the nSH2 domain of the regulatory unit and the helical domain of the catalytic unit; CV2 - distance to a reference state where nSH2 is detached. After inspecting the free energy surface landscape as a function of CV1 and CV2, they uncovered two energy basins: one containing a conformational ensemble corresponding to an active state with the nSH2 domain detached; the other containing two distinct conformational ensembles corresponding to an alternative activation path involving nSH2 sliding around the helical domain.
+
+We process the MD performed by Galdadas et al. with EnGens to uncover the same conformational ensembles. To featurize the trajectory we select: (1) the RMSD distance of each frame to the reference structure (first frame of the trajectory) and (2) the Cartesian coordinates of the center of mass of the helical and nSH2 domains. Next, we select SRV with a lag time of 50 to reduce the dimensionality of our input to the top 3 SRV components. We select the GMM clustering, which produces three clusters. Finally, three representative conformations are extracted. The resulting EnGens dashboard is presented in Figure \ref{fig-res1b}. 
+
+Clusters \#0 and \#1 contain conformations of the broad energy basin where the nSH2 domain is attached to the catalytic unit. Cluster \#2 contains conformations in which PI3K is active and the nSH2 domain is detached. This is verified by plotting the minimum distance between residues of the helical domain (catalytic unit) and residues of the nSH2 domain (Figure \ref{fig-res1b}D) for all cluster members. This distance stands out for members of cluster \#2 and is higher than the 2 Å threshold.  Clusters \#0 and \#1 contain the two conformational ensembles located in the same energy basin, as identified by the original paper. These clusters differ in the distance between the residues Lys545 of the helical domain and Arg421 of the nSH2 unit (Figure \ref{fig-res1b}E).  In conclusion, the three described clusters identified by EnGens are consistent with the three described states reported by Galdadas et al.
+ 
+\subsection{Compstatin experiment}
+
+Compstatin is a small, cyclic peptide that inhibits an immune surveillance mechanism associated with multiple diseases. Previously, we demonstrated that compstatin analogs (i.e., biochemical variants) adopt distinct conformations that ultimately affect binding affinity and inhibitor potential \citep{devaurs_computational_2020}. 
+
+We applied EnGens workflows to two compstatin analogs, using two MD simulations \citep{devaurs_computational_2020}. The 4MeW and Cp10 analogs were selected because of their conformational heterogeneity. To featurize conformations, we selected backbone torsions and carbon-alpha distances. Features are then summarized using UMAP and clustered using K-means.
+
+As a result, we retrieve several representative conformations spanning different states of these analogs (Figure \ref{fig-res2}). In particular, EnGens could accurately retrieve conformational states associated with 4WeM, namely the open $v$-shaped state, the closed $\alpha$-shaped, and three intermediate states. These states are identified as five distinct clusters and are structurally similar to our prior observations. This demonstrates again that EnGens can reproduce results obtained with distinct methodologies. The Cp10 analog showed intriguing results. We obraine three clusters corresponding to distinct conformations, including an intermediate state. In our previous study,we could assign only two states (the opened $v$-shaped  and closed $\alpha$-shaped ones) for the Cp10 analog. To our understanding, this discrepancy is due to the limitations of our previous analysis, which only relied on RMSD calculations and visual data interpretation.
+
+These new findings suggest that EnGens has high sensitivity and can capture rapid transitions between conformational states.
+
+\subsection{Nelfinavir experiment}
+ 
+Nelfinavir is a potent HIV-1 protease inhibitor used in adults and children. Its action mechanism involves disabling the protease from cleaving gag-pol polyprotein. However, mutations of the protease might affect the impact of Nelfinavir on patients. Using MD simulations of Nelfinavir in solution, \cite{antunes_new_2014} inspected its conformational space and described three minimal energy Nelfinavir conformations.
+
+ We apply EnGens to these MD trajectories of Nelfinavir. We used the Cartesian coordinates of all the atoms of Nelfinavir as the featurization. Then, we apply SRV for dimensionality reduction and GMM for clustering (Figure \ref{fig-res3}A). As a result, EnGens identifies seven clusters (Figure \ref{fig-res3}B). One cluster representative conformation coincides with the conformation described as NF-i1 and other representatives are similar to the conformations described as NF-i2 and NF-i3 in the original paper (Figure \ref{fig-res3}C), considering an RMSD under 2 Å of difference (Table \ref{tab1}).
+ 
+The first conformation, NF-i1, coincides with the representative of cluster \#2 (RMSD = 0.413 Å). The NF-i2 structure matches cluster \#1 and \#6, with RMSD of 1.918 Å and 1.692 Å respectively. However, both clusters are at the end of the trajectory (Figure \ref{fig-res3}C), where they strongly overlap, indicating that EnGens slightly refined the state corresponding to the conformation presented in the original paper. The NF-i3 conformation is to EnGens' cluster \#3, with an RMSD of 1.336 Å.
+
+\section{Discussion}
+
+Recent improvements in protein structure prediction tools are bringing the field of computational structural biology closer to the era of big data. One important “unsolved” task highlighted by the most recent CASP15 competition is modeling protein conformational ensembles. It is assumed that an ensemble of protein conformations will better represent the true state of a protein and will aid downstream tasks such as drug-target interaction prediction and molecular docking. Building a representative protein conformational ensemble from multiple input structures or an MD trajectory is not an easy task and many tools have been developed to tackle it. In this work, we recognized a need for a pipeline that we call EnGens. 
+
+We have evaluated the EnGens pipeline on systems of varying complexity. In each case, we recovered diverse ensembles that coincided with previously reported results. When analyzing a large protein complex such as PI3K, EnGens generated a representative ensemble containing both the active and inactive states.  For the Compstatin peptide EnGens uncovered additional clusters of conformations, therefore enriching a previous study. In addition, EnGens also generated a relevant ensemble for the small drug Nelfinavir. 
+
+There are still big challenges for a pipeline of this sort. First, there are no clear guidelines on which method would perform best for a given molecular system. A number of alternative methods, each bearing its own set of hyper-parameters (Table S3), can be used to perform steps of the pipeline. We provide default values and some theoretical guidelines. For example, SRV and  UMAP perform nonlinear dimensionality reduction, while TICA and PCA are linear. We thus suggest using SRV and UMAP for more complex systems where nonlinearity of features is expected. In addition, as TICA and SRV are techniques that are suitable for time-series data, they are expected to be less prone to noise resulting from fast fluctuations in the structure and should be suitable for the dynamic use-case. However, they can not be applied to the static use-case. Further theoretical analysis of some of these methods can be found in the literature \citep{glielmo_unsupervised_2021}. Hyper-parameter optimization of the pipeline could be tackled with Bayesian optimization or other machine-learning approaches \citep{lee_adaptive_2022}. However, a wider benchmarking of these  methods is necessary to evaluate the practical implications of the theory and provide good guidelines.
+
+Second, expert knowledge of the analyzed system is still recommended for the featurization step. Some featurizations are generic, such as the pairwise residue distances that we applied to Compstatin. Others, such as the distance between the nSH2 domain and the helical domain of PI3K stem from a good understanding of the underlying system. Efforts have been made to automate this step. For the dynamic use-case new breakthroughs such as VAC (Variational Approach to Conformational dynamics) \citep{wu_variational_2020, lorpaiboon_integrated_2020} and VAMP (Variational Approach for Learning Markov Processes) \citep{wu_variational_2020} provide metrics to quantify the quality of featurization. Such metrics can be optimized using machine learning approaches to determine the most suitable featurization. However, these methods are highly dependent on the quality of the provided input MD data and are sensitive to different hyperparameters. Engineering features manually is still a widely used practice. 
+
+Third, we lack large standardized benchmarks and metrics for generating conformational ensembles. To avoid the hurdles we faced in this work, the community would greatly benefit from a public database collecting both static and dynamic datasets of protein conformations for which the representative conformational ensembles are known.  Another problem is the lack of standardized metrics to compare the uncovered conformational states. Although RMSD is widely used to compare protein conformations, there are currently no equivalent standardized metrics for comparing two conformational ensembles. That is why our evaluation of EnGens is mostly qualitative and descriptive (e.g. determining if EnGens uncovered the active and inactive conformational states of PI3K). 
+
+These challenges will become more pressing as the field moves towards big data analysis to study protein flexibility. EnGens provides easy access to existing algorithms and can serve as a platform for the rapid development of new algorithms addressing these challenges.
+
+\section{Conclusion}
+
+EnGens is a novel tool for the end-to-end processing of large protein structural datasets with the aim of generating and analyzing representative protein conformational ensembles. EnGens unifies widely used Python libraries (PyEmma, deeptime, mdtraj, UMAP, sklearn, plotly, etc.) under one Docker image and provides interactive visualizations along with extensive examples of the pipeline in Jupyter Notebook workflows. For advanced users, we provide a Python package. Our code is open source and accessible through a github repository (https://github.com/anon528/supreme-couscous). We showcased how EnGens can be used to automate ensemble generation using examples from the literature.  EnGens ensembles can be useful for many downstream tasks related to drug discovery such as molecular docking and drug-target interaction prediction. Additionally, EnGens can serve as a platform for further algorithmic development. Overall, we see the EnGens pipeline becoming part of many new efforts to utilize the structural data generated by novel structure prediction tools. 
+
+
+\section{Competing interests}
+No competing interest is declared.
+
+\section{Author contributions statement}
+A.C., M.M.R., D.D., A.F.F., M.V.F., C.C., G.Z., and D.A.A. conceived the experiments. A.C., A.F.F., H.K., and M.V.F. conducted the experiments. A.C., A.F.F., and M.V.F. wrote the manuscript, A.C., M.M.R., D.D., A.F.F., M.V.F., C.C., G.Z., D.A.A. and L.K. analyzed the results. All authors reviewed the manuscript.
+
+\section{Acknowledgments}
+
+The authors would like to thank colleagues from Kavraki Lab for many helpful discussions. Work on this project by A.C. and L.K. have been supported in part by National Institutes of Health NIH [U01CA258512]. Other support included: University of Edinburgh and Medical Research Council [MC\_UU\_00009/2 to D.D.]; Computational Cancer Biology Training Program fellowship [RP170593 to M.M.R.]; The Brazilian National Council for Scientific and Technological Development [CNPq no. 440412/2022-6 to G.Z]; University of Houston Funds and Rice University Funds.
+
+%\bibliographystyle{plain}
+%\bibliography{reference}
+
+%USE THE BELOW OPTIONS IN CASE YOU NEED AUTHOR YEAR FORMAT.
+\bibliographystyle{natbib}
+\bibliography{zotero_ref}
+\newpage
+
+\begin{table*}[t]
+\centering
+\caption{Root mean square deviation (RMSD in Å) of the EnGens cluster representatives (I) for \cite{antunes_new_2014} trajectory to the conformations from the original paper (II). Representatives are generated by EnGens using SRV for dimensionality reduction and GMM for clustering. RMSD values below 2Å are bolded.
+\label{tab1}}
+\tabcolsep=0pt%%
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccccc@{\extracolsep{\fill}}}
+\toprule%
+\diagbox{ II }{ I }
+& cluster \#0 & cluster \#1 & cluster \#2 & 
+cluster \#3 & cluster \#4 & cluster \#5 & cluster \#6 \\
+\midrule
+NF-i1  & 2.150 & 2.879 & \textbf{0.413} & 1.436 & 2.837 & 1.475 & 3.682\\
+NF-i2 & 3.954 & \textbf{1.918} & 3.887 & 3.282 & 3.966 & 4.084 & \textbf{1.692}\\
+NF-i3 & 2.304 & 2.701 & 2.467 & \textbf{1.336} & 2.572 & 2.292 & 3.563\\
+\botrule
+\end{tabular*}
+\end{table*}
+
+\begin{figure*}[!t]%
+\centering
+{\includegraphics[scale=0.7]{Engens_new.pdf}}
+\caption{\textbf{\textit{ Overview of the EnGens methodology. }} Workflows
+are listed across the vertical arrow on the left. Individual steps are listed in the diagram on the right.}
+\label{fig-met}
+\end{figure*}
+
+\begin{figure*}[!t]%
+\centering
+{\includegraphics[scale=0.6]{engens-res1.pdf}}
+\caption{\textbf{\textit{EnGens processing of the  Zhang et al. dataset of PI3K crystal structures.}} A) Each point corresponds to a structure from Zhang et al. dataset. Points are colored based on the cluster they were assigned to, and clusters are indicated as large circles on the plot. Points extracted as cluster representatives are highlighted in red. The x and y axis represent the first and second principal components of these data. B) 3D structural models of the EnGens representatives:  upper left - representatives of clusters 2 and 4 (inactive/closed states); bottom left - representatives of clusters 0, 1 and 3  (active/open states); right - comparison between the representative of the active state cluster 1 and the representative of the inactive state cluster 2 (the arrows point to the regions showing the biggest differences). C) PDB codes of the crystal structures are listed on the x axis. These codes are colored based on the conformational state identified by Zhang et al. (black - inactive/closed states; red - active/open states; brown - states active due to mutation). The EnGens cluster assignment is shown on the y axis. Red vertical lines indicate cluster representatives that were selected by EnGens (codes: 2Y3A, 3HHM, 4L23, 5SXD, 5VLR).}\label{fig-res1a}
+\end{figure*}
+
+
+\begin{figure*}[!t]%
+\centering
+{\includegraphics[scale=0.2]{res-pi3k-md.pdf}}
+\caption{\textbf{\textit{EnGens processing of the Galdadas et al. MD trajectory of PI3K.}} A) The proportion belonging to each cluster is plotted on the y-axis (cluster weight). Cluster indexes are listed on the x-axis. B) Two-dimensional embedding based on the components identified by the SRV method. Datapoints represent frames and are colored based on their respective cluster (same colors as in A). The 3D structural models of the three cluster representatives are shown on the right of this plot. C) The timeline view of the trajectory, where the x-axis lists  the index of each frame, and the y-axis lists the corresponding cluster index. Vertical red lines highlight the representative frames extracted in the generated ensemble. D) The distance between nSH2 and the helical domain of PI3K is plotted on the y-axis. The x-axis lists the clusters. The red horizontal line represents the threshold of 8Å.  E) The distance between Lys545 and Asp421 of the PI3K regulatory unit is plotted on the y-axis. The x-axis lists the clusters.}\label{fig-res1b}
+\end{figure*}
+
+\begin{figure*}[!t]%
+\centering
+{\includegraphics[scale=0.2]{compstatin.pdf}}
+\caption{\textbf{\textit{ EnGens analysis of Compstatin analogs.}} A) UMAP visualization of the MD trajectory of the 4MeW analog. Points represent MD frames, and are colored based on their respective cluster. Cluster representatives (points highlighted in red) were selected as the closest conformation from the k-mean centroid. The 4MeW cartoon backbone for each cluster representative is presented, including a single closed state (Cluster \#2), a single open state (Cluster \#1), and three intermediate states (Cluster \#0, \#3, \#4). B) The Cp10 analog: cartoon backbone visualizations of the three cluster representatives, namely the open opened, closed, and intermediate states, respectively. C) Time-oriented plot displaying the association between each MD frame (x-axis) and the clusters.}
+\label{fig-res2}
+\end{figure*}
+
+\begin{figure*}[!t]%
+\centering
+{\includegraphics[scale=0.5]{nelfinavir.pdf}}
+\caption{\textbf{\textit{EnGens analysis of the Nelfinavir trajectory. }} A) Projection of all MD frames into a 2D space produced by SRV. Points are colored based on the cluster to which frames were assigned. B) Three plots showing the representative of the clusters aligned with the conformations identified by \cite{antunes_new_2014} (NF-i1, NF-i2, NF-i3 in pale tan color). C) Timeline of the MD trajectory showing which frame (x-axis) belongs to which cluster (y-axis).}
+\label{fig-res3}
+\end{figure*}
+
+\end{document}
