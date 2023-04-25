@@ -1,5 +1,5 @@
-# EnGeNs
-Private repository for the development of Ensemble Generation Notebooks (EnGeNs).
+# EnGens
+Repository for the computational framework for generation and analysis of representative protein conformational ensembles.
 ___
 
 Here we provide a pipeline for generating ensembles of conformations from molecular dynamics trajectories as a first step towards ensemble docking.

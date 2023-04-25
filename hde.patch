@@ -1,0 +1,91 @@
+diff --git a/hde/hde.py b/hde/hde.py
+index 8774f1a..3fc4d4b 100644
+--- a/hde/hde.py
++++ b/hde/hde.py
+@@ -7,7 +7,7 @@ import tensorflow as tf
+ import scipy.linalg
+ from keras import backend as K
+ from keras.models import Model
+-from keras.optimizers import Adam
++from tensorflow.keras.optimizers import Adam
+ import keras.layers as layers
+ from keras.regularizers import l2
+ from sklearn.base import BaseEstimator, TransformerMixin
+@@ -288,7 +288,8 @@ class HDE(BaseEstimator, TransformerMixin):
+ 
+ 
+     def _loss(self, z_dummy, z):
+-        N = tf.to_float(tf.shape(z)[0])
++        
++        N = tf.cast(tf.shape(z)[0], tf.float32)
+ 
+         z_t0 = z[:, :self.n_components]
+         z_t0 -= K.mean(z_t0, axis=0)
+@@ -309,12 +310,12 @@ class HDE(BaseEstimator, TransformerMixin):
+             C0 = 0.5*(C00 + C11)
+             C1 = 0.5*(C01 + C10)
+             
+-            L = tf.cholesky(C0)
+-            Linv = tf.matrix_inverse(L)
++            L = tf.linalg.cholesky(C0)
++            Linv = tf.linalg.inv(L)
+ 
+             A = K.dot(K.dot(Linv, C1), K.transpose(Linv))
+ 
+-            lambdas, _ = tf.self_adjoint_eig(A)
++            lambdas, _ = tf.linalg.eigh(A)
+             return -1.0 - K.sum(self.weights*lambdas**2)
+ 
+ 
+@@ -331,9 +332,12 @@ class HDE(BaseEstimator, TransformerMixin):
+             
+             x_t0 = np.concatenate(x_t0)
+             x_tt = np.concatenate(x_tt) 
+-        elif type(data) is np.ndarray:
++        elif type(data) is np.ndarray or type(data) is np.memmap:
+             x_t0 = data[:-lag_time]
+             x_tt = data[lag_time:]
++        elif type(data) is tuple:
++            x_t0 = data[0]
++            x_tt = data[1]
+         else:
+             raise TypeError('Data type {} is not supported'.format(type(data)))
+ 
+@@ -429,13 +433,17 @@ class HDE(BaseEstimator, TransformerMixin):
+     
+         if type(X) is list:
+             out = [self._encoder.predict(x, batch_size=self.batch_size) for x in X]
+-        elif type(X) is np.ndarray:
++            out_t0, out_tt = self._create_dataset(out)
++        elif type(X) is np.ndarray or type(X) is np.memmap:
+             out = self._encoder.predict(X, batch_size=self.batch_size)
++            out_t0, out_tt = self._create_dataset(out)
++        elif type(X) is tuple:
++            out_t0 = self._encoder.predict(X[0], batch_size=self.batch_size)
++            out_tt = self._encoder.predict(X[1], batch_size=self.batch_size)
+         else:
+             raise TypeError('Data type {} is not supported'.format(type(X)))
+         
+ 
+-        out_t0, out_tt = self._create_dataset(out)
+         self._calculate_basis(out_t0, out_tt)
+ 
+         if self.reversible:
+diff --git a/hde/molgen.py b/hde/molgen.py
+index 0c2ccd2..5aea648 100644
+--- a/hde/molgen.py
++++ b/hde/molgen.py
+@@ -9,11 +9,11 @@ from keras.layers import BatchNormalization, Activation, ZeroPadding2D
+ from keras.layers.advanced_activations import LeakyReLU
+ from keras.layers.convolutional import UpSampling2D, Conv2D
+ from keras.models import Sequential, Model
+-from keras.optimizers import RMSprop
++from tensorflow.keras.optimizers import RMSprop
+ from functools import partial
+ import keras.backend as K
+ 
+-from keras.utils import get_custom_objects, plot_model
++from tensorflow.keras.utils import get_custom_objects, plot_model
+ 
+ 
+ __all__ = ['MolGen']
