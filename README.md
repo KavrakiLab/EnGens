@@ -2,6 +2,14 @@
 Repository for the computational framework for generation and analysis of representative protein conformational ensembles.
 ___
 
+## Demo 
+
+Try runnning our notebooks on Binder:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KavrakiLab/EnGens/binder?labpath=Workflow1-FeatureExtraction.ipynb)
+
+Try running a short demo on Google Colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rVeWH8CdUtbvmVCTZkxleRCRTe8dW5LN?usp=sharing)
+
+
 ## Installation instructions
 
 #### Docker image pull
