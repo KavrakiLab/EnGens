@@ -1,6 +1,4 @@
 #!/bin/sh
-
-conda env create -f ./environment.yml
 eval "$(conda shell.bash hook)"
 #conda activate <env-name>
 conda activate engens-conda-env

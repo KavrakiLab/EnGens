@@ -180,4 +180,5 @@ dependencies:
       - tensorflow==2.6.2 
       - tensorflow-estimator==2.6.0 
       - tensorflow-probability==0.14.0 
+      - nbgitpuller
 prefix: /usr/local/envs/engens-conda-env
