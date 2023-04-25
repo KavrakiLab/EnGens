@@ -2,6 +2,7 @@ name: engens-conda-env
 channels:
   - defaults
   - conda-forge
+  - anaconda
 dependencies:
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=5.1=1_gnu
@@ -25,6 +26,8 @@ dependencies:
   - mdtraj
   - msmtools
   - pyemma
+  - dm-tree
+  - git
   - pip:
       - absl-py==0.15.0
       - alembic==1.7.5
@@ -53,7 +56,6 @@ dependencies:
       - decorator==5.1.0
       - defusedxml==0.7.1
       - dill==0.3.4
-      - dm-tree==0.1.8
       - entrypoints==0.3
       - flatbuffers==1.12
       - gast==0.4.0

@@ -1,53 +1,20 @@
-FROM python:3.6.7
-
+FROM mambaorg/micromamba:1.4.2
 LABEL MAINTAINER="Anja Conev <ac121@rice.edu>"
 
-WORKDIR /var/www/
+# Create the environment:
+COPY --chown=$MAMBA_USER:$MAMBA_USER ./environment.yml /tmp/environment.yml
+RUN micromamba install -y -n base -f /tmp/environment.yml && \
+    micromamba clean --all --yes
 
-ENV PACKAGES="\
-	wget \ 
-	vim \
-"
+ARG MAMBA_DOCKERFILE_ACTIVATE=1  # (otherwise python will not be found)
+RUN echo $(python --version)
 
-ENV PYTHON_PACKAGES="\
-    numpy \
-    matplotlib \
-    scipy \
-    scikit-learn \
-    pandas \
-	notebook \
-	jupyterhub \
-" 
+# Additional installations
+RUN pip install -i https://test.pypi.org/simple/ engens
+RUN git clone https://github.com/hsidky/hde.git
+COPY hde.patch .
+RUN cp hde.patch ./hde/hde.patch
+RUN cd hde && echo $(ls) && git apply hde.patch
+RUN pip install ./hde
 
-ENV BIO_PACKAGES="\
-    mdtraj \
-    pyemma \
-    nglview \
-    biopython \
-" 
-
-RUN pip install --upgrade pip 
-	
-RUN pip install --no-cache-dir $PYTHON_PACKAGES 
-
-RUN pip install --no-cache-dir $BIO_PACKAGES 
-
-RUN pip install --no-cache-dir jupyterlab 
-RUN pip install --no-cache-dir wget 
-RUN pip install --no-cache-dir pytraj 
-	
-ARG NB_USER=engen
-ARG NB_UID=1000
-ENV USER ${NB_USER}
-ENV NB_UID ${NB_UID}
-ENV HOME /home/${NB_USER}
-
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid ${NB_UID} \
-    ${NB_USER}
-	
-USER root
-RUN chown -R ${NB_UID} ${HOME}
-USER ${NB_USER}
-WORKDIR ${HOME}
+ADD --chown=$MAMBA_USER:$MAMBA_USER ./notebooks/ ${HOME}
