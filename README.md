@@ -1,4 +1,8 @@
-# EnGens
+# EnGens 
+
+![Alt text](./preprint/logo.svg)
+
+
 Repository for the computational framework for generation and analysis of representative protein conformational ensembles.
 ___
 
