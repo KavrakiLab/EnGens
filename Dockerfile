@@ -17,4 +17,9 @@ RUN cp hde.patch ./hde/hde.patch
 RUN cd hde && echo $(ls) && git apply hde.patch
 RUN pip install ./hde
 
+RUN wget https://yanglab.nankai.edu.cn/mTM-align/version/mTM-align.tar.bz2
+RUN tar -xvf mTM-align.tar.bz2
+RUN cp mTM-align/src/mTM-align ${CONDA_PREFIX}/bin/mTM-align
+RUN rm mTM-align.tar.bz2
+
 ADD --chown=$MAMBA_USER:$MAMBA_USER ./notebooks/ ${HOME}

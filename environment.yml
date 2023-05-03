@@ -30,6 +30,8 @@ dependencies:
   - git
   - openmm
   - pdbfixer
+  - wget
+  - tar
   - pip:
       - absl-py==0.15.0
       - alembic==1.7.5
@@ -182,4 +184,5 @@ dependencies:
       - tensorflow==2.6.2 
       - tensorflow-estimator==2.6.0 
       - tensorflow-probability==0.14.0 
+      - tabulate==0.8.10
 prefix: /usr/local/envs/engens-conda-env
