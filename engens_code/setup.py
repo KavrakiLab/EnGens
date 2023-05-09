@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
      name='engens',  
-     version='0.0',
+     version='0.0.1',
       scripts=['engens/core/pdbfix.py'],
       data_files=[('', ['engens/core/template_msa.html'])],
      author="kavrakilab&antuneslab",
@@ -14,7 +14,7 @@ setuptools.setup(
      packages=setuptools.find_packages(),
      classifiers=[
          "Programming Language :: Python :: 3",
-         "License :: ? :: ?",
+         "License :: OSI Approved :: GNU General Public License (GPL)",
          "Operating System :: OS Independent",
      ],
  )
