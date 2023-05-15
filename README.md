@@ -1,6 +1,41 @@
-# EnGeNs
-Private repository for the development of Ensemble Generation Notebooks (EnGeNs).
+# EnGens 
+
+![Alt text](./preprint/logo.svg)
+
+
+Repository for the computational framework for generation and analysis of representative protein conformational ensembles.
 ___
+
+## Demo 
+
+Try runnning our notebooks on Binder:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KavrakiLab/EnGens/binder?labpath=Workflow1-FeatureExtraction.ipynb)
+
+Try running a short demo on Google Colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rVeWH8CdUtbvmVCTZkxleRCRTe8dW5LN?usp=sharing)
+
+
+## Installation instructions
+
+#### Docker image pull
+The prefered and easiest is by pulling the docker image made available publicly.
+
+**prerequisites:** [docker](https://docs.docker.com/get-docker/)
+
+Just pull the image:
+
+```
+docker pull ac121/engens:latest
+```
+You're all set!
+
+For other installation options check the section [Advanced Installation](#advanced-installation) bellow.
+
+## Running EnGens
+
+### Run the following command from the working directory with this code
+
+`docker run -it --rm -v $(pwd):/home/engen/ -p 8888:8888 ac121/engens:latest jupyter notebook --allow-root --ip=0.0.0.0 --port=8888`
+
 
 Here we provide a pipeline for generating ensembles of conformations from molecular dynamics trajectories as a first step towards ensemble docking.
 The pipeline consists of the following steps:
@@ -9,22 +44,6 @@ The pipeline consists of the following steps:
   2. **Dimensionality reduction of the derived trajectory features** In order to proceed with the clustering step you need to reduce the dimensionality of the derived features. We propose and implement a couple of approaches <a href=http://www.emma-project.org/latest/api/generated/pyemma.coordinates.tica.html#pyemma.coordinates.tica`>TICA</a>, <a=https://github.com/hsidky/srv>HDE</a> and PCA. Note that TICA and HDE use the variational approach to conformational dynamics (VAC) and are thus better suited for the analysis of the MD data.
   3. **Clustering the trajectory and extracting cluster representatives** Finally we propose two methods (<a href=https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html>KMeans</a> and <a href=https://scikit-learn.org/stable/modules/mixture.html>Gaussian Mixture Models</a>) to preform the clustering of the data with the reduced dimensionality. The cluster centers are then defined as the representative structures of the MD and are extracted to form the ensemble that can later be used for ensemble docking.
   
-
-
-
-## Installation instructions
-
-We built a docker image that contains all dependences required to run the notebooks.
-
-### Step 1 - pull the docker image 
-
-`docker pull ac121/engens:latest`
-
-
-### Step 2 - run the following command from the working directory with this code
-
-`docker run -it --rm -v $(pwd):/home/engen/ -p 8888:8888 ac121/engens:latest jupyter notebook --allow-root --ip=0.0.0.0 --port=8888`
-
 
 ## Workflows
 
@@ -59,6 +78,54 @@ You can find the three workflows inside the `./notebooks/` directory. To perform
 ## Code
 
 All the code and classes used in the notebooks are found in the directory `./EnGeNs/engens_code/engens/core/`
+
+## Advanced Installation
+
+#### 1. Docker image build
+You can clone this repo and build the docker image yourself.
+
+**prerequisites:**  [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [docker](https://docs.docker.com/get-docker/)
+
+
+1. Clone the github repo:
+
+```
+git clone https://github.com/KavrakiLab/EnGens.git
+```
+
+2. Build the image:
+
+```
+cd EnGens
+docker build -t test_engens:latest .
+```
+
+You're all set!
+
+#### 2. Conda environment build
+If you don't want to use docker, you can clone this repo and install using conda (or mamba which will be faster).
+
+**prerequisites:** [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#) or [mamba](https://mamba.readthedocs.io/en/latest/installation.html)
+
+1. Clone the github repo:
+
+```
+git clone https://github.com/KavrakiLab/EnGens.git
+```
+
+2. Install with conda (or mamba)
+
+```
+cd EnGens
+conda env create -f ./environment.yaml
+#mamba create -f ./environment.yml
+
+conda activate engens
+#mamba activate engens
+
+./linux_setup.sh
+#or ./windows_setup.sh
+```
 
 ___
 
