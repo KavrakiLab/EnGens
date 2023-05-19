@@ -45,6 +45,7 @@
 
 \if@compatibility\else
 \DeclareOption{namedate}{\PassOptionsToPackage{authoryear,round}{natbib}\global\@numbibfalse}
+\DeclareOption{numsquare}{\PassOptionsToPackage{numbers,square,comma,sort&compress}{natbib}\global\@numbibfalse}
 \DeclareOption{draft}{\PassOptionsToPackage{draft}{graphicx}}
 \DeclareOption{b4paper}{\PassOptionsToPackage{b4}{crop}}
 \DeclareOption{centre}{\PassOptionsToPackage{center}{crop}}
