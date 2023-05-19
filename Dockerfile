@@ -22,4 +22,6 @@ RUN tar -xvf mTM-align.tar.bz2
 RUN cp mTM-align/src/mTM-align ${CONDA_PREFIX}/bin/mTM-align
 RUN rm mTM-align.tar.bz2
 
+RUN pypatch apply ./pdbfixer.patch pdbfixer
+
 ADD --chown=$MAMBA_USER:$MAMBA_USER ./notebooks/ ${HOME}

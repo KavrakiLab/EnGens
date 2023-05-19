@@ -19,3 +19,5 @@ wget https://yanglab.nankai.edu.cn/mTM-align/version/mTM-align.tar.bz2
 tar -xvf mTM-align.tar.bz2
 cp mTM-align/src/mTM-align ${CONDA_PREFIX}/bin/mTM-align
 rm mTM-align.tar.bz2
+
+pypatch apply ./pdbfixer.patch pdbfixer
