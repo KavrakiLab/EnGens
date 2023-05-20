@@ -28,13 +28,19 @@ docker pull ac121/engens:latest
 ```
 You're all set!
 
+_Note: this step should not take longer than 15min. On Windows the PowerShell sometimes gets stuck - do a right click in the terminal to check the progress after 10-15min._
+
 For other installation options check the section [Advanced Installation](#advanced-installation) bellow.
 
 ## Running EnGens
 
-### Run the following command from the working directory with this code
+### Linux: run the following command from the working directory with this code
 
-`docker run -it --rm -v $(pwd):/home/engen/ -p 8888:8888 ac121/engens:latest jupyter notebook --allow-root --ip=0.0.0.0 --port=8888`
+`docker run -it --rm -v $(pwd):/home/engen/ -p 8888:8888 ac121/engens:latest jupyter notebook --ip=0.0.0.0 --port=8888`
+
+### Windows: run the following command from the working directory with this code
+
+`docker run -it --rm -v ${pwd}:/home/engen/ -p 8888:8888 ac121/engens:latest jupyter notebook --ip=0.0.0.0 --port=8888`
 
 
 Here we provide a pipeline for generating ensembles of conformations from molecular dynamics trajectories as a first step towards ensemble docking.
