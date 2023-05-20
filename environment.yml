@@ -1,4 +1,4 @@
-name: engens-conda-env
+name: engens
 channels:
   - defaults
   - conda-forge
@@ -185,4 +185,5 @@ dependencies:
       - tensorflow-estimator==2.6.0 
       - tensorflow-probability==0.14.0 
       - tabulate==0.8.10
-prefix: /usr/local/envs/engens-conda-env
+      - pypatch
+prefix: /usr/local/envs/engens

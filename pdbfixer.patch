@@ -1,0 +1,50 @@
+diff --git a/home/anja/miniconda3/envs/engens-conda-env/lib/python3.6/site-packages/pdbfixer/pdbfixer.py b/../pdbfixer.py
+index 2cd4d8d..a72173c 100644
+--- a/home/anja/miniconda3/envs/engens-conda-env/lib/python3.6/site-packages/pdbfixer/pdbfixer.py
++++ b/../pdbfixer.py
+@@ -927,18 +927,20 @@ class PDBFixer(object):
+             system = forcefield.createSystem(newTopology)
+ 
+             # Set any previously existing atoms to be massless, they so won't move.
+-
+-            for atom in existingAtomMap.values():
+-                system.setParticleMass(atom.index, 0.0)
++            [system.setParticleMass(atom.index, 0.0) for atom in existingAtomMap.values()]
++           # for atom in existingAtomMap.values():
++             #   system.setParticleMass(atom.index, 0.0)
+ 
+             # If any heavy atoms were omitted, add them back to avoid steric clashes.
+ 
+             nonbonded = [f for f in system.getForces() if isinstance(f, mm.CustomNonbondedForce)][0]
+-            for atom in self.topology.atoms():
+-                if atom.element not in (None, hydrogen) and atom not in existingAtomMap:
+-                    system.addParticle(0.0)
+-                    nonbonded.addParticle([])
+-                    newPositions.append(self.positions[atom.index])
++
++            [(system.addParticle(0.0), nonbonded.addParticle([]), newPositions.append(self.positions[atom.index])) for atom in self.topology.atoms() if atom.element not in (None, hydrogen) and atom not in existingAtomMap]
++            #for atom in self.topology.atoms():
++           #     if atom.element not in (None, hydrogen) and atom not in existingAtomMap:
++           #         system.addParticle(0.0)
++            #        nonbonded.addParticle([])
++            #        newPositions.append(self.positions[atom.index])
+ 
+             # For efficiency, only compute interactions that involve a new atom.
+ 
+@@ -949,7 +951,7 @@ class PDBFixer(object):
+             integrator = mm.LangevinIntegrator(300*unit.kelvin, 10/unit.picosecond, 5*unit.femtosecond)
+             if seed is not None:
+                 integrator.setRandomNumberSeed(seed)
+-            context = mm.Context(system, integrator)
++            context = mm.Context(system, integrator, mm.Platform.getPlatformByName('CUDA'))
+             context.setPositions(newPositions)
+             mm.LocalEnergyMinimizer.minimize(context)
+             state = context.getState(getPositions=True)
+@@ -979,7 +981,6 @@ class PDBFixer(object):
+             (newTopology2, newPositions2, newAtoms2, existingAtomMap2) = self._addAtomsToTopology(False, False)
+ 
+             # Copy over the minimized positions for the new atoms.
+-
+             for a1, a2 in zip(newAtoms, newAtoms2):
+                 newPositions2[a2.index] = state.getPositions()[a1.index]
+             self.topology = newTopology2
