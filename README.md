@@ -57,6 +57,8 @@ ___
 
 ## Documentation
 
+Check out the detailed readthedocs documentation here: https://engens.readthedocs.io/en/latest/
+
 ## Code
 
 All the code and classes used in the notebooks are found in the directory `./EnGeNs/engens_code/engens/core/`
