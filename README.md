@@ -1,6 +1,6 @@
-# EnGens 
+# EnGens: a computational framework for generation and analysis of representative protein conformational ensembles
 
-![Alt text](./preprint/logo.svg)
+![Alt text](./preprint/large-logo.svg)
 
 
 Repository for the computational framework for generation and analysis of representative protein conformational ensembles.
