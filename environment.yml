@@ -1,8 +1,8 @@
 name: engens
 channels:
-  - defaults
   - conda-forge
   - anaconda
+  - defaults
 dependencies:
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=5.1=1_gnu
@@ -186,4 +186,5 @@ dependencies:
       - tensorflow-probability==0.14.0 
       - tabulate==0.8.10
       - pypatch
+      - umap
 prefix: /usr/local/envs/engens
