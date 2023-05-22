@@ -17,10 +17,11 @@ RUN cp hde.patch ./hde/hde.patch
 RUN cd hde && echo $(ls) && git apply hde.patch
 RUN pip install ./hde
 
-RUN wget https://yanglab.nankai.edu.cn/mTM-align/version/mTM-align.tar.bz2
-RUN tar -xvf mTM-align.tar.bz2
-RUN cp mTM-align/src/mTM-align ${CONDA_PREFIX}/bin/mTM-align
-RUN rm mTM-align.tar.bz2
+COPY --chown=$MAMBA_USER:$MAMBA_USER ./dependencies/mTM-align.tar.bz2 /tmp/mTM-align.tar.bz2
+
+RUN tar -xvf /tmp/mTM-align.tar.bz2 -C /tmp/
+RUN cp /tmp/mTM-align/src/mTM-align ${CONDA_PREFIX}/bin/mTM-align \
+&& rm /tmp/mTM-align.tar.bz2
 
 RUN pypatch apply ./pdbfixer.patch pdbfixer
 
