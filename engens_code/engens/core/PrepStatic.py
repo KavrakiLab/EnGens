@@ -18,7 +18,7 @@ import sys
 from tqdm import tqdm
 from pathlib import Path
 from os import path
-from cryst_utils import *
+from engens.core.cryst_utils import *
 from enum import Enum
 import math
 
