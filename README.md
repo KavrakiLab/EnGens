@@ -12,7 +12,8 @@ Try runnning our notebooks on Binder:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KavrakiLab/EnGens/binder?labpath=Workflow1-FeatureExtraction.ipynb)
 
 Try running our demos on Google Colab: 
-- [![Static Use-Case](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rVeWH8CdUtbvmVCTZkxleRCRTe8dW5LN?usp=sharing) Static Use-Case (with _UniProt ID_ as input) 
+- Static Use-Case (with _UniProt ID_ as input) 
+  - [![Static Use-Case](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rVeWH8CdUtbvmVCTZkxleRCRTe8dW5LN?usp=sharing)  
   - This demo features the `P03372` UniProt accession related to the ER-alpha estrogent receptor
   - But you can try it out with your own choice of UniProt ID too!
 
