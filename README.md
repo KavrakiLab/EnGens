@@ -11,7 +11,10 @@ ___
 Try runnning our notebooks on Binder:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KavrakiLab/EnGens/binder?labpath=Workflow1-FeatureExtraction.ipynb)
 
-Try running a short demo on Google Colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rVeWH8CdUtbvmVCTZkxleRCRTe8dW5LN?usp=sharing)
+Try running our demos on Google Colab: 
+- [![Static Use-Case](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rVeWH8CdUtbvmVCTZkxleRCRTe8dW5LN?usp=sharing) Static Use-Case (with _UniProt ID_ as input) 
+  - This demo features the `P03372` UniProt accession related to the ER-alpha estrogent receptor
+  - But you can try it out with your own choice of UniProt ID too!
 
 
 ## Installation instructions
@@ -115,20 +118,28 @@ conda activate engens
 
 EnGens relies on and/or references the following separate libraries and packages:
 
-- [MDTraj](https://www.mdtraj.org/)
-- [PyTraj](https://github.com/Amber-MD/pytraj)
-- [MSMTools](https://github.com/markovmodel/msmtools)
-- [PyEmma](http://www.emma-project.org/latest/)
-- [OpenMM](https://openmm.org/)
-- [HDE](https://github.com/hsidky/srv)
-- [mTM-align](https://yanglab.nankai.edu.cn/mTM-align/)
-- [BioPython](https://biopython.org/)
-- [pandas](https://pandas.pydata.org/)
-- [numpy](https://numpy.org/)
-- [scikit-learn](https://scikit-learn.org/)
-- [scipy](https://scipy.org/)
-- [umap-learn](https://umap-learn.readthedocs.io/en/latest/)
-- [plotly](https://plotly.com/)
-
+- Structural bioinformatics (and MD) software 
+  - [MDTraj](https://www.mdtraj.org/)
+  - [MDAnalysis](https://www.mdanalysis.org/)
+  - [PyTraj](https://github.com/Amber-MD/pytraj)
+  - [MSMTools](https://github.com/markovmodel/msmtools)
+  - [PyEmma](http://www.emma-project.org/latest/)
+  - [OpenMM](https://openmm.org/)
+  - [HDE](https://github.com/hsidky/srv)
+  - [mTM-align](https://yanglab.nankai.edu.cn/mTM-align/)
+  - [BioPython](https://biopython.org/)
+- Visualization 
+  - [NGLViewer](http://nglviewer.org/nglview/latest/)
+  - [py3Dmol](https://github.com/avirshup/py3dmol)
+  - [ProtVista](https://ebi-uniprot.github.io/ProtVista/userGuide.html)
+- General ML tools 
+  -   [scikit-learn](https://scikit-learn.org/)
+  -   [scipy](https://scipy.org/)
+  -   [umap-learn](https://umap-learn.readthedocs.io/en/latest/)
+- Others
+  - [plotly](https://plotly.com/)
+  - [pandas](https://pandas.pydata.org/)
+  - [numpy](https://numpy.org/)
+  
 We thank all their contributors and maintainers!
 ___
