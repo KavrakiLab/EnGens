@@ -8,15 +8,23 @@ ___
 
 ## Demo 
 
-Try runnning our notebooks on Binder:
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KavrakiLab/EnGens/binder?labpath=Workflow1-FeatureExtraction.ipynb)
-
 Try running our demos on Google Colab: 
+- Dynamic Use-Case (with a custom MD trajectory as input)
+  -  [![Dynamic Use-Case](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1xzLulErjkvC4gIQYM1md-n7jaL6dDLKK?usp=sharing)
+  -  This demo features an MD test example of a small pentapeptide
+  -  You can also upload your own trajectory!
 - Static Use-Case (with _UniProt ID_ as input) 
   - [![Static Use-Case](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rVeWH8CdUtbvmVCTZkxleRCRTe8dW5LN?usp=sharing)  
   - This demo features the `P03372` UniProt accession related to the ER-alpha estrogent receptor
   - But you can try it out with your own choice of UniProt ID too!
 
+Try runnning our notebooks on Binder:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KavrakiLab/EnGens/binder?labpath=Workflow1-FeatureExtraction.ipynb)
+
+
+## Documentation
+
+Check out the detailed readthedocs documentation here: https://engens.readthedocs.io/en/latest/
 
 ## Installation instructions
 
@@ -58,10 +66,6 @@ Follow this link and you will find a set of notebooks:
 For static workflow start with `Workflow1-crystal_structures.ipynb` and continue with Workflow2-4.
 For dynamic workflow start with `Workflow1-FeatureExtraction.ipynb` and continue with Workflow2-4. 
 ___
-
-## Documentation
-
-Check out the detailed readthedocs documentation here: https://engens.readthedocs.io/en/latest/
 
 ## Code
 
