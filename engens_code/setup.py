@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
      name='engens',  
-     version='0.0.6',
+     version='0.0.7',
       scripts=['engens/core/pdbfix.py'],
       data_files=[('', ['engens/core/template_msa.html'])],
      author="kavrakilab&antuneslab",
