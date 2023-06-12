@@ -16,6 +16,7 @@ import os
 from tabulate import tabulate 
 import math
 import numpy as np
+import sys
 
 # get PDBRenum files
 def get_pdb_bioassembly_pdbrenum(pdb_id, dst):
