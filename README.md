@@ -4,6 +4,8 @@
 
 
 Repository for the computational framework for generation and analysis of representative protein conformational ensembles.
+
+This is joint work of [KavrakiLab](https://kavrakilab.org/) and [AntunesLab](https://dinlerantunes.com/lab/)!
 ___
 
 ## Demo 
