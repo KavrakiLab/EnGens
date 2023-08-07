@@ -164,4 +164,8 @@ EnGens relies on and/or references the following separate libraries and packages
   - [numpy](https://numpy.org/)
   
 We thank all their contributors and maintainers!
+
+## Funding
+
+Work on this project by A.C. and L.E.K. has been supported in part by the National Institutes of Health NIH [U01CA258512]. Other support included: University of Edinburgh and Medical Research Council [MC_UU_00009/2 to D.D.]; Computational Cancer Biology Training Program fellowship [RP170593 to M.M.R.]; The Brazilian National Council for Scientific and Technological Development [CNPq no. 440412/2022-6 to G.Z.]; University of Houston Funds and Rice University Funds.
 ___
