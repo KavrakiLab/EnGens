@@ -6,6 +6,21 @@
 Repository for the computational framework for generation and analysis of representative protein conformational ensembles.
 
 This is joint work of [KavrakiLab](https://kavrakilab.org/) and [AntunesLab](https://dinlerantunes.com/lab/)!
+
+#### Citation
+
+```
+@article{10.1093/bib/bbad242,
+    author = {Conev, Anja and Rigo, Mauricio Menegatti and Devaurs, Didier and Fonseca, André Faustino and Kalavadwala, Hussain and de Freitas, Martiela Vaz and Clementi, Cecilia and Zanatta, Geancarlo and Antunes, Dinler Amaral and Kavraki, Lydia E},
+    title = "{EnGens: a computational framework for generation and analysis of representative protein conformational ensembles}",
+    journal = {Briefings in Bioinformatics},
+    volume = {24},
+    number = {4},
+    pages = {bbad242},
+    year = {2023},
+    doi = {10.1093/bib/bbad242}
+}
+```
 ___
 
 ## Demo 
