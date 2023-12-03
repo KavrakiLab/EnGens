@@ -186,5 +186,5 @@ dependencies:
       - tensorflow-probability==0.14.0 
       - tabulate==0.8.10
       - pypatch
-      - umap-learn
+      - umap-learn==0.5.3
 prefix: /usr/local/envs/engens
