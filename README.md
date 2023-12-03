@@ -127,7 +127,7 @@ git clone https://github.com/KavrakiLab/EnGens.git
 ```
 cd EnGens
 conda env create -f ./environment.yaml
-#mamba create -f ./environment.yml
+#mamba env create -f ./environment.yml
 
 conda activate engens
 #mamba activate engens
@@ -135,6 +135,8 @@ conda activate engens
 ./linux_setup.sh
 #or ./windows_setup.sh
 ```
+
+If the command `./linux_setup.sh` fails due to not having pypatch - do `pip install pypatch`.    
 
 ## Acknowledgements
 
