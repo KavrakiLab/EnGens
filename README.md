@@ -7,6 +7,9 @@ Repository for the computational framework for generation and analysis of repres
 
 This is joint work of [KavrakiLab](https://kavrakilab.org/) and [AntunesLab](https://dinlerantunes.com/lab/)!
 
+
+[![DOI](https://img.shields.io/badge/DOI-10.1093%2Fbib%2Fbbad242-blue)](https://doi.org/10.1093/bib/bbad242)
+
 #### Citation
 
 ```
