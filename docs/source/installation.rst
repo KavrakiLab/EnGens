@@ -38,13 +38,69 @@ Open the console and simply run:
    $ docker pull ac121/engens:latest
    
    
+
 Docker build
 `````````````
-todo
+You can clone this repo and build the docker image yourself.
+
+**prerequisites:**  `git`_ , `docker`_ 
+
+.. _git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+
+1. Clone the github repo:
+
+.. code-block:: console
+   
+   $ git clone https://github.com/KavrakiLab/EnGens.git
+
+
+2. Build the image:
+
+.. code-block:: console
+
+   $ cd EnGens
+   $ docker build -t test_engens:latest .
+
+You're all set!
 
 
 Conda build
 `````````````
-todo
+
+If you don't want to use docker, you can clone this repo and install using conda (or mamba which will be faster).
+
+**prerequisites:** `conda`_ or `mamba`_
+
+.. _conda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#
+
+.. _mamba: https://mamba.readthedocs.io/en/latest/installation.html
+
+1. Clone the github repo:
+
+.. code-block:: console
+
+   $ git clone https://github.com/KavrakiLab/EnGens.git
+
+
+2. Install with conda (or mamba)
+
+.. code-block:: console
+
+   $ cd EnGens
+   $ conda env create -f ./environment.yaml
+   $ #mamba env create -f ./environment.yml
+
+   $ conda activate engens
+   $ #mamba activate engens
+
+   $ ./linux_setup.sh
+
+
+If the command ./linux_setup.sh fails due to not having pypatch - do pip install pypatch.    
+
+
+   
+   
    
    
