@@ -1,7 +1,7 @@
 #!/bin/sh
 eval "$(conda shell.bash hook)"
 #conda activate <env-name>
-conda activate engens
+conda activate latest
 
 echo $(python --version)
 
