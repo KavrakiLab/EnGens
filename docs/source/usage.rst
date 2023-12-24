@@ -17,7 +17,7 @@ Static use-case
    :maxdepth: 2
    :caption: Static use-case:
 
-   ../../notebooks/Workflow1-crystal_structures
+   _notebooks/Workflow1-crystal_structures
    
    
 Dynamic use-case
@@ -26,5 +26,5 @@ Dynamic use-case
    :maxdepth: 2
    :caption: Dynamic use-case:
 
-   ../../notebooks/Workflow1-FeatureExtraction
+   _notebooks/Workflow1-FeatureExtraction
 
