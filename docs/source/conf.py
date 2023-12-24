@@ -35,3 +35,20 @@ html_theme_options = {
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+# -- Copy the notebooks to the right place, from https://github.com/spatialaudio/nbsphinx/issues/170
+
+print("Copy example notebooks into docs/_examples")
+
+def all_but_ipynb(dir, contents):
+    result = []
+    for c in contents:
+        if os.path.isfile(os.path.join(dir,c)) and (not c.endswith(".ipynb")):
+            result += [c]
+    return result
+
+
+shutil.rmtree(os.path.join(project_root, "docs/_notebooks"), ignore_errors=True)
+shutil.copytree(os.path.join(project_root, "notebooks"),
+                os.path.join(project_root, "docs/_notebooks"),
+                ignore=all_but_ipynb)
