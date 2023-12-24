@@ -13,10 +13,18 @@ There are a two different use-cases for the EnGens pipeline
 
 Static use-case
 `````````````
-todo
+.. toctree::
+   :maxdepth: 2
+   :caption: STatic use-case:
+
+   notebooks/Workflow1-crystal_structures
    
    
 Dynamic use-case
 `````````````
-todo
+.. toctree::
+   :maxdepth: 2
+   :caption: STatic use-case:
+
+   notebooks/Workflow1-FeatureExtraction
 
