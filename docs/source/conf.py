@@ -51,7 +51,7 @@ def all_but_ipynb(dir, contents):
     return result
 
 project_root = os.path.dirname(os.path.abspath(__file__))
-shutil.rmtree(os.path.join(project_root, "docs/_notebooks"), ignore_errors=True)
-shutil.copytree(os.path.join(project_root, "notebooks"),
-                os.path.join(project_root, "docs/_notebooks"),
+shutil.rmtree(os.path.join(project_root, "./_notebooks"), ignore_errors=True)
+shutil.copytree(os.path.join(project_root, "../../notebooks"),
+                os.path.join(project_root, "./_notebooks"),
                 ignore=all_but_ipynb)
