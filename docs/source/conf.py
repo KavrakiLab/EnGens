@@ -55,3 +55,8 @@ shutil.rmtree(os.path.join(project_root, "./_notebooks"), ignore_errors=True)
 shutil.copytree(os.path.join(project_root, "../../notebooks"),
                 os.path.join(project_root, "./_notebooks"),
                 ignore=all_but_ipynb)
+
+# -- Setup engens environment
+
+os.chdir('..')
+os.system('./linux_setup.sh')
