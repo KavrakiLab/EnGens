@@ -28,9 +28,9 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="0.73228114"
-     inkscape:cx="426.74867"
-     inkscape:cy="340.03334"
+     inkscape:zoom="1.4645623"
+     inkscape:cx="326.03598"
+     inkscape:cy="203.47376"
      inkscape:window-width="1920"
      inkscape:window-height="1002"
      inkscape:window-x="-8"
@@ -221,6 +221,14 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-26.495974,-8.1520479)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:1, 1;stop-color:#000000"
+       id="rect918"
+       width="181.56023"
+       height="87.076622"
+       x="26.495964"
+       y="8.1520672"
+       ry="0" />
     <g
        clip-path="url(#clip0-19)"
        transform="matrix(0.29979593,0,0,0.29979593,-548.81844,-347.63531)"

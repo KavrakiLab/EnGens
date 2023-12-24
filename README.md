@@ -4,15 +4,47 @@
 
 
 Repository for the computational framework for generation and analysis of representative protein conformational ensembles.
+
+This is joint work of [KavrakiLab](https://kavrakilab.org/) and [AntunesLab](https://dinlerantunes.com/lab/)!
+
+
+[![DOI](https://img.shields.io/badge/DOI-10.1093%2Fbib%2Fbbad242-blue)](https://doi.org/10.1093/bib/bbad242)
+
+#### Citation
+
+```
+@article{10.1093/bib/bbad242,
+    author = {Conev, Anja and Rigo, Mauricio Menegatti and Devaurs, Didier and Fonseca, André Faustino and Kalavadwala, Hussain and de Freitas, Martiela Vaz and Clementi, Cecilia and Zanatta, Geancarlo and Antunes, Dinler Amaral and Kavraki, Lydia E},
+    title = "{EnGens: a computational framework for generation and analysis of representative protein conformational ensembles}",
+    journal = {Briefings in Bioinformatics},
+    volume = {24},
+    number = {4},
+    pages = {bbad242},
+    year = {2023},
+    doi = {10.1093/bib/bbad242}
+}
+```
 ___
 
 ## Demo 
 
+Try running our demos on Google Colab: 
+- Dynamic Use-Case (with a custom MD trajectory as input)
+  -  [![Dynamic Use-Case](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1xzLulErjkvC4gIQYM1md-n7jaL6dDLKK?usp=sharing)
+  -  This demo features an MD test example of a small pentapeptide
+  -  You can also upload your own trajectory!
+- Static Use-Case (with _UniProt ID_ as input) 
+  - [![Static Use-Case](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rVeWH8CdUtbvmVCTZkxleRCRTe8dW5LN?usp=sharing)  
+  - This demo features the `P03372` UniProt accession related to the ER-alpha estrogent receptor
+  - But you can try it out with your own choice of UniProt ID too!
+
 Try runnning our notebooks on Binder:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KavrakiLab/EnGens/binder?labpath=Workflow1-FeatureExtraction.ipynb)
 
-Try running a short demo on Google Colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rVeWH8CdUtbvmVCTZkxleRCRTe8dW5LN?usp=sharing)
 
+## Documentation
+
+Check out the detailed readthedocs documentation here: https://engens.readthedocs.io/en/latest/
 
 ## Installation instructions
 
@@ -54,10 +86,6 @@ Follow this link and you will find a set of notebooks:
 For static workflow start with `Workflow1-crystal_structures.ipynb` and continue with Workflow2-4.
 For dynamic workflow start with `Workflow1-FeatureExtraction.ipynb` and continue with Workflow2-4. 
 ___
-
-## Documentation
-
-Check out the detailed readthedocs documentation here: https://engens.readthedocs.io/en/latest/
 
 ## Code
 
@@ -102,7 +130,7 @@ git clone https://github.com/KavrakiLab/EnGens.git
 ```
 cd EnGens
 conda env create -f ./environment.yaml
-#mamba create -f ./environment.yml
+#mamba env create -f ./environment.yml
 
 conda activate engens
 #mamba activate engens
@@ -111,24 +139,38 @@ conda activate engens
 #or ./windows_setup.sh
 ```
 
+If the command `./linux_setup.sh` fails due to not having pypatch - do `pip install pypatch`.    
+
 ## Acknowledgements
 
 EnGens relies on and/or references the following separate libraries and packages:
 
-- [MDTraj](https://www.mdtraj.org/)
-- [PyTraj](https://github.com/Amber-MD/pytraj)
-- [MSMTools](https://github.com/markovmodel/msmtools)
-- [PyEmma](http://www.emma-project.org/latest/)
-- [OpenMM](https://openmm.org/)
-- [HDE](https://github.com/hsidky/srv)
-- [mTM-align](https://yanglab.nankai.edu.cn/mTM-align/)
-- [BioPython](https://biopython.org/)
-- [pandas](https://pandas.pydata.org/)
-- [numpy](https://numpy.org/)
-- [scikit-learn](https://scikit-learn.org/)
-- [scipy](https://scipy.org/)
-- [umap-learn](https://umap-learn.readthedocs.io/en/latest/)
-- [plotly](https://plotly.com/)
-
+- Structural bioinformatics (and MD) software 
+  - [MDTraj](https://www.mdtraj.org/)
+  - [MDAnalysis](https://www.mdanalysis.org/)
+  - [PyTraj](https://github.com/Amber-MD/pytraj)
+  - [MSMTools](https://github.com/markovmodel/msmtools)
+  - [PyEmma](http://www.emma-project.org/latest/)
+  - [OpenMM](https://openmm.org/)
+  - [HDE](https://github.com/hsidky/srv)
+  - [mTM-align](https://yanglab.nankai.edu.cn/mTM-align/)
+  - [BioPython](https://biopython.org/)
+- Visualization 
+  - [NGLViewer](http://nglviewer.org/nglview/latest/)
+  - [py3Dmol](https://github.com/avirshup/py3dmol)
+  - [ProtVista](https://ebi-uniprot.github.io/ProtVista/userGuide.html)
+- General ML tools 
+  -   [scikit-learn](https://scikit-learn.org/)
+  -   [scipy](https://scipy.org/)
+  -   [umap-learn](https://umap-learn.readthedocs.io/en/latest/)
+- Others
+  - [plotly](https://plotly.com/)
+  - [pandas](https://pandas.pydata.org/)
+  - [numpy](https://numpy.org/)
+  
 We thank all their contributors and maintainers!
+
+## Funding
+
+Work on this project by A.C. and L.E.K. has been supported in part by the National Institutes of Health NIH [U01CA258512]. Other support included: University of Edinburgh and Medical Research Council [MC_UU_00009/2 to D.D.]; Computational Cancer Biology Training Program fellowship [RP170593 to M.M.R.]; The Brazilian National Council for Scientific and Technological Development [CNPq no. 440412/2022-6 to G.Z.]; University of Houston Funds and Rice University Funds.
 ___

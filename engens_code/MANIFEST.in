@@ -1,2 +1,3 @@
 engens/core/template_msa.html
+engens/core/cryst_utils.py
 engens/core/pdbfix.py
