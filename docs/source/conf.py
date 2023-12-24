@@ -39,6 +39,7 @@ epub_show_urls = 'footnote'
 # -- Copy the notebooks to the right place, from https://github.com/spatialaudio/nbsphinx/issues/170
 
 import shutil
+import os
 
 print("Copy example notebooks into docs/_examples")
 
