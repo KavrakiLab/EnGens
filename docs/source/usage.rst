@@ -15,16 +15,16 @@ Static use-case
 `````````````
 .. toctree::
    :maxdepth: 2
-   :caption: STatic use-case:
+   :caption: Static use-case:
 
-   notebooks/Workflow1-crystal_structures
+   ../../notebooks/Workflow1-crystal_structures
    
    
 Dynamic use-case
 `````````````
 .. toctree::
    :maxdepth: 2
-   :caption: STatic use-case:
+   :caption: Dynamic use-case:
 
-   notebooks/Workflow1-FeatureExtraction
+   ../../notebooks/Workflow1-FeatureExtraction
 
