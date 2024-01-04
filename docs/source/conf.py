@@ -43,10 +43,10 @@ import os
 
 print("Copy example notebooks into docs/_examples")
 
-def all_but_ipynb(dir, contents):
+def all_but_ipynb_and_pickle(dir, contents):
     result = []
     for c in contents:
-        if os.path.isfile(os.path.join(dir,c)) and (not c.endswith(".ipynb")):
+        if os.path.isfile(os.path.join(dir,c)) and (not (c.endswith(".ipynb") or c.endswith(".pickle"))):
             result += [c]
     return result
 
@@ -54,7 +54,7 @@ project_root = os.path.dirname(os.path.abspath(__file__))
 shutil.rmtree(os.path.join(project_root, "./_notebooks"), ignore_errors=True)
 shutil.copytree(os.path.join(project_root, "../../notebooks"),
                 os.path.join(project_root, "./_notebooks"),
-                ignore=all_but_ipynb)
+                ignore=all_but_ipynb_and_pickle)
 
 # -- Setup engens environment
 
