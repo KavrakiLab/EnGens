@@ -27,4 +27,7 @@ Dynamic use-case
    :caption: Dynamic use-case:
 
    _notebooks/Workflow1-FeatureExtraction
+   _notebooks/Workflow2-DimensionalityReduction
+   _notebooks/Workflow3-Clustering
+   _notebooks/Workflow4-ResultSummary
 
